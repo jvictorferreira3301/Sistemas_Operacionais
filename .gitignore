@@ -1,4 +1,4 @@
-#Arquivos a serem ignorados
+
 relatorios/relatorio_1/*.aux
 relatorios/relatorio_1/*.glo
 relatorios/relatorio_1/*.idx
