@@ -186,15 +186,34 @@
 
 \chapter{Introdução}
 
-A contagem de palavras em um arquivo de texto é uma tarefa comum em programação e processamento de dados. Ela envolve a leitura de um arquivo, a análise de seu conteúdo e a identificação de palavras, geralmente considerando espaços em branco, tabulações e quebras de linha como delimitadores de palavras. Neste relatório, apresentaremos a implementação de um programa que aborda essa tarefa utilizando duas linguagens diferentes: C e Assembly x86.
-
-O objetivo deste trabalho é demonstrar como os conceitos de chamadas de sistema podem ser aplicados para realizar operações de E/S (entrada/saída) em um sistema operacional Unix-like. Através de chamadas de sistema como `open()`, `read()`, `write()` e `close()`, os programas desenvolvidos serão capazes de interagir com arquivos de texto, processar seu conteúdo e apresentar os resultados ao usuário.
-
-O relatório se dividirá em seções que explicam detalhadamente a implementação dos programas em C e Assembly. Serão fornecidas descrições dos algoritmos utilizados, destacando as partes críticas de cada código-fonte. Além disso, o relatório incluirá capturas de tela dos programas em execução no emulador, para proporcionar uma compreensão visual das operações realizadas.
-
-Ao final deste relatório, espera-se que o leitor tenha uma compreensão sólida de como os programas em C e Assembly podem ser desenvolvidos para contar palavras em um arquivo de texto, utilizando chamadas de sistema. Essa implementação serve como um exemplo prático da aplicação de conceitos de programação de baixo nível e interação com o sistema operacional.
-
+A computação de baixo nível desempenha um papel fundamental na compreensão 
+do funcionamento interno dos sistemas de computação. Para aprofundar nosso entendimento 
+desse aspecto, este relatório descreve o desenvolvimento e a execução de um programa 
+em Assembly x86, cujo propósito é demonstrar a manipulação básica de dados,
+operações aritméticas e a interação com o sistema operacional por meio de chamadas de sistema.
 \chapter{Objetivos}
+
+O objetivo deste projeto é criar um programa em Assembly x86 que:
+
+\begin{itemize}
+	\item \textbf{Solicita Entradas do Usuário}:
+	  \begin{itemize}
+		\item A chamada de sistema \texttt{sys\_read} será utilizada para ler os números fornecidos pelo usuário a partir da entrada padrão (\texttt{stdin}).
+	  \end{itemize}
+	\item \textbf{Realiza Operações Aritméticas}:
+	  \begin{itemize}
+		\item As operações aritméticas de soma e subtração serão realizadas diretamente no código Assembly x86, sem a necessidade de chamadas de sistema específicas para essas operações.
+	  \end{itemize}
+	\item \textbf{Exibe Resultados}:
+	  \begin{itemize}
+		\item A chamada de sistema \texttt{sys\_write} será usada para exibir os resultados das operações de soma e subtração na saída padrão (\texttt{stdout}).
+	  \end{itemize}
+	\item \textbf{Encerra de Forma Adequada}:
+	  \begin{itemize}
+		\item O programa encerrará de maneira apropriada usando a chamada de sistema \texttt{sys\_exit} para indicar o término bem-sucedido da execução com um código de saída igual a 0.
+	  \end{itemize}
+  \end{itemize}
+  
 
 \chapter{Metodologia}
 
@@ -202,6 +221,26 @@ Ao final deste relatório, espera-se que o leitor tenha uma compreensão sólida
 % ---
 \chapter{Conclusão}
 \label{conclusao}
+
+
+Este projeto permitiu uma exploração prática de conceitos fundamentais relacionados à programação em Assembly x86, operações 
+aritméticas, manipulação de dados e interação com o sistema operacional por meio de chamadas de sistema que é um conceito ministrado na disciplina em questão. 
+Ao criar um programa simples que solicita
+entradas do usuário, realiza operações de soma e subtração e exibe os resultados, pudemos destacar a importância das chamadas de sistema no 
+desenvolvimento de aplicativos de baixo nível e por em prática o exposto nas aulas.
+
+Ao longo do projeto, observamos como as chamadas de sistema 
+\texttt{sys\_read},\texttt{sys\_write} e \texttt{sys\_exit}
+desempenham papéis cruciais na execução de tarefas essenciais.
+ 
+A \texttt{sys\_read} permitiu a entrada de dados pelo usuário, enquanto a \texttt{sys\_write} 
+facilitou a saída dos resultados na tela. A \texttt{sys\_exit} garantiu um encerramento 
+adequado do programa, indicando que a execução foi bem-sucedida.
+
+Além disso, este projeto serviu como uma introdução valiosa à programação Assembly x86, uma 
+linguagem de baixo nível que é essencial para compreender o funcionamento interno dos sistemas de 
+computação. A manipulação direta de registradores e a realização de operações aritméticas sem a 
+abstração das linguagens de alto nível nos deram uma apreciação mais profunda do funcionamento interno do hardware.
 
 
 \postextual
