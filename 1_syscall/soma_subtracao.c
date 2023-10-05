@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h> // Para as chamadas de sistema read e write
+#include <stdlib.h>
 
 int main() {
     int soma_ou_sub; // para decidir se vai somar ou subtrair
@@ -65,6 +66,6 @@ int main() {
         snprintf(result_prompt, sizeof(result_prompt), "O valor da subtração é igual a: %d\n", soma);
         write(STDOUT_FILENO, result_prompt, strlen(result_prompt));
     }
-
+    exit(0);
     return 0;
 }
