@@ -215,10 +215,80 @@ O objetivo deste projeto é criar um programa em Assembly x86 que:
   \end{itemize}
   
 
-\chapter{Desenvolvimento (Programa explicado e Cópias das telas do emulador mostrando o
-programa rodando.)}
+\chapter{Desenvolvimento (Programa explicado e Cópias das telas do emulador.)}
 
+	Primeiramente, o desenvolvimento deste projeto envolveu a criação de um programa em C, 
+	posteriormente convertido para Assembly x86_64,  que
+	permitisse a realização de operações de soma e subtração, com a possibilidade de interação 
+	com o usuário. A principal funcionalidade do programa é determinar se o usuário deseja somar
+	ou subtrair dois números, calcular o resultado e exibi-lo na tela através das chamadas de sistema propostas. 
+	O ambiente de desenvolvimento escolhido para esta implementação foi o Visual Studio Code, uma ferramenta popular para 
+	desenvolvimento de código e a execução do programa ocorreu no ambiente do Ubuntu, utilizando o
+	terminal Zsh. Isso proporcionou um ambiente familiar e prático para a execução e teste do programa, 
+	bem como a captura de informações para este relatório.
 
+\section{Implementação em C:}
+
+O programa em C foi desenvolvido utilizando a linguagem de programação C padrão e inclui o uso 
+de chamadas de sistema para interação com o usuário e manipulação de dados. O código-fonte em C 
+apresenta as seguintes etapas:
+
+\begin{itemize}
+	\item 1. Exibição de um prompt solicitando que o usuário escolha entre soma e subtração.
+	\item 2. Leitura da entrada do usuário para determinar a operação desejada.
+	\item 3. Se o usuário escolher a soma, o programa solicita os números a serem somados e exibe o resultado.
+	\item 4. Se o usuário escolher a subtração, o programa solicita os números a serem subtraídos e exibe o resultado.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{imagens/code.png}
+    \caption{Legenda da imagem}
+    \label{fig:exemplo}
+\end{figure}
+
+\section{Implementação em Assembly x86\_64}
+
+A implementação em Assembly x86\_64 foi gerada a partir do código-fonte em C usando o 
+comando \texttt{gcc -S}. O código Assembly resultante foi cuidadosamente adaptado 
+para garantir que ele mantenha a mesma funcionalidade que o programa em C. 
+Abaixo, é apresentada uma descrição da implementação em Assembly e seus principais componentes.
+
+\subsection{Diretivas e Seções}
+
+O código Assembly começa com diretivas e seções que definem informações essenciais do programa, como seções de texto e dados, bem como informações de depuração.
+
+\subsection{Inicialização e Manipulação de Dados}
+
+A implementação em Assembly começa com a inicialização de variáveis e buffers para armazenar dados de entrada e saída. Isso inclui a configuração de buffers para entrada de usuário e para a exibição de resultados.
+
+\subsection{Interação com o Usuário}
+
+Assim como no código em C, o programa em Assembly interage com o usuário, exibindo mensagens de prompt e lendo a entrada do usuário. Ele utiliza chamadas de sistema para realizar essas operações, permitindo que o usuário escolha entre soma e subtração.
+
+\subsection{Lógica de Soma e Subtração}
+
+A implementação em Assembly inclui a lógica para realizar as operações de soma e subtração com os números fornecidos pelo usuário. Os resultados são calculados e armazenados em variáveis temporárias.
+
+\subsection{Formatação e Exibição}
+
+Após calcular o resultado, o programa em Assembly formata as mensagens de saída de acordo com o resultado da operação (soma ou subtração). As mensagens formatadas são exibidas na tela usando chamadas de sistema.
+
+\subsection{Finalização do Programa}
+
+O programa em Assembly encerra sua execução com uma chamada de sistema \texttt{exit}, retornando o código de saída apropriado para indicar que a execução foi bem-sucedida.
+
+\subsection{Manipulação de Erros}
+
+O código Assembly inclui tratamento de erros para casos em que a entrada do usuário não é válida. Isso é feito usando desvios condicionais e mensagens de erro apropriadas.
+
+\subsection{Comentários Explicativos}
+
+O código Assembly é acompanhado de comentários explicativos que descrevem o propósito de cada seção e instrução, tornando-o mais compreensível.
+
+A implementação em Assembly foi desenvolvida com o objetivo de manter a mesma funcionalidade do programa em C, mas utilizando a linguagem Assembly x86\_64 e chamadas de sistema para interagir com o sistema operacional. Isso permite que o programa seja executado em um ambiente de sistema operacional, como o Ubuntu, como mencionado anteriormente.
+
+A seguir, você encontrará capturas de tela que demonstram a execução do programa em Assembly no ambiente Ubuntu com o Zsh, complementando as informações fornecidas nesta seção. Essas capturas de tela ajudarão a validar a implementação em Assembly e a demonstrar como o programa funciona no ambiente de execução especificado.
 
 
 

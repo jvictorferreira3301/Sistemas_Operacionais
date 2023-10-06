@@ -21,8 +21,6 @@ SO1.maf
 SO1.mtc
 SO1.mtc1
 SO1.out
-SO1.synctex
-SO1.gz
 SO1.fdb_latexmk
 SO1.fls
 SO1.pdf
@@ -30,3 +28,4 @@ SO1.slg
 SO1.slo
 SO1.sls
 SO1.tdo
+SO1.synctex.gz
