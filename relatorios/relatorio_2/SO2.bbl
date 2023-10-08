@@ -1,0 +1,15 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[Tanenbaum 2010]{tanenbaum2010sistemas}
+\abntrefinfo{Tanenbaum}{TANENBAUM}{2010}
+{TANENBAUM, A. \textbf{Sistemas operacionais modernos}. Prentice-Hall do
+  Brasil, 2010.
+ISBN 9788576052371. Dispon{\'\i}vel em:
+  \url{https://books.google.com.br/books?id=nDatQwAACAAJ}.}
+
+\end{thebibliography}
