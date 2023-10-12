@@ -106,11 +106,11 @@
 %}
 %\datadadefesa{Data da Defesa: 09 de Março de 2017}%07 de Dezembro de 2016}
 \conceito{Conceito: Excelente}
-\faculdadedoorientador{Faculdade de Biotecnologia - UFPA}
-\primeiromembrodabanca{Prof. Dr. Nome Sobrenome}
-\faculdadedoprimeiromembrodabanca{Faculdade de Computação - UFPA}
-\segundomembrodabanca{Prof. Dra. Nome Sobrenome}
-\faculdadedosegundomembrodabanca{Faculdade de Biotecnologia - UFPA}
+\faculdadedoorientador{Faculdade de Computação e Telecomunicações - UFPA}
+%\primeiromembrodabanca{Prof. Dr. Nome Sobrenome}
+%\faculdadedoprimeiromembrodabanca{}
+%\segundomembrodabanca{}
+%\faculdadedosegundomembrodabanca{}
 % -------------------------------------------------------------------------
 % ---
 % Configurações de aparência do PDF final
@@ -189,39 +189,41 @@
 
 \chapter{Introdução}
 
-O escalonamento de processos é um componente essencial dos sistemas operacionais, 
-influenciando diretamente a eficiência da alocação de recursos de computação. 
-Neste trabalho, investigamos e comparamos quatro algoritmos de escalonamento de 
-processos: SJF, SRTF, Prioridades Fixas e Round Robin.
+Este trabalho aborda a implementação de concorrência e 
+sincronismo por meio da criação de processos e threads. O 
+trabalho consiste em uma série de tarefas que exploram diferentes 
+aspectos da criação de processos, comunicação entre processos e o 
+uso de threads em um ambiente Linux. Através dessas atividades, 
+pretendemos aprofundar nossa compreensão de como a concorrência é 
+gerenciada em sistemas operacionais e como diferentes abordagens afetam 
+o desempenho e o comportamento do programa.
+
 
 \chapter{Objetivos}
 
 O principal propósito deste trabalho é:
 
 \begin{itemize}
-    \item \textbf{Implementação de Algoritmos}:
+    \item \textbf{Criação de Processos}:
     \begin{itemize}
-        \item Implementar quatro algoritmos de escalonamento de processos: SJF, SRTF, Prioridades Fixas e Round Robin.
+        \item Implementar a criação de processos de acordo com as hierarquias e requisitos especificados, incluindo cenários com avô, pai e filho, bem como múltiplos filhos.
     \end{itemize}
-    
-    \item \textbf{Análise de Desempenho}:
+
+    \item \textbf{Comunicação entre Processos e Threads}:
     \begin{itemize}
-        \item Analisar o impacto desses algoritmos nas métricas críticas, incluindo o tempo de espera médio, o tempo de retorno médio e o tempo de resposta médio.
+        \item Explorar a comunicação entre processos e threads, incluindo o compartilhamento de variáveis e recursos entre eles.
     \end{itemize}
-    
-    \item \textbf{Simulação de Carga de Trabalho}:
+
+    \item \textbf{Comparação de Desempenho}:
     \begin{itemize}
-        \item Ampliar o escopo da simulação, criando trinta processos com tempos de execução aleatórios entre 5, 8 e 12 unidades de tempo, para avaliar o desempenho dos algoritmos em cenários mais complexos.
+        \item Comparar o desempenho da criação de processos e threads para realizar as tarefas do programa. Calcular a média de tempo de 20 simulações para obter uma análise precisa.
     \end{itemize}
-    
-    \item \textbf{Identificação de Vantagens e Desvantagens}:
+
+    \item \textbf{Teste de Limites Máximos}:
     \begin{itemize}
-        \item Fornecer insights sobre as vantagens e desvantagens de cada algoritmo, auxiliando na seleção apropriada do escalonamento de processos em diferentes ambientes operacionais.
+        \item Testar e identificar os limites máximos da quantidade de processos e threads que podem ser disparados em um ambiente Linux. Explorar as configurações relacionadas.
     \end{itemize}
 \end{itemize}
-
-
-Este estudo tem como objetivo contribuir para uma compreensão mais profunda dos algoritmos de escalonamento de processos e sua aplicação prática na otimização do desempenho de sistemas computacionais diversos.
 
   
 
