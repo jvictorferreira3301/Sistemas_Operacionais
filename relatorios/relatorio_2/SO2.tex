@@ -229,16 +229,49 @@ O principal propósito deste trabalho é:
 
 \chapter{Desenvolvimento (Programa explicado e Cópias das telas do emulador.)}
 
+Primeiramente, o desenvolvimento deste trabalho gira em torno da criação
+de processos, de acordo com os requisitos e níveis de hierarquia descritos 
+no roteiro e evidenciados nas seções deste capítulo, via comando fork:
 
+%\begin{enumerate}
+%    \item 
+%   \item
+%    \item Programa com 1 Avô, 1 Pai e 1 Filho, "elimine" o processo 'Pai' e veja quem será o novo pai do processo 'Filho'.
+%   \item Programa que cria 3 threads. A primeira escreve na tela “A”, a segunda “B” e a terceira “C”. Faça que seja sempre escrito na tela “ABC”.
+%    \item Para o processo Pai e filho, declare uma variável visível ao pai e ao filho, no pai inicialize a variável com 1 e imprima seu valor antes do fork(). No filho, altere o valor da variável para 5 e imprima o seu valor antes do exit(). Agora, no pai, imprima novamente o valor da variável após o filho ter alterado a variável - após a waitpid(). Justifique os resultados obtidos.
+%    \item Ordenar um vetor de 100 posições em processos e threads. O filho ordena o vetor e o pai exibe os dados do vetor antes da criação do filho (fork) e depois da espera pelo filho (waitpid para processos). Eles usarão o mesmo vetor na memória? Justifique.
+%    \item . Os limites máximos. Em ambiente linux os limites superiores da quantidade de processos e threads que podem ser disparados são configuráveis, testar e identificar.
+%    \item Programa para comparar o desempenho para a realização da(s) tarefa(s) do programa através do uso de primitivas fork e através de threads (calcule a média de tempo de 20 simulações).
+%\end{enumerate}
 
-\section{}
+\section{Programa com 1 Avô, 1 Pai e 1 Filho}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{imagens/processos_1.png}
+	\caption{.}
+	\label{fig:}
+\end{figure}
 
+\section{Programa com 1 Pai e 2 Filhos}
 
-\subsection{Código}
+\section{Programa com 1 Avô, 1 Pai e 1 Filho; Parricídio}
 
+\section{Thread ABC}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{imagens/processos_4.png}
+	\caption{.}
+	\label{fig:}
+\end{figure}
+\section{Processo Pai e Filho}
 
+\section{Vetor de 100 posições}
+
+\section{Threads versus Processos}
+
+\section{Benchmark}
 
 \chapter{Conclusão}
 \label{conclusao}
