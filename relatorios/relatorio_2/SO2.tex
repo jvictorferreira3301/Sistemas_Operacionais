@@ -230,8 +230,12 @@ O principal propósito deste trabalho é:
 \chapter{Desenvolvimento (Programa explicado e Cópias das telas do emulador.)}
 
 Primeiramente, o desenvolvimento deste trabalho gira em torno da criação
-de processos, de acordo com os requisitos e níveis de hierarquia descritos 
-no roteiro e evidenciados nas seções deste capítulo, via comando fork:
+de processos, que é uma parte fundamental dos sistemas operacionais. 
+Os sistemas operacionais permitem que programas criem novos processos, que 
+podem ser vistos como tarefas independentes que compartilham recursos do sistema. 
+
+A criação de processos deste trabalho é baseada nos requisitos e níveis de hierarquia descritos 
+no roteiro e evidenciados nas seções deste capítulo.
 
 %\begin{enumerate}
 %    \item 
@@ -246,11 +250,46 @@ no roteiro e evidenciados nas seções deste capítulo, via comando fork:
 
 \section{Programa com 1 Avô, 1 Pai e 1 Filho}
 
+
+A função \texttt{fork()} em C é comumente usada para criar novos processos. 
+A chamada \texttt{fork()} cria uma cópia exata do processo existente, 
+resultando em dois processos independentes - o processo pai e o processo filho. 
+O processo pai e o processo filho compartilham o mesmo código, mas têm 
+seu próprio espaço de endereçamento de memória. Isso é frequentemente usado 
+para criar hierarquias de processos, onde um processo pai pode criar um ou 
+mais processos filhos.
+
+O código mostrado na figura \ref{fig:processo1} demonstra a criação de uma hierarquia de processos 
+com um avô, um pai e um filho (neto) usando a função \texttt{fork()}. 
+Aqui está uma descrição detalhada do código:
+
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{imagens/processos_1.png}
 	\caption{.}
-	\label{fig:}
+	\label{fig:processo1}
+\end{figure}
+
+
+\begin{itemize}
+    \item \texttt{\#include} direciona a inclusão de bibliotecas necessárias, como entrada/saída padrão e manipulação de processos.
+    \item A função \texttt{main()} é o ponto de entrada do programa.
+    \item \texttt{int PID\_pai} é uma variável inteira que armazenará o PID do processo pai.
+    \item \texttt{PID\_pai = fork();} cria um novo processo através da chamada \texttt{fork()} e armazena o valor de retorno em \texttt{PID\_pai}. O processo pai receberá o PID do filho, enquanto o processo filho receberá 0.
+    \item O código verifica se \texttt{PID\_pai} é menor que 0, o que indicaria um erro na criação do processo pai, e nesse caso, exibe uma mensagem de erro e encerra o programa.
+    \item Se \texttt{PID\_pai} for maior que 0, isso significa que estamos no processo pai. O código exibe o PID do processo avô (obtido com \texttt{getppid()}) e o PID do processo pai (obtido com \texttt{getpid()}). Em seguida, aguarda a conclusão do processo filho (neto) usando \texttt{wait(NULL)}.
+    \item Se \texttt{PID\_pai} for igual a 0, isso significa que estamos no processo filho (neto). O código exibe o PID do processo filho (neto) e entra em um loop infinito, mantendo o processo filho em execução.
+\end{itemize}
+
+Em suma, esse código cria uma estrutura hierárquica de três processos: avô, pai e filho (neto). O processo avô cria o processo pai, 
+que por sua vez cria o processo filho. Isso demonstra a criação de processos em uma hierarquia usando \texttt{fork()} e é 
+um conceito fundamental em sistemas operacionais. Podemos ver a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do linux
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{imagens/run_processo1.png}
+	\caption{.}
+	\label{fig:run_processo1}
 \end{figure}
 
 \section{Programa com 1 Pai e 2 Filhos}
