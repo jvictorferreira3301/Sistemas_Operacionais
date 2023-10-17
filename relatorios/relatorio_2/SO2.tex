@@ -266,7 +266,8 @@ Aqui está uma descrição detalhada do código:
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{imagens/processos_1.png}
-	\caption{.}
+	\caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-1_processo_avo_pai_filho.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
+    /2\_thread/2-1\_processo\_avo\_pai\_filho.c}}
 	\label{fig:processo1}
 \end{figure}
 
@@ -275,24 +276,57 @@ Aqui está uma descrição detalhada do código:
     \item \texttt{\#include} direciona a inclusão de bibliotecas necessárias, como entrada/saída padrão e manipulação de processos.
     \item A função \texttt{main()} é o ponto de entrada do programa.
     \item \texttt{int PID\_pai} é uma variável inteira que armazenará o PID do processo pai.
-    \item \texttt{PID\_pai = fork();} cria um novo processo através da chamada \texttt{fork()} e armazena o valor de retorno em \texttt{PID\_pai}. O processo pai receberá o PID do filho, enquanto o processo filho receberá 0.
+    \item \texttt{PID\_pai = fork();} cria um novo processo através da chamada \texttt{fork()} e armazena o valor de retorno em \texttt{PID\_pai}. O processo pai receberá o PID do filho, enquanto o processo filho receberá 0. !!!!corrigir aqui!!!!
     \item O código verifica se \texttt{PID\_pai} é menor que 0, o que indicaria um erro na criação do processo pai, e nesse caso, exibe uma mensagem de erro e encerra o programa.
     \item Se \texttt{PID\_pai} for maior que 0, isso significa que estamos no processo pai. O código exibe o PID do processo avô (obtido com \texttt{getppid()}) e o PID do processo pai (obtido com \texttt{getpid()}). Em seguida, aguarda a conclusão do processo filho (neto) usando \texttt{wait(NULL)}.
     \item Se \texttt{PID\_pai} for igual a 0, isso significa que estamos no processo filho (neto). O código exibe o PID do processo filho (neto) e entra em um loop infinito, mantendo o processo filho em execução.
 \end{itemize}
 
-Em suma, esse código cria uma estrutura hierárquica de três processos: avô, pai e filho (neto). O processo avô cria o processo pai, 
-que por sua vez cria o processo filho. Isso demonstra a criação de processos em uma hierarquia usando \texttt{fork()} e é 
-um conceito fundamental em sistemas operacionais. Podemos ver a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do linux
+Em suma, esse código cria uma estrutura hierárquica de três processos: avô, 
+pai e filho (neto). O processo avô cria o processo pai, 
+que por sua vez cria o processo filho. Isso demonstra a 
+criação de processos em uma hierarquia usando \texttt{fork()} e é 
+um conceito fundamental em sistemas operacionais. Podemos ver 
+a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do linux
 
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{imagens/run_processo1.png}
-	\caption{.}
+	\caption{Execuçao do código em C. }
 	\label{fig:run_processo1}
 \end{figure}
 
 \section{Programa com 1 Pai e 2 Filhos}
+
+\begin{itemize}
+    \item \texttt{\#include} direciona a inclusão de bibliotecas necessárias, como entrada/saída padrão e manipulação de processos.
+
+    \item A função \texttt{main()} é o ponto de entrada do programa, onde a execução começa.
+
+    \item \texttt{int pid\_filho1} é uma variável inteira que será usada para armazenar o PID do primeiro processo filho (Filho 1).
+
+    \item \texttt{pid\_filho1 = fork();} cria um novo processo por meio da chamada da função \texttt{fork()} e armazena o valor de retorno em \texttt{pid\_filho1}. O processo pai receberá o PID do primeiro filho, enquanto o processo filho (Filho 1) receberá 0.
+
+    \item O código verifica se \texttt{pid\_filho1} é menor que 0, o que indicaria um erro na criação do processo filho. Nesse caso, é exibida uma mensagem de erro e o programa é encerrado.
+
+    \item Se \texttt{pid\_filho1} for maior que 0, isso significa que estamos no processo pai. O código exibe o PID do processo pai atual (obtido com \texttt{getpid()}). Em seguida, ele cria o segundo processo filho (Filho 2) usando outra chamada à função \texttt{fork()}, criando assim uma hierarquia de processos. 
+
+    \item Se \texttt{pid\_filho2} for menor que 0, indica um erro na criação do segundo processo filho, e uma mensagem de erro é exibida.
+
+    \item Se \texttt{pid\_filho2} for igual a 0, isso significa que estamos no segundo processo filho (Filho 2). O código exibe o PID do processo filho 2 e o PID de seu pai (processo pai). 
+
+    \item O processo pai, identificado pelo \texttt{else}, aguarda a conclusão do primeiro filho (Filho 1) usando \texttt{wait(NULL)}.
+
+    \item Posteriormente, o processo pai aguarda a conclusão do segundo filho (Filho 2) usando \texttt{wait(NULL)}. Finalmente, o processo pai encerra sua execução.
+
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{imagens/processos_2.png}
+    \caption{heading}
+    \label{}
+\end{figure}
 
 \section{Programa com 1 Avô, 1 Pai e 1 Filho; Parricídio}
 
