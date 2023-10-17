@@ -72,24 +72,42 @@ int srt(int proc[], int n, int burst_time[]) {
     }
 
     while (count != n) {
-        smallest = n + 1;
+        
+        //Inicializando o menor tempo restante com um valor maior que o tempo de execução de qualquer processo
+        smallest = n + 1; 
+        
         for (int i = 0; i < n; i++) {
+            //Aqui eu verifico se o tempo de execução restante é menor que o menor tempo restante do processo atual
             if (remaining_time[i] > 0 && remaining_time[i] < remaining_time[smallest]) {
-                smallest = i;
+                smallest = i; //Índice do processo com o menor tempo restante de execução
             }
         }
+
+        //Pra simular a execução do processo, eu decremento o tempo de execução restante em 1
         remaining_time[smallest]--;
-        if (remaining_time[smallest] == 0) {
+
+
+        if (remaining_time[smallest] == 0) { //Se o menor processo foi totalmente executado
+            
             count++;
             finish_time = time + 1;
+
+            //Calculando o tempo de espera de cada processo
             wait_time[smallest] = finish_time - burst_time[smallest];
+
+            //Evitando valores negativos para o tempo de espera
             if (wait_time[smallest] < 0) {
                 wait_time[smallest] = 0;
             }
+
+            //Calculando o tempo de retorno de cada processo
             tat[smallest] = burst_time[smallest] + wait_time[smallest];
+
+            //Calculando o tempo médio de espera e o tempo médio de retorno
             total_wt += wait_time[smallest];
             total_tat += tat[smallest];
         }
+        
         time++;
     }
 
