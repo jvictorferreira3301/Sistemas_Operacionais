@@ -298,6 +298,11 @@ a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do 
 
 \section{Programa com 1 Pai e 2 Filhos}
 
+Nesta seção é mostrado o código em linguagem C, na figura \ref{fig:processo2}, que demonstra a 
+criação de um processo pai e dois processos filhos. Essa demonstração ajudará 
+a ilustrar o conceito de hierarquia de processos, onde um processo pai pode 
+criar e controlar vários processos filhos.
+
 \begin{itemize}
     \item \texttt{\#include} direciona a inclusão de bibliotecas necessárias, como entrada/saída padrão e manipulação de processos.
 
@@ -324,8 +329,9 @@ a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do 
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{imagens/processos_2.png}
-    \caption{heading}
-    \label{}
+    \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-2_processo_pai_2filho.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
+    /2\_thread/2-2\_processo\_pai\_2filho.c}}
+    \label{fig:processo2}
 \end{figure}
 
 \section{Programa com 1 Avô, 1 Pai e 1 Filho; Parricídio}
