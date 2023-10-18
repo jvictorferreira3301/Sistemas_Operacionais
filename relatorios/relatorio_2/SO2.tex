@@ -268,7 +268,7 @@ Aqui está uma descrição detalhada do código:
     \includegraphics[width=0.5\textwidth]{imagens/processos_1.png}
 	\caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-1_processo_avo_pai_filho.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
     /2\_thread/2-1\_processo\_avo\_pai\_filho.c}}
-	\label{fig:processo1}
+	\label{fig:processos1}
 \end{figure}
 
 
@@ -293,7 +293,7 @@ a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do 
     \centering
     \includegraphics[width=1.0\textwidth]{imagens/run_processos_1.png}
 	\caption{Execuçao do código em C. }
-	\label{fig:run_processo1}
+	\label{fig:run1}
 \end{figure}
 
 \section{Programa com 1 Pai e 2 Filhos}
@@ -337,6 +337,43 @@ no terminal ZSH do linux.
 
 \section{Programa com 1 Avô, 1 Pai e 1 Filho; Parricídio}
 
+Neste tópico, abordaremos um cenário em que três processos estão 
+envolvidos: um processo avô, um processo pai e um processo filho.
+Vamos explorar como é possível "eliminar" o processo pai (por isso nomeamos de parricídio)
+e identificar quem se torna o novo pai do processo filho. Isso ilustra a dinâmica de 
+criação, terminação e hierarquia de processos em sistemas operacionais.
+
+\begin{itemize}
+    \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como entrada/saída padrão, manipulação de processos e sinais.
+
+    \item O código inicia criando um processo avô, identificando e exibindo o PID do processo avô.
+
+    \item Em seguida, o código cria um processo pai (Pai) usando a função \texttt{fork()}. O processo pai também exibe seu PID.
+
+    \item O código entra em um bloco condicional onde, se o PID do processo pai for maior que zero, estamos no processo pai, e o código cria um processo filho (Filho) usando outra chamada à função \texttt{fork()}. O processo filho exibe seu PID.
+
+    \item No processo filho, após um breve período de espera, o código "elimina" o processo pai usando o sinal \texttt{SIGKILL}. Em seguida, o processo filho aguarda um curto período para garantir que o processo pai seja encerrado.
+
+    \item O código no processo filho, em seguida, exibe o PID de seu novo pai (que agora é o processo avô), demonstrando a mudança na hierarquia de processos.
+
+\end{itemize}
+
+Este código exemplifica a criação e manipulação de processos em sistemas operacionais, incluindo a dinâmica de hierarquia de processos e como é possível modificar essa hierarquia por meio da eliminação de processos.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagens/processos_3.png}
+    \caption{..}
+    \label{fig:processos3}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{imagens/run_processos_3.png}
+    \caption{..}
+    \label{fig:run3}
+\end{figure}
+
 \section{Thread ABC}
 
 Nesta seção, apresentaremos um exemplo prático em C, no qual três threads são 
@@ -345,6 +382,7 @@ a sequência "ABC" seja sempre exibida. Isso demonstrará como as threads
 podem ser usadas para coordenar tarefas concorrentes e sincronizar a saída.
 
 \begin{itemize}
+    
     \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como pthread (para manipulação de threads), entrada/saída padrão e manipulação de processos.
     \item A função \texttt{main()} é o ponto de entrada do programa, onde a execução começa.
     \item \texttt{void *print\_abc(void *threadid)} é a função que cada thread executará. Cada thread recebe um identificador \texttt{threadid} e, com base nesse identificador, decide qual letra imprimir ("A", "B" ou "C") com intervalos de tempo diferentes.
@@ -357,14 +395,14 @@ podem ser usadas para coordenar tarefas concorrentes e sincronizar a saída.
     \centering
     \includegraphics[width=0.6\textwidth]{imagens/processos_4.png}
 	\caption{sss.}
-	\label{fig:dddd}
+	\label{fig:processos4}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{imagens/run_processos_4.png}
     \caption{.}
-    \label{fig:dd}
+    \label{fig:run4}
 \end{figure}
 \section{Processo Pai e Filho}
 
