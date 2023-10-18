@@ -291,58 +291,80 @@ a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do 
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.0\textwidth]{imagens/run_processo1.png}
+    \includegraphics[width=1.0\textwidth]{imagens/run_processos_1.png}
 	\caption{Execuçao do código em C. }
 	\label{fig:run_processo1}
 \end{figure}
 
 \section{Programa com 1 Pai e 2 Filhos}
 
-Nesta seção é mostrado o código em linguagem C, na figura \ref{fig:processo2}, que demonstra a 
+Nesta seção é mostrado o código em linguagem C, na figura \ref{fig:processos2}, que demonstra a 
 criação de um processo pai e dois processos filhos. Essa demonstração ajudará 
 a ilustrar o conceito de hierarquia de processos, onde um processo pai pode 
 criar e controlar vários processos filhos.
 
 \begin{itemize}
     \item \texttt{\#include} direciona a inclusão de bibliotecas necessárias, como entrada/saída padrão e manipulação de processos.
-
     \item A função \texttt{main()} é o ponto de entrada do programa, onde a execução começa.
-
     \item \texttt{int pid\_filho1} é uma variável inteira que será usada para armazenar o PID do primeiro processo filho (Filho 1).
-
     \item \texttt{pid\_filho1 = fork();} cria um novo processo por meio da chamada da função \texttt{fork()} e armazena o valor de retorno em \texttt{pid\_filho1}. O processo pai receberá o PID do primeiro filho, enquanto o processo filho (Filho 1) receberá 0.
-
     \item O código verifica se \texttt{pid\_filho1} é menor que 0, o que indicaria um erro na criação do processo filho. Nesse caso, é exibida uma mensagem de erro e o programa é encerrado.
-
     \item Se \texttt{pid\_filho1} for maior que 0, isso significa que estamos no processo pai. O código exibe o PID do processo pai atual (obtido com \texttt{getpid()}). Em seguida, ele cria o segundo processo filho (Filho 2) usando outra chamada à função \texttt{fork()}, criando assim uma hierarquia de processos. 
-
     \item Se \texttt{pid\_filho2} for menor que 0, indica um erro na criação do segundo processo filho, e uma mensagem de erro é exibida.
-
     \item Se \texttt{pid\_filho2} for igual a 0, isso significa que estamos no segundo processo filho (Filho 2). O código exibe o PID do processo filho 2 e o PID de seu pai (processo pai). 
-
     \item O processo pai, identificado pelo \texttt{else}, aguarda a conclusão do primeiro filho (Filho 1) usando \texttt{wait(NULL)}.
-
     \item Posteriormente, o processo pai aguarda a conclusão do segundo filho (Filho 2) usando \texttt{wait(NULL)}. Finalmente, o processo pai encerra sua execução.
 
 \end{itemize}
+
+Na figura \ref{fig:run2} é mostrada a execução do código da figura \ref{fig:processos2}
+no terminal ZSH do linux. 
 
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{imagens/processos_2.png}
     \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-2_processo_pai_2filho.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
     /2\_thread/2-2\_processo\_pai\_2filho.c}}
-    \label{fig:processo2}
+    \label{fig:processos2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/run_processos_2.png}
+    \caption{Execução do Código em C.}
+    \label{fig:run2}
 \end{figure}
 
 \section{Programa com 1 Avô, 1 Pai e 1 Filho; Parricídio}
 
 \section{Thread ABC}
 
+Nesta seção, apresentaremos um exemplo prático em C, no qual três threads são 
+criadas para imprimir as letras "A", "B" e "C" na tela, garantindo que 
+a sequência "ABC" seja sempre exibida. Isso demonstrará como as threads 
+podem ser usadas para coordenar tarefas concorrentes e sincronizar a saída.
+
+\begin{itemize}
+    \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como pthread (para manipulação de threads), entrada/saída padrão e manipulação de processos.
+    \item A função \texttt{main()} é o ponto de entrada do programa, onde a execução começa.
+    \item \texttt{void *print\_abc(void *threadid)} é a função que cada thread executará. Cada thread recebe um identificador \texttt{threadid} e, com base nesse identificador, decide qual letra imprimir ("A", "B" ou "C") com intervalos de tempo diferentes.
+    \item O código utiliza a função \texttt{pthread\_create} para criar três threads, cada uma chamando a função \texttt{print\_abc} com um identificador único.
+    \item As threads são projetadas para imprimir as letras com intervalos de tempo específicos (1 segundo, 2 segundos e 3 segundos, respectivamente), criando assim a sequência "ABC".
+
+\end{itemize}
+
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{imagens/processos_4.png}
-	\caption{.}
-	\label{fig:}
+	\caption{sss.}
+	\label{fig:dddd}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{imagens/run_processos_4.png}
+    \caption{.}
+    \label{fig:dd}
 \end{figure}
 \section{Processo Pai e Filho}
 
