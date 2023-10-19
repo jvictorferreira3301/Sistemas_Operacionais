@@ -60,8 +60,6 @@ int main(){
             perror("pthread_setaffinity_np");
         }
     }
-
-/*
     // Junção das Threads
     for(int i = 0; i < 5; i++) {
         pthread_join(pro[i], NULL);
@@ -69,7 +67,6 @@ int main(){
     for(int i = 0; i < 5; i++) {
         pthread_join(con[i], NULL);
     }
-*/
     // Encerramento dos semáforos
     pthread_mutex_destroy(&mutex);
     sem_destroy(&vazio);
