@@ -259,7 +259,7 @@ seu próprio espaço de endereçamento de memória. Isso é frequentemente usado
 para criar hierarquias de processos, onde um processo pai pode criar um ou 
 mais processos filhos.
 
-O código mostrado na figura \ref{fig:processo1} demonstra a criação de uma hierarquia de processos 
+O código mostrado na figura \ref{fig:processos1} demonstra a criação de uma hierarquia de processos 
 com um avô, um pai e um filho (neto) usando a função \texttt{fork()}. 
 Aqui está uma descrição detalhada do código:
 
@@ -298,10 +298,14 @@ a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do 
 
 \section{Programa com 1 Pai e 2 Filhos}
 
-Nesta seção é mostrado o código em linguagem C, na figura \ref{fig:processos2}, que demonstra a 
+Nesta seção é mostrado o código em linguagem C que demonstra a 
 criação de um processo pai e dois processos filhos. Essa demonstração ajudará 
 a ilustrar o conceito de hierarquia de processos, onde um processo pai pode 
 criar e controlar vários processos filhos.
+
+Abaixo se encontra a descrição detalhada do código mostrado na figura \ref{fig:processos2}, e posteriormente, 
+na figura \ref{fig:run2}, a execução do mesmo no terminal ZSH do Linux.
+
 
 \begin{itemize}
     \item \texttt{\#include} direciona a inclusão de bibliotecas necessárias, como entrada/saída padrão e manipulação de processos.
@@ -316,9 +320,6 @@ criar e controlar vários processos filhos.
     \item Posteriormente, o processo pai aguarda a conclusão do segundo filho (Filho 2) usando \texttt{wait(NULL)}. Finalmente, o processo pai encerra sua execução.
 
 \end{itemize}
-
-Na figura \ref{fig:run2} é mostrada a execução do código da figura \ref{fig:processos2}
-no terminal ZSH do linux. 
 
 \begin{figure}
     \centering
@@ -343,6 +344,9 @@ Vamos explorar como é possível "eliminar" o processo pai (por isso nomeamos de
 e identificar quem se torna o novo pai do processo filho. Isso ilustra a dinâmica de 
 criação, terminação e hierarquia de processos em sistemas operacionais.
 
+A seguir, mostramos a descrição completa do código em questão que é
+apresentado na figura \ref{fig:processos3} e executado na figura \ref{fig:run3}.
+
 \begin{itemize}
     \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como entrada/saída padrão, manipulação de processos e sinais.
 
@@ -363,14 +367,15 @@ Este código exemplifica a criação e manipulação de processos em sistemas op
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{imagens/processos_3.png}
-    \caption{..}
+    \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-3_parricidio.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
+    /2\_thread/2-3\_parricidio.c.}} 
     \label{fig:processos3}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{imagens/run_processos_3.png}
-    \caption{..}
+    \caption{Execução do Código em C.}
     \label{fig:run3}
 \end{figure}
 
@@ -394,14 +399,15 @@ podem ser usadas para coordenar tarefas concorrentes e sincronizar a saída.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{imagens/processos_4.png}
-	\caption{sss.}
+	\caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-4_threadABC.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
+    /2\_thread/2-4\_threadABC.c.}}
 	\label{fig:processos4}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{imagens/run_processos_4.png}
-    \caption{.}
+    \caption{Execução do Código em C.}
     \label{fig:run4}
 \end{figure}
 \section{Processo Pai e Filho}
