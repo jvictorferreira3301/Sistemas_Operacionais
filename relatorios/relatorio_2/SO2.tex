@@ -391,11 +391,14 @@ e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detaalhda d
 
 \begin{itemize}
     
-    \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como pthread (para manipulação de threads), entrada/saída padrão e manipulação de processos.
-    \item A função \texttt{main()} é o ponto de entrada do programa, onde a execução começa.
-    \item \texttt{void *print\_abc(void *threadid)} é a função que cada thread executará. Cada thread recebe um identificador \texttt{threadid} e, com base nesse identificador, decide qual letra imprimir ("A", "B" ou "C") com intervalos de tempo diferentes.
-    \item O código utiliza a função \texttt{pthread\_create} para criar três threads, cada uma chamando a função \texttt{print\_abc} com um identificador único.
-    \item As threads são projetadas para imprimir as letras com intervalos de tempo específicos (1 segundo, 2 segundos e 3 segundos, respectivamente), criando assim a sequência "ABC".
+    \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como pthread para manipulação de threads, entrada/saída padrão e manipulação de erros.
+    \item O código começa definindo uma constante \texttt{NUM\_THREADS} como 3, que representa o número de threads que serão criadas.
+    \item A função \texttt{print\_abc} é definida para ser executada por cada thread. Ela recebe um parâmetro \texttt{threadid} que representa a identificação da thread. Dentro da função, o código verifica o valor de \texttt{threadid} e imprime "A," "B," ou "C" de acordo com o valor. Isso garante que cada thread gere sua respectiva letra.
+    \item A função \texttt{main} é o ponto de entrada do programa. Ela cria um array de objetos \texttt{pthread\_t} chamado \texttt{thread} para representar as threads.
+    \item Em um loop \texttt{for}, o código cria as threads. Para cada iteração, a função \texttt{pthread\_create} é chamada para criar uma thread. O parâmetro \texttt{thread[i]} é usado para armazenar o identificador da thread recém-criada. A função \texttt{print\_abc} é atribuída a cada thread, e o valor \texttt{i} é passado como parâmetro, que corresponde ao índice da thread. 
+    \item O código também usa \texttt{pthread\_join} para esperar que cada thread termine sua execução antes de continuar. Isso garante que as threads sejam sincronizadas, de modo que a saída seja sempre "ABC."
+    \item O código verifica se houve erros ao criar as threads e, se ocorrer algum erro, exibe uma mensagem de erro.
+    \item O programa é encerrado com \texttt{pthread\_exit}.
 
 \end{itemize}
 
@@ -419,7 +422,45 @@ e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detaalhda d
 
 \section{Threads versus Processos}
 
-\section{Benchmark}
+\section{Código e Comparação de Desempenho}
+
+O código a seguir demonstra uma comparação de desempenho entre o uso de primitivas `fork` e threads para realizar tarefas concorrentes. O programa executa 20 simulações para medir o tempo médio de execução em ambas as abordagens.
+
+
+\begin{itemize}
+    \item \textbf{Bibliotecas Incluídas:} O código começa incluindo as bibliotecas necessárias, como `stdio.h`, `stdlib.h`, `unistd.h`, `sys/wait.h`, `pthread.h`, e `time.h`.
+
+    \item \textbf{Definição de Constantes:} As constantes `NUM\_SIMULATIONS` e `NUM\_TASKS` são definidas para configurar o número de simulações a serem realizadas e o número de tarefas em cada simulação.
+
+    \item \textbf{Função de Tarefa para Threads:} É definida uma função `task` que representa a tarefa a ser executada por threads. Esta função é onde a tarefa real seria implementada.
+
+    \item \textbf{Função Principal:} A função `main` é onde o programa é controlado. O código realiza as seguintes etapas:
+    
+    \begin{itemize}
+        \item Inicializa variáveis para medir o tempo de execução.
+        
+        \item Executa um loop para realizar 20 simulações de comparação de desempenho.
+        
+        \item Mede o tempo de execução usando primitivas `fork` em uma simulação e threads em outra.
+        
+        \item Calcula a média dos tempos de execução para ambas as abordagens.
+        
+        \item Apresenta os tempos médios de execução.
+    \end{itemize}
+\end{itemize}
+
+A comparação de desempenho é crucial para determinar a abordagem mais eficiente para tarefas concorrentes em sistemas operacionais. Este código fornece uma estrutura para conduzir tal comparação, medindo o tempo médio de execução usando `fork` e threads em várias simulações.
+
+A escolha entre `fork` e threads depende das necessidades específicas de um sistema e dos recursos disponíveis. A análise dos resultados desempenha um papel fundamental na determinação da abordagem mais adequada.
+
+
+Neste experimento, o código foi projetado para medir e comparar o desempenho de duas abordagens de concorrência em um contexto prático. Os resultados podem ser usados para tomar decisões informadas sobre o uso de `fork` ou threads com base nas demandas do sistema.
+
+
+
+A execução de benchmarks é uma prática valiosa para garantir que sistemas e aplicativos atendam aos requisitos de eficiência e desempenho, contribuindo para a otimização e melhoria contínua.
+
+
 
 \chapter{Conclusão}
 \label{conclusao}
