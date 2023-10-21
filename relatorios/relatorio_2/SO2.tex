@@ -82,7 +82,7 @@
 \instituto{INSTITUTO DE TECNOLOGIA}
 \faculdade{FACULDADE DE COMPUTAÇÃO E TELECOMUNICAÇÕES}
 %\curso{CURSO DE BACHARELADO EM SISTEMAS DE INFORMAÇÃO}
-\titulo{RELATÓRIO DE SO}
+\titulo{RELATÓRIO DE SISTEMAS OPERACIONAIS}
 \autor{
 %\begin{tabular}{l l}
     DAVID PINHEIRO DE SOUSA - 202207040045 \\
@@ -287,12 +287,12 @@ pai e filho (neto). O processo avô cria o processo pai,
 que por sua vez cria o processo filho. Isso demonstra a 
 criação de processos em uma hierarquia usando \texttt{fork()} e é 
 um conceito fundamental em sistemas operacionais. Podemos ver 
-a execução desse código na figura~\ref{fig:run_processo1} no terminal ZSH do linux
+a execução desse código na figura~\ref{fig:run1} no terminal ZSH do linux
 
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{imagens/run_processos_1.png}
-	\caption{Execuçao do código em C. }
+	\caption{Execuçao do Código em C. }
 	\label{fig:run1}
 \end{figure}
 
@@ -422,9 +422,36 @@ e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detaalhda d
 
 \section{Threads versus Processos}
 
-\section{Código e Comparação de Desempenho}
+\section{Benchmark}
 
-O código a seguir demonstra uma comparação de desempenho entre o uso de primitivas `fork` e threads para realizar tarefas concorrentes. O programa executa 20 simulações para medir o tempo médio de execução em ambas as abordagens.
+Nesta seção, apresentamos um código na \ref{fig:processos8} que demonstra uma comparação 
+de desempenho entre o uso de primitivas `fork` e threads para realizar tarefas 
+concorrentes. O programa executa simulações para medir o tempo médio de 
+execução em ambas as abordagens. Para a análise mais precisa foram realizados
+execuções em 3 cenários: 10 simulações e 1000 tarefas, 20 simulações e 2000 tarefas,
+30 simulações e 3000 tarefas. Os cenários podem ser vistos no gráfico da figura \ref{fig:graf}
+e na figura \ref{fig:run8} junto com a execução.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/processos_8.png}
+    \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-8_benchmark.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main/2\_thread/2-8\_benchmark.c}}
+    \label{fig:processos8}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/run_processos_8.png}
+    \caption{Execução do Código em C.}
+    \label{fig:run8}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{imagens/graf_fork_vs_threads.png}
+    \caption{Gráfico comparativo com as médias dos tempos.}
+    \label{fig:graf}
+\end{figure}
 
 
 \begin{itemize}
@@ -455,8 +482,6 @@ A escolha entre `fork` e threads depende das necessidades específicas de um sis
 
 
 Neste experimento, o código foi projetado para medir e comparar o desempenho de duas abordagens de concorrência em um contexto prático. Os resultados podem ser usados para tomar decisões informadas sobre o uso de `fork` ou threads com base nas demandas do sistema.
-
-
 
 A execução de benchmarks é uma prática valiosa para garantir que sistemas e aplicativos atendam aos requisitos de eficiência e desempenho, contribuindo para a otimização e melhoria contínua.
 
