@@ -2,12 +2,8 @@
 #include <semaphore.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <sched.h>
-/* 
-Comando paara compilar corretamente: gcc -o prod prod_cons.c -lpthread -lnuma -D_GNU_SOURCE
-Dependência da biblioteca libnuma: sudo apt-get install libnuma-dev
 
-DEFINIÇÃO DE MACROS
+/* DEFINIÇÃO DE MACROS
 - Maximo: número máximo que um produtor produz e que um consumidor consome 
 - TBuffer: tamanho do buffer */
 #define Maximo 5
@@ -31,11 +27,6 @@ int buffer[TBuffer];
 pthread_mutex_t mutex;
 
 int main(){
-    int num_cores = 1;
-
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(num_cores, &cpuset);
 
     /* VARIÁVEIS 
     Threads: 'pro' produtores, 'con' consumidores */
@@ -50,15 +41,9 @@ int main(){
     // Loop de criação das Threads
     for(int i = 0; i < 5; i++) {
         pthread_create(&pro[i], NULL, (void *)produtor, (void *)&a[i]);
-        if (pthread_setaffinity_np(pro[i], sizeof(cpu_set_t), &cpuset) != 0) {
-            perror("pthread_setaffinity_np");
-        }
     }
     for(int i = 0; i < 5; i++) {
         pthread_create(&con[i], NULL, (void *)consumidor, (void *)&a[i]);
-        if (pthread_setaffinity_np(con[i], sizeof(cpu_set_t), &cpuset) != 0) {
-            perror("pthread_setaffinity_np");
-        }
     }
     // Junção das Threads
     for(int i = 0; i < 5; i++) {
