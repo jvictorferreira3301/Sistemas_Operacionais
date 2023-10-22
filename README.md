@@ -20,8 +20,10 @@ escalonadores:
 • Round Robin (dar o time-slice como entrada)
 - [x] Tarefa 4 - Problemas Clássicos
 
-### 🧰 Comandos de Compilação com Makefile
-#### make 
+### 🧰 Instruções para compilação 
+Para automatizar a compilação implementamos o makefile neste repositório. 
+Abaixo é descrito os comandos do makefile e o que eles fazem em cada subdiretório:
+### make 
 ```sh
   make 
   ```
