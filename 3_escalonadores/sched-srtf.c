@@ -86,14 +86,12 @@ int srt(int proc[], int n, int burst_time[]) {
         time++;
     }
 
-    printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");  
+    printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n"); 
 
     for ( int i = 0; i < n; i++) {                                   
-        printf(" %d\t  %d\t\t %d \t%d\n", i+1, burst_time[i], wait_time[i], tat[i]);
+        printf("%d\t \t%d\t \t%d\t \t%d\n", i + 1, burst_time[i], wait_time[i], tat[i]);
     }
 
-    avg_wt = (float)total_wt / (float)n;
-    avg_tat = (float)total_tat / (float)n;
     printf("\n\x1b[33mTempo Médio de Espera: %.2f \n\x1b[32mTempo médio de Retorno: %.2f\x1b[0m\n", 
     total_wt/(float)n, total_tat/(float)n);
     return 0;

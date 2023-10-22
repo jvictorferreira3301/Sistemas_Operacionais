@@ -3,6 +3,12 @@
 #include <time.h>
 #define TIME_SLICE 2
 
+
+/*
+A função a seguir tem a finalidade de calcular o tempo de espera para cada processo em 
+uma lista de processos. O tempo de espera é calculado somando-se o tempo de execução do
+processo anterior com o tempo de espera do processo anterior.
+*/
 int waitingtime(int proc[], int n, int burst_time[], int wait_time[]) {
     wait_time[0] = 0;
     for (int i = 1; i < n; i++) {
@@ -11,6 +17,10 @@ int waitingtime(int proc[], int n, int burst_time[], int wait_time[]) {
     return 0;
 }
 
+/*
+Essa função calcula o tempo de retorno (turnaround time) para cada processo e o armazena no array tat[i]. 
+O tempo de retorno é a soma do tempo de execução e do tempo de espera do processo.
+*/
 int turnaroundtime(int proc[], int n, int burst_time[], int wait_time[], int tat[]) {
     for (int i = 0; i < n; i++) {
         tat[i] = burst_time[i] + wait_time[i];
@@ -18,7 +28,9 @@ int turnaroundtime(int proc[], int n, int burst_time[], int wait_time[], int tat
     return 0;
 }
 
-
+/*
+A função abaixo é responsável por implementar o escalonador Round Robin.
+*/
 int rr_sched(int proc[], int n, int burst_time[]) {
     int wait_time[n], tat[n], total_wt = 0, total_tat = 0;
     int remaining_time[n];
