@@ -29,7 +29,7 @@ escalonadores:
   ```sh
   gcc -o subtracao_soma_s soma_subtracao.s 
   ```
-* Na pasta "relatorios": compila todos os relatórios em LaTex que estão na pasta "relatorios".
+* Na pasta "relatorios": compila todos os relatórios em LaTeX.
 * Na pasta "2_threads": compila os 8 códigos em C.
   
 ### make clean 
@@ -38,7 +38,7 @@ escalonadores:
   ```  
 * Na pasta "1_syscall": remove o executável.
 * Na pasta "2_threads": remove os executáveis.
-* Na pasta "relatorios": remove todos os outputs LaTex da compilação anterior que estão na pasta "relatorios".
+* Na pasta "relatorios": remove todos os outputs LaTeX.
   
   
 
