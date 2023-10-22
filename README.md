@@ -21,11 +21,18 @@ escalonadores:
 - [x] Tarefa 4 - Problemas Clássicos
 
 ### 🧰 Comandos de Compilação com Makefile
-* make (na pasta relatorios): compila todos os relatórios em LaTex que estão na pasta "relatorios".
+#### make 
+* Na pasta "1_syscall": compila o "soma_subtracao.c", para compilar "soma_subtracao.s", use:
+  ```sh
+  gcc -o subtracao_soma_s soma_subtracao.s 
+  ```
+* Na pasta "relatorios": compila todos os relatórios em LaTex que estão na pasta "relatorios".
+* Na pasta "2_threads": compila os 8 códigos em C.
   ```sh
   make 
   ```
-* make clean (na pasta relatorios): remove todos os outputs LaTex da compilação anterior que estão na pasta "relatorios".
+### make clean 
+* Na pasta relatorios: remove todos os outputs LaTex da compilação anterior que estão na pasta "relatorios".
   ```sh
   make clean
   ```  
