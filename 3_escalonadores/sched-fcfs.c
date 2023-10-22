@@ -38,7 +38,7 @@ int avgtime( int proc[], int n, int burst_time[]) {
 
    waitingtime(proc, n, burst_time, wait_time);             
    turnaroundtime(proc, n, burst_time, wait_time, tat);  
-   printf("Processo  Execução     Espera   Retorno \n");  
+   printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");  
 
    for ( i=0; i<n; i++) {                                   
       total_wt = total_wt + wait_time[i];                   
@@ -46,8 +46,8 @@ int avgtime( int proc[], int n, int burst_time[]) {
       printf(" %d\t  %d\t\t %d \t%d\n", i+1, burst_time[i], wait_time[i], tat[i]);
    }
 
-   printf("Tempo médio de espera = %.2f\n", (float)total_wt / (float)n);
-   printf("Tempo médio de retorno = %.2f\n", (float)total_tat / (float)n);
+   printf("\n\x1b[33mTempo Médio de Espera: %.2f \n\x1b[32mTempo médio de Retorno: %.2f\x1b[0m\n", 
+   total_wt/(float)n, total_tat/(float)n);
    return 0;
 }
 

@@ -32,14 +32,14 @@ A função abaixo é responsável por calcular o tempo médio de espera e o temp
 Ela também imprime na saída padrão os tempos de espera e os tempos de retorno de cada processo. 
 */
 
-int avgtime( int proc[], int n, int burst_time[]) {
+int sched_sjf( int proc[], int n, int burst_time[]) {
 
    int wait_time[n], tat[n], total_wt = 0, total_tat = 0;
    int i; 
 
    waitingtime(proc, n, burst_time, wait_time);             
    turnaroundtime(proc, n, burst_time, wait_time, tat);  
-   printf("Processo  Execução     Espera   Retorno \n");  
+   printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");  
 
    for ( i=0; i<n; i++) {                                   
       total_wt = total_wt + wait_time[i];                   
@@ -47,8 +47,8 @@ int avgtime( int proc[], int n, int burst_time[]) {
       printf(" %d\t  %d\t\t %d \t%d\n", proc[i], burst_time[i], wait_time[i], tat[i]);
    }
 
-   printf("Tempo médio de espera = %.2f\n", (float)total_wt / (float)n);
-   printf("Tempo médio de retorno = %.2f\n", (float)total_tat / (float)n);
+   printf("\n\x1b[33mTempo Médio de Espera: %.2f \n\x1b[32mTempo médio de Retorno: %.2f\x1b[0m\n", 
+   total_wt/(float)n, total_tat/(float)n);
    return 0;
 }
 
@@ -87,6 +87,6 @@ int main() {
    // Ordena os processos em ordem crescente de tempo de execução
    qsort(burst_time, n, sizeof(int), compare);
 
-   avgtime(proc, n, burst_time); //Chamada da função que calcula o tempo médio de espera e o tempo médio de retorno
+   sched_sjf(proc, n, burst_time); //Chamada da função que calcula o tempo médio de espera e o tempo médio de retorno
    return 0;
 }

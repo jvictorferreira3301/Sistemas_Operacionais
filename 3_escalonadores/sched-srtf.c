@@ -26,31 +26,6 @@ int turnaroundtime(int proc[], int n, int burst_time[], int wait_time[], int tat
     return 0;
 }
 
-
-/*
-A função abaixo é responsável por calcular o tempo médio de espera e o tempo médio de retorno para um conjunto de processos. 
-Ela também imprime na saída padrão os tempos de espera e os tempos de retorno de cada processo. 
-*/
-int avgtime( int proc[], int n, int burst_time[]) {
-
-    int wait_time[n], tat[n], total_wt = 0, total_tat = 0;
-    int i; 
-
-    waitingtime(proc, n, burst_time, wait_time);             
-    turnaroundtime(proc, n, burst_time, wait_time, tat);  
-    printf("Processo  Execução     Espera   Retorno \n");  
-
-    for ( i=0; i<n; i++) {                                   
-        total_wt = total_wt + wait_time[i];                   
-        total_tat = total_tat + tat[i];
-        printf(" %d\t  %d\t\t %d \t%d\n", i+1, burst_time[i], wait_time[i], tat[i]);
-    }
-
-    printf("Tempo médio de espera = %.2f\n", (float)total_wt / (float)n);
-    printf("Tempo médio de retorno = %.2f\n", (float)total_tat / (float)n);
-    return 0;
-}
-
 /*
 A função abaixo é responsável por implementar o escalonador SRT (Shortest Remaining Time).
 Ela recebe os mesmos parâmetros que a função avgtime e ordena os processos de acordo com o tempo restante de execução.
@@ -111,7 +86,7 @@ int srt(int proc[], int n, int burst_time[]) {
         time++;
     }
 
-    printf("Processo  Execução     Espera   Retorno \n");  
+    printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");  
 
     for ( int i = 0; i < n; i++) {                                   
         printf(" %d\t  %d\t\t %d \t%d\n", i+1, burst_time[i], wait_time[i], tat[i]);
@@ -119,8 +94,8 @@ int srt(int proc[], int n, int burst_time[]) {
 
     avg_wt = (float)total_wt / (float)n;
     avg_tat = (float)total_tat / (float)n;
-    printf("Tempo médio de espera = %.2f\n", avg_wt);
-    printf("Tempo médio de retorno = %.2f\n", avg_tat);
+    printf("\n\x1b[33mTempo Médio de Espera: %.2f \n\x1b[32mTempo médio de Retorno: %.2f\x1b[0m\n", 
+    total_wt/(float)n, total_tat/(float)n);
     return 0;
 }
 
