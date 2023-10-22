@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h> // Para as chamadas de sistema read e write
-#include <stdlib.h> // Para a chamada exit
+#include <stdlib.h>
 
 int main() {
     int soma_ou_sub; // para decidir se vai somar ou subtrair
@@ -52,7 +52,7 @@ int main() {
     } 
     
     else{
-        char prompt[] = "Digite os números a serem subtraidos (separados por espaço):\n";
+        char prompt[] = "Digite os números a serem subtraidos2 (separados por espaço):\n";
         write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
         bytes_read = read(STDIN_FILENO, input_buffer, sizeof(input_buffer));
         if (bytes_read <= 0) {
