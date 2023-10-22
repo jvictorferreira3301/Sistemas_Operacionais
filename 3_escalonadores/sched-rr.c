@@ -33,37 +33,38 @@ A função abaixo é responsável por implementar o escalonador Round Robin.
 */
 int rr_sched(int proc[], int n, int burst_time[]) {
     int wait_time[n], tat[n], total_wt = 0, total_tat = 0;
-    int remaining_time[n];
-    int i, t = 0, completed = 0;
+    int remaining_time[n]; //Armazena o tempo restante de execução de cada processo
+    int i, t = 0, completed = 0; //t é o tempo atual e completed é o número de processos executados
 
     for (i = 0; i < n; i++) {
-        remaining_time[i] = burst_time[i];
-        wait_time[i] = 0;
+        remaining_time[i] = burst_time[i]; //Inicializando o tempo restante de execução com o tempo de execução de cada processo
+        wait_time[i] = 0; //Inicializando o tempo de espera de cada processo com 0
     }
+
     printf("===================== Round Robin =======================\n");
     printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");
 
-    while (completed < n) {
+    while (completed < n) { //Enquanto todos os processos não forem executados
         for (i = 0; i < n; i++) {
+
             if (remaining_time[i] > 0) {
                 if (remaining_time[i] > TIME_SLICE) {
-                    t += TIME_SLICE;
-                    remaining_time[i] -= TIME_SLICE;
+                    t += TIME_SLICE; //Incrementa o tempo atual com a fatia de tempo
+                    remaining_time[i] -= TIME_SLICE; //Decrementa o tempo restante de execução do processo com a fatia de tempo
                 } else {
-                    t += remaining_time[i];
-                    wait_time[i] = t - burst_time[i];
-                    remaining_time[i] = 0;
-                    completed++;                  
+                    t += remaining_time[i]; //Incrementa o tempo atual com o tempo restante de execução do processo
+                    wait_time[i] = t - burst_time[i]; //Calcula o tempo de espera do processo
+                    remaining_time[i] = 0; //O tempo restante de execução do processo é 0, ou seja...
+                    completed++;// Um processo foi finalizado                 
                 }
             }
-        }
-    }
 
-    for (int i = 0; i < n; i++) {
-        tat[i] = burst_time[i] + wait_time[i];
-        total_wt += wait_time[i];
-        total_tat += tat[i];
-        printf("%d\t \t%d\t \t%d\t \t%d\n", i + 1, burst_time[i], wait_time[i], tat[i]);
+            tat[i] = burst_time[i] + wait_time[i];
+            total_wt += wait_time[i];
+            total_tat += tat[i];
+            printf("%d\t \t%d\t \t%d\t \t%d\n", i + 1, burst_time[i], wait_time[i], tat[i]);
+
+        }
     }
 
     printf("\n\x1b[33mTempo Médio de Espera: %.2f \n\x1b[32mTempo médio de Retorno: %.2f\x1b[0m\n", 
