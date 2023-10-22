@@ -20,15 +20,28 @@ escalonadores:
 • Round Robin (dar o time-slice como entrada)
 - [x] Tarefa 4 - Problemas Clássicos
 
-### 🧰 Comandos de Compilação com Makefile
-* make (na pasta relatorios): compila todos os relatórios em LaTex que estão na pasta "relatorios".
-  ```sh
+### 🧰 Instruções para compilação 
+Para automatizar a compilação implementamos o makefile neste repositório. 
+Abaixo é descrito os comandos do makefile e o que eles fazem em cada subdiretório:
+### make 
+```sh
   make 
   ```
-* make clean (na pasta relatorios): remove todos os outputs LaTex da compilação anterior que estão na pasta "relatorios".
+* Na pasta "1_syscall": compila o "soma_subtracao.c", para compilar "soma_subtracao.s", use:
   ```sh
+  gcc -o subtracao_soma_s soma_subtracao.s 
+  ```
+* Na pasta "relatorios": compila todos os relatórios em LaTeX.
+* Na pasta "2_threads": compila os 8 códigos em C.
+  
+### make clean 
+```sh
   make clean
   ```  
+* Na pasta "1_syscall": remove o executável.
+* Na pasta "2_threads": remove os executáveis.
+* Na pasta "relatorios": remove todos os outputs LaTeX.
+  
   
 
 
