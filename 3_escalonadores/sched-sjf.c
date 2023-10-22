@@ -31,14 +31,15 @@ int turnaroundtime(int proc[], int n, int burst_time[], int wait_time[], int tat
 A função abaixo é responsável por calcular o tempo médio de espera e o tempo médio de retorno para um conjunto de processos. 
 Ela também imprime na saída padrão os tempos de espera e os tempos de retorno de cada processo. 
 */
-int avgtime( int proc[], int n, int burst_time[]) {
+
+int sched_sjf( int proc[], int n, int burst_time[]) {
 
    int wait_time[n], tat[n], total_wt = 0, total_tat = 0;
    int i; 
 
    waitingtime(proc, n, burst_time, wait_time);             
    turnaroundtime(proc, n, burst_time, wait_time, tat);
-   printf("======================== FCFS ==========================\n");  
+   printf("========================= SJF ==========================\n");  
    printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");  
 
    for ( i=0; i<n; i++) {                                   
@@ -52,6 +53,17 @@ int avgtime( int proc[], int n, int burst_time[]) {
    return 0;
 }
 
+/*
+Essa função do C é usada para comparar dois valores inteiros.
+A função subtrai os valores apostos nos endereços de memória apontados por a e b.
+Assim é possível saber quais valores são maiores, menores ou iguais. Visto que se a for
+meno que b, por exemplo, então a - b < 0.
+*/
+int compare(const void *a, const void *b) {
+    int *burst_time_a = (int *)a;
+    int *burst_time_b = (int *)b;
+    return (*burst_time_a) - (*burst_time_b);
+}
 
 int main() {
 
@@ -73,6 +85,9 @@ int main() {
        }
    }
 
-   avgtime(proc, n, burst_time); //Chamada da função que calcula o tempo médio de espera e o tempo médio de retorno
+   // Ordena os processos em ordem crescente de tempo de execução
+   qsort(burst_time, n, sizeof(int), compare);
+
+   sched_sjf(proc, n, burst_time); //Chamada da função que calcula o tempo médio de espera e o tempo médio de retorno
    return 0;
 }
