@@ -38,13 +38,14 @@ int sched_sjf( int proc[], int n, int burst_time[]) {
    int i; 
 
    waitingtime(proc, n, burst_time, wait_time);             
-   turnaroundtime(proc, n, burst_time, wait_time, tat);  
+   turnaroundtime(proc, n, burst_time, wait_time, tat);
+   printf("========================= SJF ==========================\n");  
    printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");  
 
    for ( i=0; i<n; i++) {                                   
       total_wt = total_wt + wait_time[i];                   
       total_tat = total_tat + tat[i];
-      printf(" %d\t  %d\t\t %d \t%d\n", proc[i], burst_time[i], wait_time[i], tat[i]);
+      printf("%d\t \t%d\t \t%d\t \t%d\n", i + 1, burst_time[i], wait_time[i], tat[i]);
    }
 
    printf("\n\x1b[33mTempo Médio de Espera: %.2f \n\x1b[32mTempo médio de Retorno: %.2f\x1b[0m\n", 

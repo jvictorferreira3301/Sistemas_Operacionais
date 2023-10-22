@@ -86,6 +86,8 @@ int srt(int proc[], int n, int burst_time[]) {
         time++;
     }
 
+
+    printf("======================== SRTF ==========================\n");
     printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n"); 
 
     for ( int i = 0; i < n; i++) {                                   

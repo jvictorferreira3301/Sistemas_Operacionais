@@ -40,7 +40,7 @@ int rr_sched(int proc[], int n, int burst_time[]) {
         remaining_time[i] = burst_time[i];
         wait_time[i] = 0;
     }
-
+    printf("===================== Round Robin =======================\n");
     printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");
 
     while (completed < n) {
