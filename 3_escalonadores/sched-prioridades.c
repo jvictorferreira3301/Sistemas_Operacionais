@@ -31,26 +31,31 @@ int turnaroundtime(int proc[], int n, int burst_time[], int wait_time[], int tat
 A função abaixo é responsável por calcular o tempo médio de espera e o tempo médio de retorno para um conjunto de processos. 
 Ela também imprime na saída padrão os tempos de espera e os tempos de retorno de cada processo. 
 */
-int avgtime( int proc[], int n, int burst_time[], int priority[]) {
+int sched_priory( int proc[], int n, int burst_time[], int priority[]) {
 
     int wait_time[n], tat[n], total_wt = 0, total_tat = 0;
-    int i, j, temp; 
+    int i, j, aux; 
 
     // Ordena os processos de acordo com suas prioridades
     for (i = 0; i < n-1; i++) {
-        for (j = i+1; j < n; j++) {
+        for (j = i+1; j < n; j++) {         
+            /*
+            Se a prioridade do processo i for maior que a prioridade do processo j,
+            então o valor armazenado nas variáveis trocam de lugar.
+            */
             if (priority[i] > priority[j]) {
-                temp = priority[i];
+                //Usando uma variável auxilixar para trocar os valores de prioridade, burst_time e proc
+                aux = priority[i];
                 priority[i] = priority[j];
-                priority[j] = temp;
+                priority[j] = aux;
 
-                temp = burst_time[i];
+                aux = burst_time[i];
                 burst_time[i] = burst_time[j];
-                burst_time[j] = temp;
+                burst_time[j] = aux;
 
-                temp = proc[i];
+                aux = proc[i];
                 proc[i] = proc[j];
-                proc[j] = temp;
+                proc[j] = aux;
             }
         }
     }
@@ -94,6 +99,6 @@ int main() {
          priority[i] = rand() % 5; // gera um número aleatório entre 0 e 4 para a prioridade
     }
 
-    avgtime(proc, n, burst_time, priority); //Chamada da função que calcula o tempo médio de espera e o tempo médio de retorno
+    sched_priory(proc, n, burst_time, priority); //Chamada da função que calcula o tempo médio de espera e o tempo médio de retorno
     return 0;
 }
