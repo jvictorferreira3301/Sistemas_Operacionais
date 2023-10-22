@@ -20,6 +20,17 @@ escalonadores:
 • Round Robin (dar o time-slice como entrada)
 - [x] Tarefa 4 - Problemas Clássicos
 
+### 🧰 Comandos de Compilação com Makefile
+* make (na pasta relatorios): compila todos os relatórios em LaTex que estão na pasta "relatorios".
+  ```sh
+  make 
+  ```
+* make clean (na pasta relatorios): remove todos os outputs LaTex da compilação anterior que estão na pasta "relatorios".
+  ```sh
+  make clean
+  ```  
+  
+
 
 ## Integrantes
 
