@@ -24,24 +24,26 @@ escalonadores:
 Para automatizar a compilação implementamos o makefile neste repositório. 
 Abaixo é descrito os comandos do makefile e o que eles fazem quando executados em cada subdiretório. 
 Certifique-se de ter o makefile, o GCC e o texlive-full instalados em seu computador.
-### make 
+#### make 
 ```sh
   make 
   ```
-* Na pasta "1_syscall": compila o "soma_subtracao.c", para compilar "soma_subtracao.s", use:
+* Na pasta **1_syscall**: compila o "soma_subtracao.c", para compilar "soma_subtracao.s", use:
   ```sh
   gcc -o subtracao_soma_s soma_subtracao.s 
   ```
-* Na pasta "relatorios": compila todos os relatórios em LaTeX.
-* Na pasta "2_threads": compila os 8 códigos em C.
-  
-### make clean 
+* Na pasta **2_threads**: compila os códigos em C.
+* Na past **3_escalonadores**: compila os códigos em C.
+* Na pasta **relatorios**: compila todos os relatórios em LaTeX.  
+
+#### make clean 
 ```sh
   make clean
   ```  
-* Na pasta "1_syscall": remove o executável.
-* Na pasta "2_threads": remove os executáveis.
-* Na pasta "relatorios": remove todos os outputs LaTeX.
+* Na pasta **1_syscall**: remove o executável.
+* Na pasta **2_threads**: remove os executáveis.
+* Na pasta **3_escalonadores**: remove os executáveis.
+* Na pasta **relatorios**: remove todos os outputs LaTeX.
   
   
 
