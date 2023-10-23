@@ -22,7 +22,8 @@ escalonadores:
 
 ### 🧰 Instruções para compilação 
 Para automatizar a compilação implementamos o makefile neste repositório. 
-Abaixo é descrito os comandos do makefile e o que eles fazem em cada subdiretório:
+Abaixo é descrito os comandos do makefile e o que eles fazem quando executados em cada subdiretório. 
+Certifique-se de ter o makefile, o GCC e o texlive-full instalados em seu computador.
 ### make 
 ```sh
   make 
