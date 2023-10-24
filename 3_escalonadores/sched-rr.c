@@ -41,9 +41,6 @@ int rr_sched(int proc[], int n, int burst_time[]) {
         wait_time[i] = 0; //Inicializando o tempo de espera de cada processo com 0
     }
 
-    printf("===================== Round Robin =======================\n");
-    printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");
-
     while (completed < n) { //Enquanto todos os processos não forem executados
         for (i = 0; i < n; i++) {
 
@@ -57,16 +54,21 @@ int rr_sched(int proc[], int n, int burst_time[]) {
                     remaining_time[i] = 0; //O tempo restante de execução do processo é 0, ou seja...
                     completed++;// Um processo foi finalizado                 
                 }
-            }
-
-            tat[i] = burst_time[i] + wait_time[i];
-            total_wt += wait_time[i];
-            total_tat += tat[i];
-            printf("%d\t \t%d\t \t%d\t \t%d\n", i + 1, burst_time[i], wait_time[i], tat[i]);
-
+            } 
         }
+
     }
 
+    printf("===================== Round Robin =======================\n");
+    printf("PID\t  Temp_Execução\t    Temp_Espera\t    Temp_Retorno\n");
+
+    for ( int i = 0; i < n; i++) {  
+        tat[i] = burst_time[i] + wait_time[i];
+        total_wt += wait_time[i];
+        total_tat += tat[i];                                 
+        printf("%d\t \t%d\t \t%d\t \t%d\n", i + 1, burst_time[i], wait_time[i], tat[i]);
+    }
+    
     printf("\n\x1b[33mTempo Médio de Espera: %.2f \n\x1b[32mTempo médio de Retorno: %.2f\x1b[0m\n", 
     total_wt/(float)n, total_tat/(float)n);
     return 0;

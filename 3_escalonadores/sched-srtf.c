@@ -37,7 +37,6 @@ int srt(int proc[], int n, int burst_time[]) {
     int remaining_time[n];                //Tempo de execução restante de cada processo
     int smallest, time = 0, finish_time; //smallest é o processo com o menor tempo restante de execução
     int count = 0;                      //Contador de processos executados
-    float avg_wt, avg_tat;
 
     /*
     Inicializando o tempo de execucao restante com o tempo inicial de cada processo
