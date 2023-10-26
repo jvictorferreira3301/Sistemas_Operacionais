@@ -81,7 +81,6 @@
 \universidade{UNIVERSIDADE FEDERAL DO PARÁ}
 \instituto{INSTITUTO DE TECNOLOGIA}
 \faculdade{FACULDADE DE COMPUTAÇÃO E TELECOMUNICAÇÕES}
-%\curso{CURSO DE BACHARELADO EM SISTEMAS DE INFORMAÇÃO}
 \titulo{RELATÓRIO DE SISTEMAS OPERACIONAIS}
 \autor{
 %\begin{tabular}{l l}
@@ -101,17 +100,7 @@
 \preambulo{Relatório do trabalho 1 de Sistemas Operacionais.}
 %\sobrenome{Sobrenome}
 %\nome{Nome}
-%\palavraschave{%
-
-%}
-%\datadadefesa{Data da Defesa: 09 de Março de 2017}%07 de Dezembro de 2016}
-\conceito{Conceito: Excelente}
-\faculdadedoorientador{Faculdade de  - UFPA}
-\primeiromembrodabanca{Prof. Dr. Nome Sobrenome}
-\faculdadedoprimeiromembrodabanca{Faculdade de  - UFPA}
-\segundomembrodabanca{Prof. Dra. Nome Sobrenome}
-\faculdadedosegundomembrodabanca{Faculdade de  - UFPA}
-% -------------------------------------------------------------------------
+%\palavraschave{%% -------------------------------------------------------------------------
 % ---
 % Configurações de aparência do PDF final
 % alterando o aspecto da cor azul
@@ -300,10 +289,10 @@ sistema operacional, permitindo a comunicação com o usuário e a manipulação
 
 \subsection{Execução}
 
-Para executar o código em C foi utilizado o comando 
-\ovalbox{gcc soma\_e\_subtração.c -o soma\_e\_subtração}
+Para compilar o código em C foi utilizado o comando 
+\ovalbox{gcc -o soma\_subtracao\ soma\_subtracao.c}
 e então é criado um executável do programa que é executado
-através do comando \ovalbox{./soma\_e\_subtração}.
+através do comando \ovalbox{./soma\_subtração}.
 
 Na figura~\ref{fig:run_c}, é mostrada a execução do programa em C no ambiente Ubuntu com o Zsh no terminal do Visual Studio 
 Code, destacando o uso das chamadas de sistema para interação com o sistema operacional e validando a implementação em C.
@@ -319,7 +308,7 @@ Code, destacando o uso das chamadas de sistema para interação com o sistema op
 
 A implementação em Assembly x86\_64 foi gerada a partir do código-fonte em C usando o comando 
 \ovalbox{gcc -S}. O código Assembly resultante foi cuidadosamente adaptado para garantir que ele 
-mantenha a mesma funcionalidade que o programa em C. Abaixo, apresento uma descrição detalhada da 
+mantenha a mesma funcionalidade que o programa em C. Abaixo, apresentamos uma descrição detalhada da 
 implementação em Assembly, com ênfase no uso das chamadas de sistema para interagir com o sistema operacional.
 
 \subsection{Diretivas e Seções}
@@ -403,7 +392,7 @@ válida. Isso é feito usando desvios condicionais e mensagens de erro apropriad
 \begin{figure} %corrigir aqui
     \centering
     \includegraphics[width=1.0\textwidth]{imagens/run_asm.png}
-	\caption{Execução no terminal do código em Assembly!!!!!!!!!!!!!!!!!!!!!!!!.}
+	\caption{Compilação e Execução no terminal do código em Assembly.}
 	\label{fig:run_asm}
 \end{figure}
 
@@ -411,12 +400,12 @@ válida. Isso é feito usando desvios condicionais e mensagens de erro apropriad
 %para interagir com o sistema operacional, permitindo que o programa seja executado em um 
 %ambiente de sistema operacional, como o Ubuntu, como mencionado anteriormente.
 
-Para executar o código em assembly foi utilizado o seguinte comando no terminal 
-\ovalbox{gcc -o soma\_e\_subtração soma\_e\_subtração.s}
-e então é criado um executável do programa que é executado através do comando \ovalbox{./soma\_e\_subtração}.
+Para compilar o código em assembly foi utilizado o seguinte comando no terminal 
+\ovalbox{gcc -o subtracao\_soma\_ExeASM soma\_subtração.s}
+e então é criado um executável do programa que é executado através do comando \ovalbox{./subtracao\_soma\_ExeASM}.
  
-Na figura~\ref{fig:run_asm}, é mostrada a execução do programa em 
-Assembly no ambiente Ubuntu com o Zsh, destacando o uso das chamadas de sistema para 
+Na figura~\ref{fig:run_asm}, é mostrada a compilação e a execução do programa em 
+Assembly no ambiente do terminal do Visual Studio code com o Zsh, destacando o uso das chamadas de sistema para 
 interação com o sistema operacional e validando a implementação em Assembly.
 
 \section{Capturas da IDE mostrando o código}
@@ -446,7 +435,7 @@ Por conta do código em Assembly ser muito extenso optamos por apresentar o mesm
 Este projeto permitiu uma exploração prática de conceitos fundamentais relacionados 
 à programação em Assembly x86, operações 
 aritméticas, manipulação de dados e interação com o sistema operacional por meio de 
-chamadas de sistema que é um conceito ministrado na disciplina em questão. 
+chamadas de sistema que é um conceito ministrado na disciplina de Sistemas Operacionais. 
 Ao criar um programa simples que solicita
 entradas do usuário, realiza operações de soma e subtração e exibe os resultados, 
 pudemos destacar a importância das chamadas de sistema no 
