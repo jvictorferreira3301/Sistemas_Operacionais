@@ -19,25 +19,20 @@ int cliente_cortando = 0; // Variável auxiliar de indexação
 
 // PROTÓTIPOS
 void* barbeiro(); // Função padrão dos barbeiros
-void* cliente(void *id); // Função padrão dos cleintes
-void cortar_cabelo(); // 
-void chegada_cliente();
-void conseguir_corte();
-void desistir_corte();
+void* cliente(void* id); // Função padrão dos cleintes
+void cortar_cabelo(); // Indica que o barbeiro está cortando o cabelo
+void chegada_cliente(); // Indica a chegada de um novo cliente
+void conseguir_corte(); // Indica o que um cliente conseguiu acesso ao barbeiro
+void desistir_corte(); // Indica que um cliente desistiu de cortar o cabelo
 
 int main() {
     sem_init(&clientes, TRUE, 0);
     sem_init(&barbeiros, TRUE, 0);
     sem_init(&mutex, TRUE, 1);
     sem_init(&cliente_cortando_mutex, TRUE, 1);
-
     pthread_t b,c;
-
-    /* criando único barbeiro */
+    // INICIALIAÇÃO da threads 'c' de clientes e b 'b' de barbeiros
     pthread_create(&b, NULL, (void *) barbeiro, NULL);
-
-
-    /* criação indefinida de clientes */
     while(count < 100) {
         count++;
         int* c_id = malloc(sizeof(int));
@@ -45,69 +40,68 @@ int main() {
         pthread_create(&c, NULL, (void *) cliente, (void*) c_id);
         sleep(1);
     }
-
 return 0;
 }
-
+// FUNÇÃO 'barbeiro()':
 void* barbeiro() {
     while(TRUE) {
-        sem_wait(&clientes);   // vai dormir se o número de clientes for 0 
-        sem_wait(&mutex);       // obtém acesso a 'esperando' 
-        esperando--;            //descresce de um o contador de clientes à espera 
-        sem_post(&barbeiros);     // um barbeiro está agora pronto para cortar cabelo 
-        sem_post(&mutex);       // libera 'esperando' 
-        sem_wait(&cliente_cortando_mutex); // Adquira o semáforo para proteger cliente_cortando
-            int cliente_id = cliente_cortando;
-        sem_post(&cliente_cortando_mutex);
-        cortar_cabelo(&cliente_id);             // corta o cabelo (fora da região crítica) 
+        sem_wait(&clientes); // Vai dormir se o número de clientes for 0 
+        sem_wait(&mutex); // Obtém acesso a 'esperando' 
+        esperando--; // Descresce de um o contador de clientes à espera 
+        sem_post(&barbeiros); // Um barbeiro está agora pronto para cortar cabelo 
+        sem_post(&mutex); // Libera 'esperando' 
+        sem_wait(&cliente_cortando_mutex); // Exclusão mútua à 'cliente_cortando'
+            int cliente_id = cliente_cortando; // ID do cliente que está sendo atendido
+        sem_post(&cliente_cortando_mutex); // Libera o mutex 'cliente_cortando_mutex'
+        cortar_cabelo(&cliente_id); // Corta o cabelo (fora da região crítica) 
     }
     pthread_exit(NULL);
 }
-
+// FUNÇÃO 'cliente()':
 void* cliente(void *id) {
-    sem_wait(&mutex);           /* entra na região crítica */
-
-    if(esperando < CHAIRS) {      /* se não houver cadeiras vazias, saia */
-        chegada_cliente(id);
-        esperando = esperando + 1;  /* incrementa o contador de clientes à espera */
-        sem_post(&clientes);   /* acorda o barbeiro se necessário */
-        sem_post(&mutex);       /* libera o acesso a 'esperando' */
-        sem_wait(&barbeiros);     /* vai dormir se o número de barbeiros livres for 0 */
+    sem_wait(&mutex); // Acesso à região crítica
+    if(esperando < CHAIRS) { // Se não houver cadeiras vazias, saia 
+        chegada_cliente(id); // Indica a chegada de um cliente.
+        esperando = esperando + 1; // Incrementa o contador de clientes à espera
+        sem_post(&clientes); // Acorda o barbeiro se necessário 
+        sem_post(&mutex); // Libera o acesso a 'esperando' 
+        sem_wait(&barbeiros); // Vai dormir se o número de barbeiros livres for 0 
         sem_wait(&cliente_cortando_mutex); // Adquira o semáforo para proteger cliente_cortando
-            cliente_cortando = *((int *) id);
-        sem_post(&cliente_cortando_mutex);
-        conseguir_corte(id);          /* sentado e sendo servido */
+            cliente_cortando = *((int *) id); // ID cliente atendido atualizado
+        sem_post(&cliente_cortando_mutex); 
+        conseguir_corte(id); // Sentado e sendo servido 
     }else {
-        sem_post(&mutex);       /* a barbearia está cheia; não espera */
-        desistir_corte(id);
-
+        sem_post(&mutex); // A barbearia está cheia; não espera 
+        desistir_corte(id); // Desiste o do corte
     }
-
     pthread_exit(NULL);
 }
-
+// FUNÇÃO 'cortar_cabelo()':
 void cortar_cabelo(void* id){
-    setlocale(LC_ALL, "Portuguese");
-    if (*((int*)id) > 0){
+    setlocale(LC_ALL, "Portuguese"); // Linguagem
+    if (*((int*)id) > 0){ // Indica o cliente que está sendo atendido, se houver
         printf("\033[0;34m");
         printf("Barbeiro está cortando o cabelo do cliente %d!\n", *((int*)id));
     }
     sleep(3);
 }
-
+// FUNÇÂO 'chegada_cliente()':
 void chegada_cliente(void* id) {
+    // Indica a chegada de um novo cliente
     setlocale(LC_ALL, "Portuguese");
     printf("\033[0;33m");
     printf("Cliente %d chegou para cortar cabelo!\n", *((int*)id));
 }
-
+// FUNÇÃO 'conseguir_corte()':
 void conseguir_corte(void* id) {
+    // Indica que um cliente conseguiu ser atendido
     setlocale(LC_ALL, "Portuguese");
     printf("\033[0;32m");
     printf("Cliente %d está tendo o cabelo cortado!\n", *((int*)id));
 }
-
+// FUNÇÂO 'desistir_corte()':
 void desistir_corte(void* id){
+    // Indica a desistência de um cliente
     setlocale(LC_ALL, "Portuguese");
     printf("\033[0;31m");
     printf("Cliente %d desistiu! (O salão está muito cheio!)\n", *((int*)id));
