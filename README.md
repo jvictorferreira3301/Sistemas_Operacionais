@@ -18,28 +18,53 @@ escalonadores:
 • SRTF
 • Prioridades(fixa)
 • Round Robin (dar o time-slice como entrada)
-- [x] Tarefa 4 - Problemas Clássicos
+- [x] Tarefa 4 - Problemas Clássicos (Produtor x Consumidor, Leitor x Escritor, O jantar dos filósofos, O Problema do Barbeiro Dorminhoco).
 
 ### 🧰 Instruções para compilação 
 Para automatizar a compilação implementamos o makefile neste repositório. 
-Abaixo é descrito os comandos do makefile e o que eles fazem quando executados em cada subdiretório. 
+Abaixo é descrito os comandos do makefile e os targets para compilar tudo ou subdiretórios específicos. 
+
 Certifique-se de ter o makefile, o GCC e o texlive-full instalados em seu computador.
-#### make 
+#### 1. make 
+Para compilar tudo.
 ```sh
   make 
   ```
-* Na pasta **1_syscall**: compila o "soma_subtracao.c", para compilar "soma_subtracao.s", use:
+#### 2. make [nome do subdir]
+Para compilar um subdiretório específico.
+```sh
+  make 1_syscall
+  ```
+```sh
+  make 2_threads
+  ```
+```sh
+  make 3_escalonadores
+  ```
+```sh
+  make relatorios
+  ```
+* Na pasta **1_syscall**: compila somente o "soma_subtracao.c", para compilar "soma_subtracao.s", use:
   ```sh
   gcc -o subtracao_soma_s soma_subtracao.s 
   ```
 * Na pasta **2_threads**: compila os códigos em C.
-* Na past **3_escalonadores**: compila os códigos em C.
+* Na pasta **3_escalonadores**: compila os códigos em C.
 * Na pasta **relatorios**: compila todos os relatórios em LaTeX.  
 
-#### make clean 
+#### 3. make clean 
+Para limpar tudo.
+
+```sh
+  make clean
+  ```
+#### 4. make clean [nome do subdir]
+Para limpar um subdiretório específico.
+
 ```sh
   make clean
   ```  
+  
 * Na pasta **1_syscall**: remove o executável.
 * Na pasta **2_threads**: remove os executáveis.
 * Na pasta **3_escalonadores**: remove os executáveis.
