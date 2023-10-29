@@ -5,20 +5,22 @@
 #include <semaphore.h>
 #include <locale.h>
 
-#define CHAIRS 5                /* número de cadeiras para os clientes à espera */
-#define TRUE 1
+// DEFINIÇÃO DE MACROS
+#define CHAIRS 5 // Número de cadeiras para os clientes à espera
+#define TRUE 1 // Estado padrão
 
-sem_t clientes;                /* número de cliente à espera de atendimento */
-sem_t barbeiros;                  /* número de barbeiros à espera de clientes */
-sem_t mutex;                    /* para exclusão mútua */
-sem_t cliente_cortando_mutex;
-int esperando = 0;         /* clientes que estão esperando (não estão cortando) */
-int count = 0;
-int cliente_cortando = 0;
-/* protótipos */
-void* barbeiro();
-void* customer(void *id);
-void cortar_cabelo();
+sem_t clientes; // 'clientes': Número de cliente à espera de atendimento 
+sem_t barbeiros; // 'barbeiros': Número de barbeiros à espera de clientes 
+sem_t mutex; // 'mutex': Garante acesso exclusivo à 'esperando'
+sem_t cliente_cortando_mutex; // Garante exclusão mútua à 'cliente_cortando'
+int esperando = 0; // Clientes que estão esperando (não estão cortando) 
+int count = 0; // Variável auxiliar para contagem no loop 'while(count < 100)'
+int cliente_cortando = 0; // Variável auxiliar de indexação
+
+// PROTÓTIPOS
+void* barbeiro(); // Função padrão dos barbeiros
+void* cliente(void *id); // Função padrão dos cleintes
+void cortar_cabelo(); // 
 void chegada_cliente();
 void conseguir_corte();
 void desistir_corte();
@@ -40,7 +42,7 @@ int main() {
         count++;
         int* c_id = malloc(sizeof(int));
         *c_id = count; // ID relativa da thread
-        pthread_create(&c, NULL, (void *) customer, (void*) c_id);
+        pthread_create(&c, NULL, (void *) cliente, (void*) c_id);
         sleep(1);
     }
 
@@ -62,7 +64,7 @@ void* barbeiro() {
     pthread_exit(NULL);
 }
 
-void* customer(void *id) {
+void* cliente(void *id) {
     sem_wait(&mutex);           /* entra na região crítica */
 
     if(esperando < CHAIRS) {      /* se não houver cadeiras vazias, saia */

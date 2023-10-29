@@ -4,7 +4,7 @@
 #include<semaphore.h>
 #include<unistd.h>
 
-/* PROÓTIPOS: 'filosofos', 'come' */
+// PROTÓTIPOS: 'filosofos', 'comer' 
 void* filosofos(void *);
 void* comer(int);
 
@@ -42,25 +42,24 @@ int main(){
 4. Tendo acesso dos aos dois garfos, chama a função 'come'
 5. Terminando de comer, o filósofo 'f' libera os garfos 'f' e 'f+1' */
 void* filosofos(void * n){
-    int f = *(int *)n;
+    int f = *(int *)n; // Conversão do ID da thread filósofo
+    while(1){
+        sem_wait(&filosofo); // Acessa o semáforo de filósofos
+        sem_wait(&garfo[f]); // Acesso ao garfo n
+        sem_wait(&garfo[(f+1)%5]); // Acesso ao garfo n + 1
 
-    sem_wait(&filosofo);
-    sem_wait(&garfo[f]);
-    sem_wait(&garfo[(f+1)%5]);
+        sleep(2); // Espera de 2 segundos
+        comer(f); // Função 'comer' para o filósofo f
 
-    sleep(2);
-    comer(f);
-
-    printf("Filósofo %d terminou de comer\n\n", f);
-    sem_post(&garfo[(f+1)%5]);
-    sem_post(&garfo[f]);
-    sem_post(&filosofo);
-
-    return 0;
+        printf("Filósofo %d terminou de comer\n\n", f);
+        sem_post(&garfo[(f+1)%5]); // Libera o garfo 'n+1'
+        sem_post(&garfo[f]); // Libera o garfo 'n'
+        sem_post(&filosofo); // Incrementa o semáforo filosofo
+        sleep(5); // Suspende a execução por 5 segundos
+    }
 }
 // FUNÇÃO 'comer': Imprime indicando que o filósofo 'f' está comendo
 void* comer(int f){
-    sleep(1);
+    sleep(1); // Suspende a thread por 1 segundo
     printf("Filósofo %d está comendo\n",f);
-    return 0;
 }
