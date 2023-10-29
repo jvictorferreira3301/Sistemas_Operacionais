@@ -221,7 +221,7 @@ O principal propósito deste trabalho é:
 
     \item \textbf{Teste de Limites Máximos}:
     \begin{itemize}
-        \item Testar e identificar os limites máximos da quantidade de processos e threads que podem ser disparados em um ambiente Linux. Explorar as configurações relacionadas.
+        \item Testar e identificar os limites máximos da quantidade de processos e threads que podem ser disparados em um ambiente Linux. 
     \end{itemize}
 \end{itemize}
 
@@ -287,7 +287,7 @@ pai e filho (neto). O processo avô cria o processo pai,
 que por sua vez cria o processo filho. Isso demonstra a 
 criação de processos em uma hierarquia usando \texttt{fork()} e é 
 um conceito fundamental em sistemas operacionais. Podemos ver 
-a execução desse código na figura~\ref{fig:run1} no terminal ZSH do linux
+a execução desse código na figura~\ref{fig:run1} no terminal ZSH do Linux.
 
 \begin{figure}
     \centering
@@ -387,11 +387,11 @@ a sequência "ABC" seja sempre exibida. Isso demonstrará como as threads
 podem ser usadas para coordenar tarefas concorrentes e sincronizar a saída.
 
 O código que implementa as threads mencionadas pode ser visto na figura \ref{fig:processos4}
-e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detaalhda da impelementação em C:
+e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detalhada da implementação em C:
 
 \begin{itemize}
     
-    \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como pthread para manipulação de threads, entrada/saída padrão e manipulação de erros.
+    \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como \texttt{pthread} para manipulação de threads, entrada/saída padrão e manipulação de erros.
     \item O código começa definindo uma constante \texttt{NUM\_THREADS} como 3, que representa o número de threads que serão criadas.
     \item A função \texttt{print\_abc} é definida para ser executada por cada thread. Ela recebe um parâmetro \texttt{threadid} que representa a identificação da thread. Dentro da função, o código verifica o valor de \texttt{threadid} e imprime "A," "B," ou "C" de acordo com o valor. Isso garante que cada thread gere sua respectiva letra.
     \item A função \texttt{main} é o ponto de entrada do programa. Ela cria um array de objetos \texttt{pthread\_t} chamado \texttt{thread} para representar as threads.
@@ -424,7 +424,7 @@ e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detaalhda d
 
 \section{Benchmark}
 
-Nesta seção, apresentamos um código na \ref{fig:processos8} que demonstra uma comparação 
+Nesta seção, apresentamos um código na figura \ref{fig:processos8} que demonstra uma comparação 
 de desempenho entre o uso de primitivas `fork` e threads para realizar tarefas 
 concorrentes. O programa executa simulações para medir o tempo médio de 
 execução em ambas as abordagens. Para a análise mais precisa foram realizados
