@@ -1,7 +1,7 @@
 # Variáveis
 CC = gcc
 CFLAGS = -Wall
-SRC = 
+SRC = barbeiro.c jantar_filosofos.c leitor_escritor.c prod_cons.c
 TARGETS = $(patsubst %.c,%,$(SRC))
 
 # Regras
