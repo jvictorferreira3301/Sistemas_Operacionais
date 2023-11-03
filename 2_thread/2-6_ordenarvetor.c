@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <time.h>
-#include <signal.h>
+
 
 int vetor[100]; // Vetor compartilhado
 
