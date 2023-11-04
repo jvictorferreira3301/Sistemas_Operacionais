@@ -42,6 +42,8 @@
 \usepackage[final]{pdfpages}
 \usepackage{hyperref}
 \usepackage{fancybox}
+\usepackage{float}
+
 
 
 \newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
@@ -259,7 +261,7 @@ seu próprio espaço de endereçamento de memória. Isso é frequentemente usado
 para criar hierarquias de processos, onde um processo pai pode criar um ou 
 mais processos filhos.
 
-O código mostrado na figura \ref{fig:processos1} demonstra a criação de uma hierarquia de processos 
+O código mostrado na figura \ref{fig:proc1} demonstra a criação de uma hierarquia de processos 
 com um avô, um pai e um filho (neto) usando a função \texttt{fork()}. 
 Aqui está uma descrição detalhada do código:
 
@@ -268,7 +270,7 @@ Aqui está uma descrição detalhada do código:
     \includegraphics[width=0.5\textwidth]{imagens/processos_1.png}
 	\caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-1_processo_avo_pai_filho.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
     /2\_thread/2-1\_processo\_avo\_pai\_filho.c}}
-	\label{fig:processos1}
+	\label{fig:proc1}
 \end{figure}
 
 
@@ -303,7 +305,7 @@ criação de um processo pai e dois processos filhos. Essa demonstração ajudar
 a ilustrar o conceito de hierarquia de processos, onde um processo pai pode 
 criar e controlar vários processos filhos.
 
-Abaixo se encontra a descrição detalhada do código mostrado na figura \ref{fig:processos2}, e posteriormente, 
+Abaixo se encontra a descrição detalhada do código mostrado na figura \ref{fig:proc2}, e posteriormente, 
 na figura \ref{fig:run2}, a execução do mesmo no terminal ZSH do Linux.
 
 
@@ -326,7 +328,7 @@ na figura \ref{fig:run2}, a execução do mesmo no terminal ZSH do Linux.
     \includegraphics[width=0.7\textwidth]{imagens/processos_2.png}
     \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-2_processo_pai_2filho.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
     /2\_thread/2-2\_processo\_pai\_2filho.c}}
-    \label{fig:processos2}
+    \label{fig:proc2}
 \end{figure}
 
 \begin{figure}
@@ -335,6 +337,7 @@ na figura \ref{fig:run2}, a execução do mesmo no terminal ZSH do Linux.
     \caption{Execução do Código em C.}
     \label{fig:run2}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5555
 
 \section{Programa com 1 Avô, 1 Pai e 1 Filho; Parricídio}
 
@@ -345,7 +348,7 @@ e identificar quem se torna o novo pai do processo filho. Isso ilustra a dinâmi
 criação, terminação e hierarquia de processos em sistemas operacionais.
 
 A seguir, mostramos a descrição completa do código em questão que é
-apresentado na figura \ref{fig:processos3} e executado na figura \ref{fig:run3}.
+apresentado na figura \ref{fig:proc3} e executado na figura \ref{fig:run3}.
 
 \begin{itemize}
     \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como entrada/saída padrão, manipulação de processos e sinais.
@@ -364,20 +367,21 @@ apresentado na figura \ref{fig:processos3} e executado na figura \ref{fig:run3}.
 
 Este código exemplifica a criação e manipulação de processos em sistemas operacionais, incluindo a dinâmica de hierarquia de processos e como é possível modificar essa hierarquia por meio da eliminação de processos.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{imagens/processos_3.png}
+    \includegraphics[width=0.57\textwidth]{imagens/processos_3.png}
     \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-3_parricidio.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
     /2\_thread/2-3\_parricidio.c.}} 
-    \label{fig:processos3}
+    \label{fig:proc3}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{imagens/run_processos_3.png}
     \caption{Execução do Código em C.}
     \label{fig:run3}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Thread ABC}
 
@@ -386,7 +390,7 @@ criadas para imprimir as letras "A", "B" e "C" na tela, garantindo que
 a sequência "ABC" seja sempre exibida. Isso demonstrará como as threads 
 podem ser usadas para coordenar tarefas concorrentes e sincronizar a saída.
 
-O código que implementa as threads mencionadas pode ser visto na figura \ref{fig:processos4}
+O código que implementa as threads mencionadas pode ser visto na figura \ref{fig:proc4}
 e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detalhada da implementação em C:
 
 \begin{itemize}
@@ -407,24 +411,122 @@ e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detalhada d
     \includegraphics[width=0.6\textwidth]{imagens/processos_4.png}
 	\caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-4_threadABC.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
     /2\_thread/2-4\_threadABC.c.}}
-	\label{fig:processos4}
+	\label{fig:proc4}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\textwidth]{imagens/run_processos_4.png}
+    \includegraphics[width=0.3\textwidth]{imagens/run_processos_4.png}
     \caption{Execução do Código em C.}
     \label{fig:run4}
 \end{figure}
-\section{Processo Pai e Filho}
+
+\section{Compartilhamento de Variáveis entre Processos}
+
+Nesta seção, exploramos o compartilhamento de variáveis entre um processo pai e um 
+processo filho. O programa em C na figura \ref{fig:proc5} que é executado na \ref{fig:run5} ilustra esse conceito, demonstrando 
+como uma variável pode ser compartilhada entre esses dois processos e como as alterações 
+feitas por um afetam o outro.
+
+O código em C descrito abaixo apresenta a criação de processos e o compartilhamento de uma variável entre o processo pai e o processo filho:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6 \textwidth]{imagens/processos_5.png}
+    \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-5_VariavelVisivel.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
+    /2\_thread/2-5\_VariavelVisivel.c.}}
+    \label{fig:proc5}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7 \textwidth]{imagens/run_processos_5.png}
+    \caption{Execução do Código em C.}
+    \label{fig:run5}
+\end{figure}
+
+\begin{itemize}
+    \item O código começa declarando uma variável chamada \texttt{visivel} que é compartilhada entre o processo pai e o processo filho. Inicialmente, o valor dessa variável é definido como 1 e é impresso no processo pai antes da criação do processo filho.
+    \item Em seguida, o código chama a função \texttt{fork()} para criar um novo processo, que será o processo filho.
+    \item O código verifica se a criação do processo filho foi bem-sucedida (quando \texttt{pid} é maior que 0). Se ocorrer algum erro, uma mensagem de erro é exibida.
+    \item No processo pai, após a espera pelo processo filho (usando \texttt{wait}), o valor da variável \texttt{visivel} é impresso novamente. Isso demonstra que o processo pai e o processo filho compartilham a mesma variável na memória, e as alterações feitas por um processo são visíveis ao outro.
+    \item No processo filho, o valor da variável \texttt{visivel} é alterado para 5, e esse novo valor é impresso no processo filho. Em seguida, o processo filho é encerrado com \texttt{exit(0)}.
+    \item O código do processo pai continua a ser executado após a espera pelo processo filho.
+\end{itemize}
+
+\subsection{Justificativa dos Resultados}
+
+A justificativa para os resultados obtidos é a seguinte:
+
+- Antes do \texttt{fork()}, o processo pai e o processo filho compartilham a mesma variável \texttt{visivel} com valor 1. Isso ocorre porque, durante o \texttt{fork()}, o processo filho herda uma cópia idêntica do espaço de endereçamento do processo pai, incluindo o valor da variável.
+
+- No processo filho, o valor da variável \texttt{visivel} é alterado para 5. Isso acontece no espaço de endereçamento do processo filho e não afeta o processo pai, já que eles têm espaços de endereçamento separados.
+
+- Após o processo filho ter alterado a variável e ter sido encerrado, o processo pai imprime novamente o valor da variável. Como o processo pai e o processo filho têm espaços de endereçamento separados, a alteração feita pelo processo filho não afeta o valor da variável no processo pai. Portanto, o valor impresso pelo processo pai após o término do filho é 1.
+
+Esses resultados demonstram o compartilhamento de variáveis entre processos, bem como o isolamento de seus espaços de endereçamento, o que evita que as alterações feitas em um processo afetem diretamente o outro.
+
 
 \section{Vetor de 100 posições}
 
-\section{Threads versus Processos}
+
+Nesta seção, exploramos a ordenação de um vetor de 100 posições em processos e discutimos o compartilhamento de memória entre processos no ambiente do sistema operacional. O programa em C a seguir ilustra o conceito de ordenação de vetor em processos e como os processos podem compartilhar uma parte da memória.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8 \textwidth]{imagens/processos_6.png}
+    \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-6_Vetor100.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main
+    /2\_thread/2-6\_Vetor100.c.}}
+    \label{fig:proc6}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0 \textwidth]{imagens/run_processos_6.png}
+    \caption{Execução do Código em C.}
+    \label{fig:run6}
+\end{figure}
+
+Abaixo apresentamos a descrição do código: 
+
+\begin{itemize}
+        \item \texttt{\#include} direciona a inclusão das bibliotecas necessárias, como entrada/saída padrão, manipulação de processos, manipulação de erros e funções para geração de números aleatórios.
+    
+        \item O código inicia criando um vetor de 100 posições chamado \texttt{vetor}, que será compartilhado entre o processo pai e o processo filho. Os valores do vetor são preenchidos com números inteiros aleatórios no intervalo de 0 a 1000.
+    
+        \item Antes de criar o processo filho, o processo pai exibe os valores do vetor. Isso mostra o estado inicial do vetor antes de qualquer alteração.
+    
+        \item Em seguida, o código cria um processo filho usando a função \texttt{fork()}. O processo filho recebe uma cópia do espaço de endereçamento do processo pai, incluindo o vetor.
+    
+        \item No processo pai, após esperar o processo filho terminar com \texttt{wait()}, os valores do vetor são novamente exibidos. Isso ilustra que o processo filho e o processo pai compartilham o mesmo vetor.
+    
+        \item No processo filho, o vetor é ordenado usando a função \texttt{qsort}.
+    
+        \item No entanto, as alterações feitas no vetor pelo processo filho não afetam o vetor no processo pai. 
+    Portanto, no processo pai, os valores do vetor continuam os mesmos antes e depois da ordenação realizada pelo processo filho.
+\end{itemize}
+
+
+
+\subsection{Justificativa dos Resultados}
+
+A justificativa para os resultados obtidos é a seguinte:
+
+\begin{itemize}
+    \item Antes do \texttt{fork()}, o processo pai e o processo filho compartilham o mesmo vetor na memória. Isso ocorre porque, durante o \texttt{fork()}, o processo filho herda uma cópia idêntica do espaço de endereçamento do processo pai, incluindo o vetor.
+
+    \item No processo filho, o vetor é ordenado usando a função \texttt{qsort}. No entanto, devido ao modelo de espaço de endereço separado entre processos em sistemas Unix, incluindo o Linux, as alterações feitas no vetor pelo processo filho não afetam o vetor no processo pai. Portanto, no processo pai, os valores do vetor continuam os mesmos antes e depois da ordenação realizada pelo processo filho. Essa separação de espaço de endereço garante que as alterações feitas em um processo não se propaguem automaticamente para outros processos.
+
+\end{itemize}
+
+Essa abordagem destaca a importância de entender o modelo de espaço de endereço separado entre processos em sistemas Unix e como isso afeta o compartilhamento de memória e as alterações entre processos.
+
+
+\section{Threads Vs. Processos: Limites Máximos}
 
 \section{Benchmark}
 
-Nesta seção, apresentamos um código na figura \ref{fig:processos8} que demonstra uma comparação 
+Nesta seção, apresentamos um código na figura \ref{fig:proc8} que demonstra uma comparação 
 de desempenho entre o uso de primitivas `fork` e threads para realizar tarefas 
 concorrentes. O programa executa simulações para medir o tempo médio de 
 execução em ambas as abordagens. Para a análise mais precisa foram realizados
@@ -436,7 +538,7 @@ e na figura \ref{fig:run8} junto com a execução.
     \centering
     \includegraphics[width=0.7\textwidth]{imagens/processos_8.png}
     \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/2_thread/2-8_benchmark.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main/2\_thread/2-8\_benchmark.c}}
-    \label{fig:processos8}
+    \label{fig:proc8}
 \end{figure}
 
 \begin{figure}
