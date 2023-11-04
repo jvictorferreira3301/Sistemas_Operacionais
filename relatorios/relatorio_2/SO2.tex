@@ -199,7 +199,7 @@ uso de threads em um ambiente Linux. Através dessas atividades,
 pretendemos aprofundar nossa compreensão de como a concorrência é 
 gerenciada em sistemas operacionais e como diferentes abordagens afetam 
 o desempenho e o comportamento do programa.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Objetivos}
 
@@ -226,9 +226,8 @@ O principal propósito deste trabalho é:
         \item Testar e identificar os limites máximos da quantidade de processos e threads que podem ser disparados em um ambiente Linux. 
     \end{itemize}
 \end{itemize}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
-
 \chapter{Desenvolvimento (Programa explicado e Cópias das telas do emulador.)}
 
 Primeiramente, o desenvolvimento deste trabalho gira em torno da criação
@@ -249,6 +248,7 @@ no roteiro e evidenciados nas seções deste capítulo.
 %    \item . Os limites máximos. Em ambiente linux os limites superiores da quantidade de processos e threads que podem ser disparados são configuráveis, testar e identificar.
 %    \item Programa para comparar o desempenho para a realização da(s) tarefa(s) do programa através do uso de primitivas fork e através de threads (calcule a média de tempo de 20 simulações).
 %\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 \section{Programa com 1 Avô, 1 Pai e 1 Filho}
 
@@ -297,6 +297,7 @@ a execução desse código na figura~\ref{fig:run1} no terminal ZSH do Linux.
 	\caption{Execuçao do Código em C. }
 	\label{fig:run1}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Programa com 1 Pai e 2 Filhos}
 
@@ -420,6 +421,7 @@ e sua execução na figura \ref{fig:run4}. Aqui esta uma descrição detalhada d
     \caption{Execução do Código em C.}
     \label{fig:run4}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 
 \section{Compartilhamento de Variáveis entre Processos}
 
@@ -465,10 +467,9 @@ A justificativa para os resultados obtidos é a seguinte:
 - Após o processo filho ter alterado a variável e ter sido encerrado, o processo pai imprime novamente o valor da variável. Como o processo pai e o processo filho têm espaços de endereçamento separados, a alteração feita pelo processo filho não afeta o valor da variável no processo pai. Portanto, o valor impresso pelo processo pai após o término do filho é 1.
 
 Esses resultados demonstram o compartilhamento de variáveis entre processos, bem como o isolamento de seus espaços de endereçamento, o que evita que as alterações feitas em um processo afetem diretamente o outro.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Vetor de 100 posições}
-
 
 Nesta seção, exploramos a ordenação de um vetor de 100 posições em processos e discutimos o compartilhamento de memória entre processos no ambiente do sistema operacional. O programa em C a seguir ilustra o conceito de ordenação de vetor em processos e como os processos podem compartilhar uma parte da memória.
 
@@ -520,9 +521,10 @@ A justificativa para os resultados obtidos é a seguinte:
 \end{itemize}
 
 Essa abordagem destaca a importância de entender o modelo de espaço de endereço separado entre processos em sistemas Unix e como isso afeta o compartilhamento de memória e as alterações entre processos.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Threads Vs. Processos: Limites Máximos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Benchmark}
 
@@ -586,12 +588,21 @@ A escolha entre `fork` e threads depende das necessidades específicas de um sis
 Neste experimento, o código foi projetado para medir e comparar o desempenho de duas abordagens de concorrência em um contexto prático. Os resultados podem ser usados para tomar decisões informadas sobre o uso de `fork` ou threads com base nas demandas do sistema.
 
 A execução de benchmarks é uma prática valiosa para garantir que sistemas e aplicativos atendam aos requisitos de eficiência e desempenho, contribuindo para a otimização e melhoria contínua.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 
 
 \chapter{Conclusão}
 \label{conclusao}
+Em última análise, o trabalho apresentou uma série de experimentos e códigos em C relacionados 
+o desenvolvimento de sistemas operacionais. O capítulo 3 abordou tópicos cruciais, como o uso
+de threads para coordenar tarefas concorrentes e sincronizar a saída, o compartilhamento de 
+variáveis entre processos, a importância do modelo de espaço de endereço separado entre processos,
+a comparação de desempenho entre 'fork' e threads etc.
 
+Em resumo, o trabalho demonstrou a importância do entendimento dos conceitos de concorrência, 
+compartilhamento de recursos e escolha de abordagens em sistemas operacionais. Através dos 
+experimentos e códigos apresentados, podemos botar em prática o conhecimento que adquirimos 
+ao longo da disciplina e fixar o aprendizado dos assuntos.
 
 
 
