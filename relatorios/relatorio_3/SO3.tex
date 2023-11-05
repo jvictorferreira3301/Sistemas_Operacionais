@@ -459,6 +459,61 @@ execução é exposta na figura \ref{fig:rrun}.
   \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Algoritmo FCFS (First-Come, First-Served)}
+
+Nesta seção, apresentaremos a implementação do algoritmo de escalonamento FCFS. O algoritmo FCFS 
+opera com o princípio de que os processos são atendidos na ordem em que chegam à fila de prontidão. 
+Ou seja, o primeiro processo que entra na fila é o primeiro a ser executado. Isso torna o FCFS 
+um algoritmo de escalonamento simples, mas não necessariamente eficiente em todos os cenários.
+
+O código C na figura \ref{fig:fifo} demonstra a implementação do algoritmo FCFS, e a figura \ref{fig:fifo_run} mostra sua execução.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\textwidth]{imagens/fifo_src.png}
+    \caption{Código em C. Disponível em: \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/3_escalonadores/sched-fcfs.c}{github.com/jvictorferreira3301/SistemasOperacionais/blob/main/ 3\_escalonadores/sched-fcfs.c}}
+    \label{fig:fifo}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/fifo_run.png}
+    \caption{Execução do Código em C.}
+    \label{fig:fifo_run}
+\end{figure}
+
+\subsection{Explicação do código}
+
+\begin{itemize}
+    \item \textbf{Variáveis-chave:}
+      \begin{itemize}
+        \item `proc[]`: Um array que representa os identificadores dos processos (PID).
+        \item `burst\_time[]`: Um array que armazena o tempo de execução de cada processo.
+        \item `wait\_time[]`: Um array para armazenar o tempo de espera de cada processo.
+        \item `tat[]`: Um array para armazenar o tempo de retorno (Turnaround\ Time) de cada processo.
+        \item `total\_wt`: Variável para rastrear o tempo total de espera de todos os processos.
+        \item `total\_tat`: Variável para rastrear o tempo total de retorno de todos os processos.
+      \end{itemize}
+  
+    \item \textbf{Funções:}
+      \begin{itemize}
+        \item `waitingtime()`: Calcula o tempo de espera para cada processo, somando o tempo de execução do processo anterior com o tempo de espera do processo anterior.
+        \item `turnaroundtime()`: Calcula o tempo de retorno para cada processo, que é a soma do tempo de execução e do tempo de espera.
+        \item `avgtime()`: Função principal que implementa o algoritmo FIFO, calcula os tempos de espera e de retorno e exibe os resultados.
+      \end{itemize}
+  
+    \item \textbf{Funcionamento:}
+      \begin{itemize}
+        \item Inicialmente, os processos são criados com tempos de execução variáveis, refletindo cenários realistas.
+        \item Os processos são atendidos na ordem em que chegam à fila de prontidão, seguindo o princípio FIFO.
+        \item O tempo de espera e o tempo de retorno são calculados para cada processo usando as funções `waitingtime()` e `turnaroundtime()`.
+        \item Os resultados são impressos, mostrando o PID, o tempo de execução, o tempo de espera e o tempo de retorno de cada processo.
+        \item Finalmente, são calculados os tempos médios de espera e de retorno e exibidos na saída.
+      \end{itemize}
+  \end{itemize}
+
+
 \section{Comparação de Algoritmos}
 Nesta seção, realizaremos uma análise comparativa do desempenho dos quatro algoritmos de escalonamento 
 com base nos resultados dos Tempos Médios de Espera e Tempos Médios de Retorno obtidos na implementação 
@@ -478,6 +533,7 @@ gráfico que compara esses tempos.
     SRTF (Shortest Remaining Time First) & 101.60 & 110.13 \\
     Prioridades (Fixa) & 107.60 & 115.43 \\
     Round Robin & 213.63 & 223.03 \\
+    FCFS (First Come First Served) & 111.60 & 119.80 \\
     \hline
     \end{tabular}
     \caption{Tempos Médios de Espera e Retorno para os Algoritmos de Escalonamento propostos.}
@@ -497,6 +553,8 @@ Observando os resultados, podemos tirar algumas conclusões:
 - O SJF (Shortest Job First) também demonstrou um bom desempenho, com tempos próximos aos do SRTF, mas um pouco mais longos devido à natureza não preemptiva do SJF.
 
 - O algoritmo de Prioridades (Fixa) teve desempenho intermediário, com valores ligeiramente maiores de Tempos Médios de Espera e Retorno em comparação com o SRTF e o SJF.
+
+-O FCFS (First Come, First Served) se manteve quase igual aos anteriores. No entanto, ele pode resultar em tempos de espera e retorno mais longos, especialmente quando processos longos são executados primeiro.
 
 - O Round Robin apresentou os Tempos Médios de Espera e Retorno mais longos, o que é típico desse algoritmo, devido à divisão igualitária do tempo de CPU entre os processos.
 

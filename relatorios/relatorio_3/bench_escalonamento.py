@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 
 # Nomes dos algoritmos
-algoritmos = ["SJF", "SRTF", "Prioridades", "Round Robin"]
+algoritmos = ["SJF", "SRTF", "Prioridades", "Round Robin", "FCFS"]
 
 # Tempos Médios de Espera (substitua pelos valores reais)
-tempo_medio_espera = [112.90, 101.60, 107.60, 213.63]
+tempo_medio_espera = [112.90, 101.60, 107.60, 213.63, 111.60]
 
 # Tempos Médios de Retorno (substitua pelos valores reais)
-tempo_medio_retorno = [122.13, 110.13, 115.43, 223.03]
+tempo_medio_retorno = [122.13, 110.13, 115.43, 223.03, 119.80]
 
 # Largura das barras
 largura = 0.35
