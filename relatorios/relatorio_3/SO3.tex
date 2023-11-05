@@ -560,22 +560,19 @@ Observando os resultados, podemos tirar algumas conclusões:
 
 \subsection{Escolha do Algoritmo}
 
-A escolha do algoritmo de escalonamento depende dos requisitos específicos do 
-sistema. Se o objetivo for minimizar os tempos de espera e retorno, o SRTF é 
-a escolha preferencial. O SJF também é uma boa opção, mas pode não ser tão 
-eficaz em sistemas não preemptivos. O algoritmo de Prioridades é útil quando 
-a priorização de tarefas é necessária. O Round Robin é adequado para equilibrar 
-a carga entre processos, mas com tempos de espera mais longos.
+A escolha do algoritmo de escalonamento depende dos requisitos específicos do sistema. Se o objetivo for minimizar os tempos de espera e 
+etorno, o SRTF é a escolha preferencial. O SJF também é uma boa opção, mas pode não ser tão eficaz em sistemas não preemptivos. O algoritmo 
+de Prioridades é útil quando a priorização de tarefas é necessária. O Round Robin é adequado para equilibrar a carga entre processos, mas com 
+tempos de espera mais longos. O FCFS (First-Come, First-Served) é indicado quando a ordem de chegada dos processos é mais importante do que 
+otimizar os tempos de espera e retorno, mas ele tende a resultar em tempos mais longos de espera e retorno.
 
-Dessa forma, a seleção do algoritmo de escalonamento deve ser baseada nos 
-objetivos do sistema, nas características dos processos e na natureza das 
-cargas de trabalho.
+Dessa forma, a seleção do algoritmo de escalonamento deve ser baseada nos objetivos do sistema, nas características dos processos e na natureza das cargas de trabalho.
     
 
 \chapter{Conclusão}
 \label{conclusao}
 
-Neste relatório, exploramos a implementação e análise de quatro diferentes algoritmos de escalonamento de processos: SJF (Shortest Job First), SRTF (Shortest Remaining Time First), Prioridades (Fixa) e Round Robin. Cada um desses algoritmos tem suas próprias características e desempenho, e conduzimos uma análise comparativa com base nos resultados obtidos.
+Neste relatório, exploramos a implementação e análise de cinco diferentes algoritmos de escalonamento de processos: SJF (Shortest Job First), SRTF (Shortest Remaining Time First), Prioridades (Fixa), Round Robin e FCFS (First-Come, First-Served). Cada um desses algoritmos tem suas próprias características e desempenho, e conduzimos uma análise comparativa com base nos resultados obtidos.
 
 Observamos que o algoritmo SRTF (Shortest Remaining Time First) demonstrou o melhor desempenho em termos de minimização dos Tempos Médios de Espera e Retorno. Isso ocorre devido à natureza dinâmica do SRTF, que sempre prioriza os processos mais curtos, mas pode exigir trocas frequentes de contexto.
 
@@ -583,14 +580,15 @@ O SJF (Shortest Job First) também apresentou um bom desempenho, especialmente q
 
 O algoritmo de Prioridades (Fixa) é valioso quando a priorização de tarefas é necessária, mas requer uma atribuição cuidadosa de prioridades para garantir um bom desempenho.
 
-Por outro lado, o Round Robin é útil para equilibrar a carga entre os processos, mas apresenta tempos de espera mais longos devido à divisão igualitária do tempo de CPU.
+O Round Robin é útil para equilibrar a carga entre os processos, mas apresenta tempos de espera mais longos devido à divisão igualitária do tempo de CPU.
+
+O FCFS (First-Come, First-Served) é indicado quando a ordem de chegada dos processos é mais importante do que otimizar os tempos de espera e retorno, mas ele tende a resultar em tempos mais longos de espera e retorno.
 
 A escolha do algoritmo de escalonamento deve ser baseada nas necessidades específicas do sistema e nas características dos processos que serão executados. Cada algoritmo tem suas vantagens e desvantagens, e a seleção apropriada deve levar em consideração os objetivos de desempenho, as demandas do sistema e as configurações disponíveis.
 
 Em última análise, a escalonamento de processos é uma parte essencial do gerenciamento de sistemas operacionais, e a compreensão das diferentes opções disponíveis é fundamental para a otimização do desempenho do sistema.
 
 Este relatório fornece uma visão abrangente dos algoritmos de escalonamento e suas implicações, auxiliando na tomada de decisões informadas ao escolher o algoritmo mais adequado para um ambiente específico. A análise comparativa dos resultados destacou a importância de selecionar o algoritmo apropriado para atender aos objetivos do sistema e melhorar a experiência do usuário.
-
 
 \postextual
 
