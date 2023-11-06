@@ -1,17 +1,23 @@
+
+name: Build LaTeX document
 on: [push]
 jobs:
-  compile_reports:
+  build_latex:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Set up Git repository
         uses: actions/checkout@v2
-
-      - name: Compile SO1 LaTeX document
+        with:
+          submodules: 'recursive'  # Isso garante que os submódulos sejam inicializados e atualizados.
+      - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
           root_file: relatorios/relatorio_1/SO1.tex
-        env:
-          TEXINPUTS: "./relatorios/relatorio_1/:$TEXINPUTS"
+      - name: Upload PDF file
+        uses: actions/upload-artifact@v2
+        with:
+          name: PDF
+          path: SO1.pdf
       
       #- name: Compile SO2 LaTeX document
        # uses: xu-cheng/latex-action@v3
