@@ -12,8 +12,8 @@ jobs:
       - name: Compile LaTeX documents
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: relatorios/relatorio_1/SO1.tex
-          working_directory: relatorios/relatorio_1
+          root_file: ../../relatorios/relatorio_1/SO1.tex
+          working_directory: ../../relatorios/relatorio_1
 
       - name: Compile LaTeX documents
         uses: xu-cheng/latex-action@v3
