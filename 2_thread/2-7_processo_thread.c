@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
         
         if (status) { // Ocorreu um erro
             perror("pthread_create");
+            printf("\nIsso aconteceu, pelo seguinte motivo: O número de \nthreads disponiveis para uso chegou ao seu limite\n\n");
             exit(-1);
         }
     }
@@ -29,8 +30,5 @@ int main(int argc, char *argv[]) {
         pthread_join(thread[j], NULL);
     }
     
-    
-    
-
     pthread_exit(NULL);
 }
