@@ -11,6 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up TeXLive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+
       - name: Compile LaTeX documents
         run: |
           for dir in relatorios/relatorio_1 relatorios/relatorio_2 relatorios/relatorio_3 relatorios/relatorio_4; do
