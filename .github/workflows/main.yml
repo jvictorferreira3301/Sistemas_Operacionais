@@ -1,36 +1,37 @@
 name: Build LaTeX documents
-on:
-  push:
-    branches:
-      - main
-
+on: [push]
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-    container:
-      image: xu-cheng/latex-docker:latest  # Use a Docker image with a full LaTeX environment
-
     steps:
-      - name: Checkout code
+      - name: Set up Git repository
         uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
 
       - name: Compile LaTeX documents
-        run: |
-          for dir in relatorios/relatorio_1 relatorios/relatorio_2 relatorios/relatorio_3 relatorios/relatorio_4; do
-            cd "$dir"
-            if [ -f "SO1.tex" ] || [ -f "SO2.tex" ] || [ -f "SO3.tex" ] || [ -f "SO4.tex" ]; then
-              echo "Compiling LaTeX documents in $dir"
-              for file in SO1 SO2 SO3 SO4; do
-                if [ -f "$file.tex" ]; then
-                  latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode "$file.tex"
-                fi
-              done
-              cd ../..
-            else
-              echo "No .tex files found in $dir, skipping compilation."
-              cd ../..
-            fi
-          done
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: relatorios/relatorio_1/SO1.tex
+          working_directory: relatorios/relatorio_1
+
+      - name: Compile LaTeX documents
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: relatorios/relatorio_2/SO2.tex
+          working_directory: relatorios/relatorio_2
+
+      - name: Compile LaTeX documents
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: relatorios/relatorio_3/SO3.tex
+          working_directory: relatorios/relatorio_3
+
+      - name: Compile LaTeX documents
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: relatorios/relatorio_4/SO4.tex
+          working_directory: relatorios/relatorio_4
 
       - name: Upload PDF files
         uses: actions/upload-artifact@v2
