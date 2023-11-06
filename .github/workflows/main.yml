@@ -7,14 +7,12 @@ on:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+    container:
+      image: xu-cheng/latex-docker:latest  # Use a Docker image with a full LaTeX environment
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up TeXLive
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
 
       - name: Compile LaTeX documents
         run: |
