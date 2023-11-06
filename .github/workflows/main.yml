@@ -1,0 +1,36 @@
+name: Build LaTeX documents
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Compile LaTeX documents
+        run: |
+          for dir in relatorios/relatorio_1 relatorios/relatorio_2 relatorios/relatorio_3 relatorios/relatorio_4; do
+            cd "$dir"
+            if [ -f "SO1.tex" ] || [ -f "SO2.tex" ] || [ -f "SO3.tex" ] || [ -f "SO4.tex" ]; then
+              echo "Compiling LaTeX documents in $dir"
+              for file in SO1 SO2 SO3 SO4; do
+                if [ -f "$file.tex" ]; then
+                  latexmk -pdf -file-line-error -halt-on-error -interaction=nonstopmode "$file.tex"
+                fi
+              done
+              cd ../..
+            else
+              echo "No .tex files found in $dir, skipping compilation."
+              cd ../..
+            fi
+          done
+
+      - name: Upload PDF files
+        uses: actions/upload-artifact@v2
+        with:
+          name: PDF
+          path: relatorios/relatorio_*/SO*.pdf
