@@ -1,4 +1,4 @@
- \documentclass[
+\documentclass[
 	% -- opções da classe memoir --
 	12pt,				% tamanho da fonte
 	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
@@ -43,6 +43,7 @@
 \usepackage{hyperref}
 \usepackage{fancybox}
 
+\bibliographystyle{plain}
 
 \newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
 % ---
@@ -189,7 +190,7 @@
 
 \chapter{Introdução}
 
-A literatura de sistemas operacionais está cheia de problemas interessantes que foram amplamente discutidos e analisados usando variados métodos de sincronização [1]. Os problemas clássicos de sistemas operacionais são exemplos de problemas de coordenação de processos comumente abordados por autores e em sala de aula. Muitos desses problemas são didaticamente importantes para a compreensão do tema IPC (Interprocess Communication), onde situações adversas e/ou indesejadas durante a execução de processos e threads devem ser solucionadas para o bem da concorrência de tarefas e sistemas multiprogramáveis. Nesse contexto, o presente trabalho busca analisar soluções de alguns desses problemas clássicos.
+A literatura de sistemas operacionais está cheia de problemas interessantes que foram amplamente discutidos e analisados usando variados métodos de sincronização \cite{tanenbaum2010sistemas}. Os problemas clássicos de sistemas operacionais são exemplos de problemas de coordenação de processos, comumente abordados por autores e em sala de aula. Muitos desses problemas são didaticamente importantes para a compreensão do tema IPC (Interprocess Communication), onde situações adversas e/ou indesejadas durante a execução de processos e threads devem ser solucionadas para o bem da concorrência entre tarefas e sistemas multiprogramáveis. Nesse contexto, o presente trabalho busca analisar soluções de alguns desses problemas clássicos.
 
 \chapter{Objetivos}
 
@@ -207,15 +208,24 @@ O objetivo deste trabalho é analisar soluções dos seguintes problemas clássi
 \chapter{O Problema do Leitores x Escritores}
 
 \section{Descrição do problema}
-O problema dos Leitores x Escritores é um conhecido paradigma da Programação Concorrente. Este problema parte do princípio da existência de vários processos ou threads de duas naturezas distintas: leitores e escritores. Todos compartilham uma zona de memória comum, no qual escritores modificam um dado, e leitores leem esse dado. O problema se dá pela necessidade de sincronização entre essas duas naturezas para que não haja distúrbio causado por condição de corrida. 
+O problema dos Leitores x Escritores é um conhecido paradigma da Programação Concorrente. Este problema parte do princípio da existência de vários processos ou threads de duas naturezas distintas: leitores e escritores. Todos compartilham uma zona de memória comum, no qual escritores modificam um dado, e leitores leem esse dado. O problema se dá pela necessidade de sincronização entre essas duas naturezas para que não haja distúrbio causado por possíveis condições de corrida. 
 
-Sendo assim, a ideia é coordenar tais tarefas de modo que a medida que leitores chegam, podem ler à vontade, contanto que haja pelo menos um leitor agindo na zona compartilhada. O que não pode acontecer é que mais de um escritor esteja atuando, não importa quantas ou de que tipo tarefas fora da região crítica desejarem utilizá-la.
+Sendo assim, a ideia é coordenar tais tarefas de modo que a medida que leitores chegam, podem ler à vontade, contanto que haja pelo menos um leitor agindo na zona compartilhada. O que não pode acontecer é que mais de um escritor entre em ação, não importa quantas ou de que tipo as tarefas fora da região crítica desejarem utilizá-la.
+
+A \textbf{Figura~\ref{fig:ex_leitor_escritor}} abaixo exemplifica uma situação onde um buffer M é comparilhado por escriores (e) e leitores (l).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/leitor_escritor.jpg}
+    \caption{Leitores e escritores: Exemplo ilustrativo}
+    \label{fig:ex_leitor_escritor}
+\end{figure}
 
 Portanto, para desenvolver uma solução, é preciso atender às seguintes condições:
 
 \begin{itemize}
-    \item Para um leitor acessar a zona compartilhada, basta certificar-se que haja pelo menos um outro leitor ativo na mesma.
-    \item Um escritor, para ter acesso à zona compartilhada, precisa garantir acesso exclusivo.
+    \item Para um leitor acessar a zona compartilhada, basta certificar-se que haja pelo menos um outro leitor ativo na mesma;
+    \item Um escritor, para ter acesso à zona compartilhada, precisa garantir acesso exclusivo;
     \item Tarefas de tipos distintos não podem ter acesso simultâneo à zona compartilhada.
 \end{itemize}
 
@@ -223,11 +233,11 @@ Portanto, para desenvolver uma solução, é preciso atender às seguintes condi
 
 \subsection{Contexto}
 
-Existe certa quantidade de tarefas Leitores e Escritores que compartilham uma base de dados que guarda um variável contador. Para evitar condição de corrida, é preciso coordenar o acesso à base de dados para a leitura e escrita da variável contador.
+Existe certa quantidade de tarefas Leitores e Escritores que compartilham uma base de dados que guarda uma variável contador. Para evitar a condição de corrida, é preciso coordenar o acesso à base de dados para a leitura e escrita da variável contador.
 
 \subsection{Proposta} 
 
-A solução proposta, implementada em C, faz uso de semáforos para controlar o acesso à zona de memória compartilhada (base de dados) e à uma variável que indica a quantidade de leitores ativos no momento. Assim, para acessarem a base de dados, leitores e escritores devem, primeiramente, solicitar acesso aos semáforos, garantindo a exclusão mútua, quando necessária.
+A solução proposta, implementada em C, faz uso de semáforos para controlar o acesso à zona de memória compartilhada (base de dados) e a uma variável que indica a quantidade de leitores ativos no momento. Assim, para acessarem a base de dados, leitores e escritores devem, primeiramente, solicitar acesso aos semáforos, garantindo a exclusão mútua, quando necessária.
 
 \subsection{Código}
 
@@ -261,7 +271,7 @@ void pensando_nos_dados(void* en); // Escritores "definem" o dado
 void escrever_no_banco_de_dados(void* en); // Escritores modificam o dado
 \end{verbatim}
 
-Os macros \ovalbox{LEITORES} e \ovalbox{ESCRITORES} definem o número de leitores e consumidores, respectivamente. Os semáforos mutex \ovalbox{db} e \ovalbox{mutex} são utilizados para garatir acesso exclusivo, por essa ordem, à base de dados e ao contador de leitores \ovalbox{leitores\_lendo}. Além deste, outro contador, \ovalbox{cnt} é usado para representar o dado que sofre escrita e leitura. Tendo isso definido, logo abaixo encontram-se os protótipos das funções de ação dos leitores e escritores:
+Os macros \ovalbox{LEITORES} e \ovalbox{ESCRITORES} definem o número de leitores e escritores, respectivamente. Os semáforos mutex \ovalbox{db} e \ovalbox{mutex} são utilizados para garatir acesso exclusivo, por essa ordem, à base de dados e ao contador de leitores, \ovalbox{leitores\_lendo}. Além desse, outro contador, \ovalbox{cnt} é usado para representar o dado que sofre escrita e leitura. Tendo isso definido, logo abaixo encontram-se os protótipos das funções de ação dos leitores e escritores:
 
 \begin{itemize}
     \item \textbf{\ovalbox{ler\_base\_de\_dados()}}: Função de leitura da base de dados;
@@ -269,8 +279,6 @@ Os macros \ovalbox{LEITORES} e \ovalbox{ESCRITORES} definem o número de leitore
     \item \textbf{\ovalbox{pensando\_nos\_dados()}}: Função de produção do dado a ser escrito;
     \item \textbf{\ovalbox{escrever\_no\_banco\_de\_dados()}}: Função de escrita na base de dados.
 \end{itemize}
-
-\newpage
 
 A função característica dos leitores é dada a seguir:
 
@@ -380,12 +388,13 @@ void escrever_no_banco_de_dados(void* en){
         tempo_de_escrita = rand() % 10;
         cnt++;
         printf("\033[0;31m");
-        printf("Escritor %d ESCREVENDO no banco de dados. Contador em %d\n", *((int*)en), cnt);
+        printf("Escritor %d ESCREVENDO no banco de dados. 
+                Contador em %d\n", *((int*)en), cnt);
         sleep(tempo_de_escrita);
 }
 \end{verbatim}
 
-Cada uma dela procede a seguinte lógica: Define-se um tempo aleatório entre 0 a 15 segundos, definindo o tempo de suspensão da execução da thread em questão, após imprimir na tela o resultado da ação que compente à função. Essa ação pode ser leitura, pela função \ovalbox{ler\_base\_de\_dados()}, escrita, pela função \ovalbox{escrever\_no\_banco\_de\_dados()}, uso de dados, pela função \ovalbox{usar\_banco\_de\_dados} ou produção de dados, pela função \ovalbox{pensando\_nos\_dados}.
+Cada uma dela procede a seguinte lógica: Define-se um tempo aleatório entre 0 a 15 segundos, definindo o tempo de suspensão da execução da thread em questão, após imprimir na tela o resultado da ação que compete à função. Essa ação pode ser de leitura, pela função \ovalbox{ler\_base\_de\_dados()}, de escrita, pela função \ovalbox{escrever\_no\_banco\_de\_dados()}, de uso de dados, pela função \ovalbox{usar\_banco\_de\_dados} ou de produção de dados, pela função \ovalbox{pensando\_nos\_dados}.
 
 A função principal \ovalbox{main} é responsável pela inicialização dos semáforos, criação e manutenção das threads escritores e leitores, e fluxo principal do programa, como mostra o trecho de código a seguir:
 
@@ -427,11 +436,11 @@ O código declara 10 leitores, \ovalbox{leitores[LEITORES]} e 5 escritores \oval
 
 O código completo está disponibilizado, juntamente com as instruções, no \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais}{nosso repositório da disciplina}.
 
-Após a inicialização, as threads são sincronzadas por meio da função \ovalbox{pthread\_join}, garantindo que elas se comportem conforme o esperado e evitando problemas comuns de concorrência, como condições de corrida e vazamentos de recursos. Na próxima seção, é possível ver o resultado da execução do código proposto para a solução do problema Leitor x Escritor.
+Após a inicialização, as threads são sincronizadas por meio da função \ovalbox{pthread\_join}, garantindo que elas se comportem conforme o esperado e evitando problemas comuns de concorrência, como condições de corrida e vazamentos de recursos. Na próxima seção, é possível ver o resultado da execução do código proposto para a solução do problema Leitor x Escritor.
 
 \subsection{Execução}
 
-A seguir, A Figura~\ref{fig:1} mostra uma captura de saída durante a execução do código \ovalbox{leitor\_escritor.c}.
+A seguir, a \textbf{Figura~\ref{fig:1}} mostra uma captura de saída durante a execução do código \ovalbox{leitor\_escritor.c}.
 
 \begin{figure}[h]
     \centering
@@ -445,7 +454,7 @@ Por meio da \textbf{Figura~\ref{fig:1}}, pode ser observado a concorrência entr
 \subsection{Análise}
 \subsubsection{Da solução implementada}
 
-A solução implementada consegue atende aos requisitos para o funcionamento corretor das atividades dos leitores e escritores. O uso do semáforo mutex \ovalbox{db} é crucial para restringir o acesso de threads de natureza diferentes à base de dados que contém o dado comparitlhado \ovalbox{cnt}. 
+A solução implementada consegue atender aos requisitos para o funcionamento correto das atividades dos leitores e escritores. O uso do semáforo mutex \ovalbox{db} é crucial para restringir o acesso de threads de natureza diferentes à base de dados que contém o dado compartilhado \ovalbox{cnt}. 
 
 Outro ponto importante é o uso controlado, por meio do mutex \ovalbox{mutex}, da variável \ovalbox{leitor\_lendo}, que ajuda no controle do número de leitores ativos e permite que um leitor não impessa um novo leitor que chega na fila de executar simultaneamente, até que um escritor solicite acesso.
 
@@ -455,7 +464,7 @@ Assim, a estrutura geral da solução permite que threads de leitura e escrita c
 
 Analisando o código atual, é possível citar melhorias que podem ser implementadas:
 \begin{enumerate}
-    \item A função \ovalbox{pensando\_nos\_dados} está sendo usada para suspender a execução por um intervalod e tempo, mas pode ser modificada para que um item aleatório seja criado, gerando um dado que pode ser retornado e usado para modificar a base de dados.
+    \item A função \ovalbox{pensando\_nos\_dados} está sendo usada para suspender a execução por um intervalo de tempo, mas pode ser modificada para que um item aleatório seja criado, gerando um dado que pode ser retornado e usado para modificar a base de dados.
 \end{enumerate}
 \newpage
 \section{Capturas da IDE mostrando o código}
@@ -486,14 +495,14 @@ Por conta do código em C ser muito extenso optamos por apresentar o mesmo em pa
 \end{figure}
 
 \clearpage
-\subsection {Conclusão}
+\section {Conclusão}
 
 O problema Leitor x Escritor é um bom ponto de partida para entendermos como a concorrência entre tarefas é importante e as implicações ao seu respeito. Na situação descrita, foi possível verificar, por meio do código, a relação entre várias tarefas quanto ao compartilhamento e acesso a uma região de memória comum. A coordenação sincronizada do acesso à essa região garante o bom funcionamento do código e da execução dessas tarefas. Para isso, foram utilizados semáforos para o controle do acesso de regiões críticas entre as threads \ovalbox{leitores} e \ovalbox{escritores}, garantindo a exclusão mútua. O entendimento desse tipo de situação é crucial para o controle de acesso em sistemas de dados sincronizados onde leitura e escrita de dados são frequentes.
 
 \chapter{O Jantar dos Filósofos}
 \section {Descrição do Problema}
 
-Cinco filósofos estão sentados em uma mesa redonda para jantar. Cada filósofo tem um prato com espaguete à sua frente. Cada prato possui um garfo para pegar o espaguete. O espaguete está muito escorregadio e, para que um filósofo consiga comer, será necessário utilizar dois garfos. Nesse sentido, cada filósofo alterna entre duas tarefas: comer ou pensar. Quando um filósofo fica com fome, ele tenta pegar os garfos à sua esquerda e à sua direita; um de cada vez, independente da ordem. Caso ele consiga pegar dois garfos, ele come durante um determinado tempo e depois recoloca os garfos na mesa. Em seguida ele volta a pensar [3]. O problema do Jantar dos filósofos modela uma situação de prevensão de deadlock, isto é, quando dois ou mais processos ficam impedidos de continuar seus fluxos execução, ou seja, quando estiverem bloqueados aguardando a liberação de recursos que estão alocados entre eles. Os filósofos e os garfos são analogias para os processos e recursos, respectivamente. Como os recursos são limitados, sem a devida coordenação entre os processos, ou filósofos, pode ocorrer deadlock durante a execução do código. O desafio é propor um algoritmo que implemente cada filósofo de modo que ele execute as tarefas de comer e pensar sem nunca ficar travado. A Figura~\ref{fig:jantar_exemplo} exemplifica a situação onde 5 pratos, para 5 filósofos, estão dispostos à mesa, junto a 5 garfos disponíveis para serem usados.
+Cinco filósofos estão sentados em uma mesa redonda para jantar. Cada filósofo tem um prato com espaguete à sua frente. Cada prato possui um garfo para pegar o espaguete. O espaguete está muito escorregadio e, para que um filósofo consiga comer, será necessário utilizar dois garfos. Nesse sentido, cada filósofo alterna entre duas tarefas: comer ou pensar. Quando um filósofo fica com fome, ele tenta pegar os garfos à sua esquerda e à sua direita; um de cada vez, independente da ordem. Caso ele consiga pegar dois garfos, ele come durante um determinado tempo e depois recoloca os garfos na mesa. Em seguida ele volta a pensar \cite{jantar-filosofos}. O problema do Jantar dos filósofos modela uma situação de prevenção de deadlock, isto é, quando dois ou mais processos ficam impedidos de continuar seus fluxos execução, ou seja, quando estiverem bloqueados aguardando a liberação de recursos que estão alocados entre eles. Os filósofos e os garfos são analogias para os processos e recursos, respectivamente. Como os recursos são limitados, sem a devida coordenação entre os processos, ou filósofos, pode ocorrer deadlock durante a execução do código. O desafio é propor um algoritmo que implemente cada filósofo de modo que ele execute as tarefas de comer e pensar sem nunca ficar travado. A \textbf{Figura~\ref{fig:jantar_exemplo}} exemplifica a situação onde 5 pratos, para 5 filósofos, estão dispostos à mesa, junto a 5 garfos disponíveis para serem usados.
 
 \begin{figure}
     \centering
@@ -506,13 +515,13 @@ Portanto, para desenvolver uma solução, é preciso atender às seguintes condi
 
 \begin{itemize}
     \item Para poder comer, um filósofo deve dispor de 2 garfos;
-    \item Cada garfo deve ser controlado de modo que seja utilizado exclusivamente po um filósofo por vez;
-    \item Deve-se evitar ao máximo a situação crítica onde cada filósofo detém um garfo, mas não há mais nenhum garfo disponível para niguém comer, travando a execução dos filósofos;
+    \item Cada garfo deve ser controlado de modo que seja utilizado exclusivamente por um filósofo por vez;
+    \item Deve-se evitar ao máximo a situação crítica onde cada filósofo detém um garfo, mas não há mais nenhum garfo disponível para nenhum comer, travando a execução dos filósofos;
 \end{itemize}
 
 \section{Implementação em C}
 \subsection{Contexto}
-Cinco threads diferentes, cada uma representando um filósofo, são criadas e concorrem entre si pelo acesso a um recurso limitado (os garfos). Cada thread filósofo alterna entre duas ações: comer e pensar. Para comer, um filósofo precisa acessa dois recursos, isto é, garfos, exclusivamente. Quando não está comendo, o filósofo está automaticamente pensando. A ideia é coordenar as ações dos filósofos, evitando deadlock.
+Cinco threads diferentes, cada uma representando um filósofo, são criadas e concorrem entre si pelo acesso a um recurso limitado (os garfos). Cada thread filósofo alterna entre duas ações: comer e pensar. Para comer, um filósofo precisa acessar dois dos recursos, isto é, dois dos garfos, exclusivamente. Quando não está comendo, o filósofo está automaticamente pensando. A ideia é coordenar as ações dos filósofos, evitando deadlock.
 \subsection{Proposta}
 A situação que queremos evitar se dá quando cada um dos filósofos aloca um dos recursos pra si ao mesmo tempo. Tendo 5 filósofos e 5 garfos, se essa situação ocorrer, todos eles ficam travados sem retorno à execução, configurando deadlock. 
 
@@ -575,7 +584,7 @@ A função \ovalbox{filosofos()} recebe o argumento \ovalbox{void* n} como ident
     \item Solicita acesso à mesa, pelo semáforo \ovalbox{filosofo}. Tendo acesso, prossegue, senão espera;
     \item Solicita acesso ao primeiro garfo, de posição f, pelo semáforo \ovalbox{garfo[f]};
     \item Tendo acesso, prossegue, senão espera;
-    \item Solicita acesso ao segundo garfo, de posição 'f+1', pelo semáforo \ovalbox{garfo[f]}. Tendo acesso, prossegue, senão espera;
+    \item Solicita acesso ao segundo garfo, de posição 'f+1', pelo semáforo \ovalbox{garfo[f+1]}. Tendo acesso, prossegue, senão espera;
     \item Executa a ação comer, pela função \ovalbox{comer()};
     \item Libera o garfo de posição 'f', pelo semáforo \ovalbox{garfo[f]};
     \item Libera o garfo de posição 'f+1', pelo semáforo \ovalbox{garfo[f+1]};
@@ -592,7 +601,7 @@ void* comer(int f){
 }
 \end{verbatim}
 
-A função \ovalbox{comer(int f)} recebe um inteiro 'f' como argumento. Nela, a thread é suspensa por 1 segundo, e é impresso na saída uma mensagem indicando que o filósofo 'f' está comendo.
+A função \ovalbox{comer(int f)} recebe um inteiro \ovalbox{f} como argumento. Nela, a thread é suspensa por 1 segundo, e é impresso na saída uma mensagem indicando que o filósofo 'f' está comendo.
 
 A função principal \ovalbox{main} é responsável por inicializar os semáforos, bem como as threads filósofos (após serem criadas). O código é descrito a seguir:
 
@@ -622,7 +631,7 @@ int main(){
 
 O contador \ovalbox{i} é utilizado nos laços 'for' como fator de iteração. O vetor de inteiros \ovalbox{a[]} é utilizado para guardar o id relativo das threads dentro do código.
 
-O semáforo \ovalbox{filosofo} é inicializado em 4, indicando que 5 threads filósofos podem acessá-lo simultaneamente, e é análogo ao acesso à mesa de jantar, como na Figura~\ref{fig:jantar_exemplo}. O conjunto de semáforos \ovalbox{garfo[]} são incializados em 1, indicando exclusividade a um dos filósofos por vez.
+O semáforo \ovalbox{filosofo} é inicializado em 4, indicando que 5 threads filósofos podem acessá-lo simultaneamente, e é análogo ao acesso à mesa de jantar, como na \textbf{Figura~\ref{fig:jantar_exemplo}}. O conjunto de semáforos \ovalbox{garfo[]} são incializados em 1, indicando exclusividade a um dos filósofos por vez.
 
 As 5 threads filósofos \ovalbox{thread[]} do tipo \ovalbox{pthread\_t} são incializadas, passando o id respectivo ao contador \ovalbox{i}. Logo após, as mesmas são sincronizadas por meio da função \ovalbox{pthread\_join()}. 
 
@@ -632,7 +641,7 @@ O código completo está disponibilizado, juntamente com as instruções, no \hr
 
 \newpage
 \subsection{Execução}
-A seguir, mostra-se algumas capturas de saída durante a execução do código \ovalbox{jantar\_filosofos.c}, bem a análise do que pode ser visualizado.
+A seguir, mostra-se uma captura de saída durante a execução do código \ovalbox{jantar\_filosofos.c}, bem a análise do que pode ser visualizado.
 
 \begin{figure}[h]
     \centering
@@ -641,13 +650,20 @@ A seguir, mostra-se algumas capturas de saída durante a execução do código \
     \label{fig:out_jantar_filosofos}
 \end{figure}
 
-Como mostra a Figura~\ref{fig:out_jantar_filosofos}, Quando um filósofo tem acesso a dois dos semáforos \ovalbox{garfo[]}, executa a função \ovalbox{comer}, que imprime na saída "Filósofo (id) está comendo". Terminando a execução da função, é impresso "Filósofo (id) terminou de comer", indicando que o filósofo terminou de comer. Pela saída, é possível observar a existência de rotatividade e controle no acesso ao recurso limitado (garfos), enfatizando que todas as threads filósofos, enumeradas de 0 a 4, são executadas, com sucesso, pelo menos uma vez. Isso demonstra que a solução immplementada obteve sucesso em atender aos requisitos descritos pelo problema.
+Como mostra a \textbf{Figura~\ref{fig:out_jantar_filosofos}}, Quando um filósofo tem acesso a dois dos semáforos \ovalbox{garfo[]}, executa a função \ovalbox{comer}, que imprime na saída "Filósofo (id) está comendo". Terminando a execução da função, é impresso "Filósofo (id) terminou de comer", indicando que o filósofo terminou de comer. Pela saída, é possível observar a existência de rotatividade e controle no acesso ao recurso limitado (garfos), enfatizando que todas as threads filósofos, enumeradas de 0 a 4, são executadas, com sucesso, pelo menos uma vez. Isso demonstra que a solução implementada obteve sucesso em atender aos requisitos descritos pelo problema.
 
 \subsection{Análise}
 \subsubsection{Da solução implementada}
-O uso do conjunto de semáforos \ovalbox{garfo[]} como uma lista de semáforos é um uso interessante dessa estrutura, algomerando os garfos como recurso, mas também diferenciando cada garfo individualmente, com acesso próprio. 
+O uso do conjunto de semáforos \ovalbox{garfo[]} como uma lista de semáforos é um uso interessante dessa estrutura, aglomerando os garfos como recurso, mas também diferenciando cada garfo individualmente, com acesso próprio. 
 
-Para executar a ação \ovalbox{comer}, cada filósofo deve acessar dois garfos, \ovalbox{garfo[i]} e \ovalbox{garfo[i+1]}, simultaneamente, 
+Para executar a ação \ovalbox{comer}, cada filósofo deve acessar dois garfos, \ovalbox{garfo[i]} e \ovalbox{garfo[i+1]}, simultaneamente, garantindo, desde o início, certa ordem de chegada ao recurso. Como o acesso se dá aos garfos próximos de um filósofo  \ovalbox{f}, dois filósofos próximos exercem exclusão mútua, contribuindo para a prevenção de deadlock.
+
+\subsubsection{De possíveis melhorias}
+
+A solução proposta é suficiente ao atingir o objetivo principal de prevenção de deadlock. Por outro lado, salienta-se algumas possíveis melhorias a serem implementadas no código:
+\begin{enumerate}
+    \item O código não implementa, de fato, uma função \ovalbox{pensar}. Logo, seria interessante adicionar um procedimento do tipo. 
+\end{enumerate}
 
 \clearpage
 \section{Capturas da IDE mostrando o código}
@@ -662,11 +678,33 @@ Nesta seção serão apresentadas capturas da tela da IDE mostrando os códigos 
 \clearpage
 \section{Conclusão}
 
+A problema do Jantar dos Filósofos é um interessante paradigma de coordenação de acesso ordenado ao recurso para prevenção de deadlock. Tendo em vista que este é um problema frequente, difícil de lidar e de prever, o entendimento de seu contexto é importante durante o desenvolvimento de pensamento lógico para solução de problemas em sistemas operacionais.
+
+A solução apresentada neste trabalho propõe um uso interessante de uma lista semáforos como mediadores de acesso, sendo os próprios semáforos analogias para o recurso limitado "garfos". É interessante observer que, não só o uso da lista, mas também a necessidade de acesso simultâneo a dois elementos conseguintes da mesma, uma ideia interessante que pode ser utilizada e mais situações.
+
+Contudo, a solução proposta lidou bem com a situação problema e contribui para o entendimento dos temas discutidos neste capítulo.
+
 \chapter{Problema do Produtor x Consumidor}
 \section{Descrição do Problema}
 O problema do produtor e consumidor, também referido como Bounded Buffer Problem (BBP), consiste em um desafio de sincronização de duas ou mais threads (tarefas) concorrentes que têm acesso a um mesmo recurso do programa que está sendo executado. O fato de o recurso estar sendo compartilhado, implica na possibilidade de conflitos entre as threads que disputam pelo controle da CPU para acessar esse mesmo recurso.
 
-No caso do BBP, o recurso disputado é um buffer de memória (um vetor), de tamanho limitado/fixo, daí o motivo do nome. O produtor é o responsável por enfileirar novos jobs ou dados nesse buffer, e o consumidor assume a responsabilidade de extrair esses dados do buffer. Porém o seguinte problema poderá emergir: E se o produtor produzir muito rápido, e o consumidor não for capaz de acompanhá-lo? Se isso acontecer, o produtor irá descartar todos os novos itens produzidos, até que haja espaço novamente no buffer, ou seja, dados serão perdidos (na prática, o efeito ocorre um pouco diferente, consulte o Apendice ). Mas ainda podemos contornar esse problema, o que discutiremos na seção a seguir.
+No caso do BBP, o recurso disputado é um buffer de memória (um vetor), de tamanho limitado/fixo, daí o motivo do nome. O produtor é o responsável por enfileirar novos jobs ou dados nesse buffer, e o consumidor assume a responsabilidade de extrair esses dados do buffer. Porém o seguinte problema poderá emergir: E se o produtor produzir muito rápido, e o consumidor não for capaz de acompanhá-lo? Se isso acontecer, o produtor irá descartar todos os novos itens produzidos, até que haja espaço novamente no buffer, ou seja, dados serão perdidos. Mas ainda podemos contornar esse problema, o que discutiremos na seção a seguir \cite{produtor-consumidor}.
+
+A \textbf{Figura~\ref{fig:ex_prod_cons}} abaixo exemplifica a situação problema, onde um buffer finito é utilizado como canal entre as entidades produtor e consumidor.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{imagens/ex_prod_cons.png}
+    \caption{Produtor x Consumidor: Exemplo ilustrativo}
+    \label{fig:ex_prod_cons}
+\end{figure}
+
+Portanto, para desenvolver um solução para esse problema, devemos atender às seguintes condições:
+\begin{itemize}
+    \item Os produtores devem adicionar itens ao buffer enquanto houver espaço. Caso não haja, devem esperar até que itens sejam consumidos, e espaço seja liberado;
+    \item Os consumidores devem consumir itens do buffer enquanto tiverem itens a serem consumidos. Caso não haja, devem esperar serem produzidos e adicionados ao buffer;
+    \item Deve-se garantir exclusão mútua de acesso ao buffer, para evitar condição de corrida.
+\end{itemize}
 
 \section{Implementação em C}
 \subsection{Contexto}
@@ -696,22 +734,24 @@ A priori, temos o seguinte trecho de código:
 void *produtor(void *pno);
 void *consumidor(void *cno);
 // SEMÁFOROS:
-sem_t vazio; // 'vazio': semáforo para indicar se pode adicionar um novo item ao buffer
-sem_t cheio; // 'cheio': semáforo para indicar se pode consumir um item do buffer 
-// VARRÁVEIS DE CONTROLE:
+sem_t vazio; // 'vazio': semáforo para indicar se 
+                pode adicionar um novo item ao buffer
+sem_t cheio; // 'cheio': semáforo para indicar 
+                se pode consumir um item do buffer 
+// VARIÁVEIS DE CONTROLE:
 int entrando = 0; // 'entrando': Variável auxiliar para indexação
 int saindo = 0; // 'saindo':  Variável auxiliar para indexação
 int buffer[TBuffer]; 
 pthread_mutex_t mutex; // Mutex para exclusão mútua ao buffer 
 \end{verbatim}
 
-Primeiramente, define-se os macros para o controle máximo de iterações \ovalbox{Maximo} dos produtores e consumidores, bem com de controle do tamanho do buffer \ovalbox{TBuffer}. Os protótipos das funções características de produtor e consumidor, \ovalbox{produtor()} e \ovalbox{consumidor()}, respectivamente, são definidos logo após. 
+Primeiramente, define-se os macros para o controle máximo de iterações, \ovalbox{Maximo}, dos produtores e consumidores, bem com de controle do tamanho do buffer \ovalbox{TBuffer}. Os protótipos das funções características de produtor e consumidor, \ovalbox{produtor()} e \ovalbox{consumidor()}, respectivamente, são definidos logo após. 
 
 Os semáforos \ovalbox{vazio} e \ovalbox{cheio} são responsáveis por controlar o acesso ao buffer quanto à possibilidade de adicionar um item ao buffer ou consumir um item dele, respectivamente.
 
 As variáveis de controle \ovalbox{entrando} e \ovalbox{saindo} são utilizadas como auxílio para a indexação da posição do item que será adicionado ou retirado do buffer.
 
-Por fim, um mutex \ovalbox{mutex} garante acesso exclusivo ao buffer por uma das threads. Para acessar os recursos descritos acima, as funções \ovalbox{produtor} e \ovalbox{cosumidor} são definidas, e serão descritas abaixo:
+Por fim, um mutex \ovalbox{mutex} garante acesso exclusivo ao buffer por uma das threads. Para acessar os recursos descritos acima, as funções \ovalbox{produtor} e \ovalbox{consumidor} são definidas, e serão descritas abaixo:
 
 \begin{verbatim}
 // FUNÇÃO 'produtor()':
@@ -731,7 +771,7 @@ void *produtor(void *pno){
 }
 \end{verbatim}
 
-A função \ovalbox{produtor} recebe \ovalbox{void*pno} como identificador da thread produtor e utiliza-o para impressão na saída. A variável \ovalbox{item} representa o dado que será produzido e posto no buffer. A função executa conforme o seguinte procedimento:
+A função \ovalbox{produtor} recebe \ovalbox{void*pno} como identificador da thread produtor e utiliza-o para impressão na saída. A variável  \ovalbox{item} representa o dado que será produzido e posto no buffer. A função executa conforme o seguinte procedimento:
 
 \begin{enumerate}
     \item Inicializa a variável \ovalbox{item} e \ovalbox{i = 0};
@@ -828,15 +868,27 @@ A seguir, mostra-se algumas capturas de saída durante a execução do código \
     \label{fig:out_prod_cons}
 \end{figure}
 
-Como mostra a Figura~\ref{}
-\clearpage
+Como mostra a \textbf{Figura~\ref{fig:out_prod_cons}}, os produtores modificam o valor nas cinco posições do vetor \ovalbox{buffer}; esse processo é análogo à ação de produzir e adicionar itens, que confere aos produtores. Assim que adquirem acesso ao buffer, os consumidores leem as posições do buffer, procedimento análogo a "retirar e consumir". Essas ações são impressas na saída indicando a iteração respectiva de cada thread, até que se chegue no máximo de iterações.
+
+\subsection{Análise}
+\subsubsection{Da solução implementada}
+A solução proposta faz uso de dois semáforos diferentes, \ovalbox{vazio} e \ovalbox{cheio}, para indicar o estado do buffer, e são incrementados e decrementados inversamente ao outro. Isso contribui para a coordenação e acesso ao buffer entre produtores e consumidores, dividindo o controle de acesso, porém ambas com o mesmo intuito. Essa é uma proposta interessante e que pode ser aproveitada em outras situações.
+
+Pela execução do código \ovalbox{prod\_cons.c}, é possível ver que a solução tem êxito em satisfazer os requisitos propostos, coordenação de maneira efetiva as ações entre produtores e consumidores.
+
+\subsubsection{De possíveis melhorias}
+A solução proposta no código \ovalbox{prod\_cons.c} soluciona o problema apresentado. Por outro lado, salienta-se possíveis melhorias a serem implementadas:
+\begin{enumerate}
+    \item  O código tem um número de iterações limitado. É possível torná-lo infinito, tomando devido cuidado com a indexação de acesso ao buffer.
+\end{enumerate}
+
 \section{Capturas da IDE mostrando o código}
 Nesta seção serão apresentadas capturas da tela da IDE mostrando os códigos apresentados acima, que se encontram, também disponíveis no
 \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais}{nosso repositório da disciplina}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\textwidth]{imagens/prod_cons.png}
+    \includegraphics[width=0.8\textwidth]{imagens/prod_cons.png}
     \caption{Produtor x Consumidor: Código em C}
     \label{fig:prod_cons}
 \end{figure}
@@ -844,17 +896,31 @@ Nesta seção serão apresentadas capturas da tela da IDE mostrando os códigos 
 \clearpage
 \section{Conclusão}
 
+O Problema do Produtor x Consumidor modela uma situação recorrente de compartilhamento de um canal de buffer importante para o estudo em sistemas operacionais. São frequentes as situações em que processos dependem da saída de outros processos, sendo crucial a coordenação entre eles para o fluxo de execução.
+
+A solução proposta controla não só o acesso ao buffer, mas também o estado do buffer, por meio de semáforos, ajustando as iterações e garantindo acessos exclusivos durante o fluxo de execução.
+
+Concluindo, a solução proposta lida bem o problema discutido e auxilia no entendimento de coordenação de acesso a um canal compartilhado (buffer), discutido acima.
+
+
 \chapter{O Problema do Barbeiro Dorminhoco}
 \section{Descrição do Problema}
-O problema do barbeiro dorminhoco é um problema clássico de comunicação inter-processo e sincronização entre múltiplos processos. O problema é análogo a manter o barbeiro ocupado enquanto há clientes, e descansando quando não há nenhum (fazendo isso de uma maneira ordenada). O barbeiro e seus clientes correspondem aos processos mencionados acima [4]. 
+O problema do barbeiro dorminhoco é um problema clássico de comunicação inter-processo e sincronização entre múltiplos processos. O problema é análogo a manter o barbeiro ocupado enquanto há clientes, e descansando quando não há nenhum (fazendo isso de uma maneira ordenada). O barbeiro e seus clientes correspondem aos processos mencionados acima \cite{barbeiro-dorminhoco}. 
 
-Eis a situação: Em uma barbearia há um barbeiro, que está destinado a duas ações - cortar o cabelo de um cliente ou descansar (dormir). Caso não haja clientes na barbearia, o barbeiro se mantém dormindo, se não, corta o cabelo de um dos clientes nas n cadeiras disponíveis no estabelecimento. Os clientes, conforme vão chegando, devem verificar se há cadeiras disponíveis para sentar, se coseguirem sentar, esperam até que o barbeiro termine de cortar o cabelo do cliente anterior. Se não houver nenhuma cadeira disponível, isto é, o salão está cheio, o cliente deve ir embora. 
+Eis a situação: Em uma barbearia há um barbeiro, que está destinado a duas ações - cortar o cabelo de um cliente ou descansar (dormir). Caso não haja clientes na barbearia, o barbeiro se mantém dormindo, se não, corta o cabelo de um dos clientes nas n cadeiras disponíveis no estabelecimento. Os clientes, conforme vão chegando, devem verificar se há cadeiras disponíveis para sentar, se conseguirem sentar, esperam até que o barbeiro termine de cortar o cabelo do cliente anterior. Se não houver nenhuma cadeira disponível, isto é, o salão está cheio, o cliente deve ir embora. 
 
-O problema é programar o barbeiro e os clientes sem cair em condições de disputa. Esse problema é semelhante a situações com várias filas, como uma mesa de atendimento de telemarketing com diversos atendentes e com um sistema computadorizado de chamadas em espera, atendendo a um número limitado de chamadas que chegam [4].
+O problema é programar o barbeiro e os clientes sem cair em condições de disputa. Esse problema é semelhante a situações com várias filas, como uma mesa de atendimento de telemarketing com diversos atendentes e com um sistema computadorizado de chamadas em espera, atendendo a um número limitado de chamadas que chegam \cite{barbeiro-dorminhoco}.
+
+Para desenvolver uma solução para esse problema, devemo-nos atentar para as seguintes condições:
+\begin{itemize}
+    \item O barbeiro deve permanecer ocupado enquanto houver clientes esperando;
+    \item Um cliente que chegar deve ter acesso ao barbeiro para ter o cabelo cortado, entrando em estado de espera caso o barbeiro esteja ocupado;
+    \item Se a barbearia estiver cheia, o cliente que chegar deve ir embora.
+\end{itemize}
 
 \section{Implementação em C}
 \subsection{Contexto}
-Na barbearia, há uma thread barbeiro que altera entre dormir e corta cabelo. Tendo clientes na barbearia, devemos manter o barbeiro ocupado o tempo todo. As threads clientes, por outro lado, chegam na barbearia e devem esperar em uma das cadeiras, se disponíveis, até serem atendidos. Se não conseguirem sentar em nenhuma cadeira, devem ir embora, pois a barbearia está cheia. A tarefa é utilizar recursos para coordenar a ativade do barbeiro e dos clientes para que não haja condição de corrida.
+Na barbearia, há uma thread barbeiro que altera entre dormir e corta cabelo. Tendo clientes na barbearia, devemos manter o barbeiro ocupado o tempo todo. As threads clientes, por outro lado, chegam na barbearia e devem esperar em uma das cadeiras, se disponíveis, até serem atendidos. Se não conseguirem sentar em nenhuma cadeira, devem ir embora, pois a barbearia está cheia. A tarefa é utilizar recursos para coordenar a atividade do barbeiro e dos clientes para que não haja condição de corrida.
 
 \subsection{Proposta}
 A proposta é fazer uso de semáforos para controlar a disponibilidade da barbeiro e das cadeiras, bem como uma variável contador de clientes esperando. Assim, podemos garantir o controle de acesso aos recursos compartilhados essas tarefas barbeiro e cliente.
@@ -926,7 +992,7 @@ void* barbeiro() {
         sem_wait(&clientes);
         // Obtém acesso a 'esperando' 
         sem_wait(&mutex); 
-        // Descresce de um o contador de clientes à espera
+        // Decresce de um o contador de clientes à espera
         esperando--; 
         // Um barbeiro está agora pronto para cortar cabelo 
         sem_post(&barbeiros);
@@ -1032,7 +1098,7 @@ void cortar_cabelo(void* id){
     }
     sleep(3);
 }
-// FUNÇÂO 'chegada_cliente()':
+// FUNÇ O 'chegada_cliente()':
 void chegada_cliente(void* id) {
     // Indica a chegada de um novo cliente
     setlocale(LC_ALL, "Portuguese"); 
@@ -1046,7 +1112,7 @@ void conseguir_corte(void* id) {
     printf("\033[0;32m");
     printf("Cliente %d está tendo o cabelo cortado!\n", *((int*)id));
 }
-// FUNÇÂO 'desistir_corte()':
+// FUNÇ O 'desistir_corte()':
 void desistir_corte(void* id){
     setlocale(LC_ALL, "Portuguese"); // Indica a desistência de um cliente
     printf("\033[0;31m");
@@ -1054,12 +1120,41 @@ void desistir_corte(void* id){
             *((int*)id));
 }
 \end{verbatim}
+\section{Execução}
+A seguir, mostra-se algumas capturas de saída durante a execução do código \ovalbox{barbeiro.c}, bem a análise do que poe ser visualizado.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{imagens/out_barbeiro.png}
+    \caption{Saída no terminal para o código barbeiro.c}
+    \label{fig:out_barbeiro.c}
+\end{figure}
+
+A \textbf{Figura~\ref{fig:out_barbeiro.c}} mostra a saída no terminal pela execução do código \ovalbox{barbeiro.c}. É possível notar a chegada do primeiro cliente (1), que por ser o primeiro, obtém acesso imediato ao barbeiro, ainda disponível. Logo após, chegam mais clientes, que entram em espera pelo acesso ao corte de cabelo. O barbeiro, quando ocupado, imprime na tela que está cortando o cabelo de determinado cliente. No que se segue, chegam mais clientes, que entram em espera, se tiverem lugares. Se um cliente chega e não tem mais lugares, ele desiste e vai embora. 
+
+Observe que, conforme o fluxo do código, mantemos o barbeiro ocupado 100\% do tempo, indicando sempre qual dos clientes ele está atendendo.
+
+\subsection{Análise}
+\subsubsection{Da solução implementada}
+
+A solução implementada não apresenta soluções extraordinárias para o problema, mas faz bom uso dos semáforos como recurso controlador para o barbeiro e o número de clientes na barbearia. 
+
+É interessante o uso do semáfor \ovalbox{cliente} não só como controle, mas também como contador de clientes e indicador para o barbeiro saber se deve trabalhar ou permanecer em espera, usado na função \ovalbox{barbeiro()}.
+
+\subsection{De possíveis melhorias}
+
+A solução apresentada pelo código \ovalbox{barbeiro.c} aé suficiente para atender aos requisitos impostos no início do capítulo. Porém, podemos apontar melhorias a serem implementadas para melhor análise e estudo do problema:
+\begin{enumerate}
+    \item Pelo que é visto no código, depois de algumas iterações, o salão permanece saturado, e o barbeiro nunca para de trabalhar.;
+    \item É possível aumentar o intervalo de tempo entre a chegada de novos clientes, para denotar certa aleatoriedade e implementação de possíveis novos fenômenos;
+    \item Novos comportamentos podem ser adicionados às entidades do códigos para aumentar a complexidade.
+\end{enumerate}
 
 \section{Capturas da IDE mostando o código}
 Nesta seção serão apresentadas capturas da tela da IDE mostrando os códigos apresentados acima, que se encontram, também disponíveis no
 \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais}{nosso repositório da disciplina}.
 
-Por conta da extensão do código, as capturas foram dividas em Figuras diferentes, como segue:
+Por conta da extensão do código, as capturas foram dividas em figuras diferentes, como segue:
 
 \begin{figure}[h]
     \centering
@@ -1070,21 +1165,29 @@ Por conta da extensão do código, as capturas foram dividas em Figuras diferent
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{imagens/barbeiro_2.png}
-    \caption{O Barbeiro Dorminhoco: Código em C - Parte II}
-    \label{fig:barbeiro_2}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
     \includegraphics[width=1.0\textwidth]{imagens/barbeiro_3.png}
     \caption{O Barbeiro Dorminhoco: Código em C - Parte III}
     \label{fig:barbeiro_3}
 \end{figure}
 
+\clearpage
 \section{Conclusão}
 
+O Problema do Barbeiro Dorminhoco é um clássico problema em sistemas operacionais e proporciona boa visualização e entendimento de resoluções de situações em sincronização de tarefas. A solução empregada é eficiente em coordenar as threads criadas no código para se comportarem de maneira saudável durante o fluxo de execução, fazendo uso de semáforos para controlar o número de clientes e as ações do barbeiro. Por meio da saída no terminal, é possível ver como as threads se comportam concomitantemente, imprimindo as ações de acordo com o esperado.
+
 \chapter{Conclusão}
+
+Neste trabalho analisamos alguns dos problemas clássicos da literatura de sistemas operacionais. Por meio deles, foi possívei praticar o estudo do uso de semáforos e mutexes com objetivo de coordenar tarefas e sincronizar o acesso a regiões críticas.
+
+Resolvendo o Problema do Leitor x Consumidor, observamos uma situação onde tarefas compartilham uma área de memória comum, e utilizamos semáforos e mutexes para coordenar o acesso exclusivo à essa área entre leitores e escritores, que desejam atuar sobre ela.
+
+Solucionando o Problema do Jantar dos Filósofos, analisamos uma situação clara de prevenção de deadlock, onde tarefas concorrem ao acesso exclusivo a recursos compartilhados limitados. Fizemos uso de semáforos e mutexes para controlar o acesso a esses recursos e, por meio deles, garantimos a execução concomitante entre threads filósofos. 
+
+Distrinchando o Problema do Produtor x Consumidor, discutimos como tarefas mutualmente dependentes podem ser coordenadas para manterem seus fluxos de execução sem entrarem em estados de inanição. Fizemos uso de semáforos e mutexes para mantero controle do estado do buffer do canal comparilhado entre produtores e consumidores, permitindo que ambos atuem concomitantemente.
+
+Desvendando o Problema do Barbeiro Dorminhoco, percebemos como situações de espera com vagas limitadas podem ser trabalhadas. Fizemos uso de semáforos e mutexes para ter ciência do número de vagas de espera disponíveis, mantendo controle da lotação, bem como do estado de um fator ativo, no caso o barbeiro.
+
+Por fim, foi possível o estudo, por meio dos problemas clássicos da literatura, de diferentes tópicos em comunicação inter-processos. Propusemos soluções para esses problemas, agregando conhecimento ao estudo de aplicações de semáforos, mutexes, processos e threads, objetos de estudo importantes para a compreensão e entendimento de diversos tópicos em sistemas operacionais.
 
 \postextual
 
@@ -1093,4 +1196,5 @@ Por conta da extensão do código, as capturas foram dividas em Figuras diferent
 \cite{tanenbaum2010sistemas}
 
 \end{document}
+
 
