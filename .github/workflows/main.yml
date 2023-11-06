@@ -5,24 +5,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      
-      - name: Compile SO2 LaTeX document
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: relatorios/relatorio_2/SO2.tex
-          
+        
       - name: Compile SO1 LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: relatorios/relatorio_1/SO1.tex
+          root_file: relatorios/relatorio_1/SO1.tex 
       
-      - name: Compile SO3 LaTeX document
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: relatorios/relatorio_3/SO3.tex
+      #- name: Compile SO2 LaTeX document
+       # uses: xu-cheng/latex-action@v3
+        #with:
+         # root_file: relatorios/relatorio_2/SO2.tex
+          
+      #- name: Compile SO3 LaTeX document
+       # uses: xu-cheng/latex-action@v3
+        #with:
+         # root_file: relatorios/relatorio_3/SO3.tex
       
-      - name: Compile SO4 LaTeX document
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: relatorios/relatorio_4/SO4.tex
+     # - name: Compile SO4 LaTeX document
+      #  uses: xu-cheng/latex-action@v3
+       # with:
+        #  root_file: relatorios/relatorio_4/SO4.tex
