@@ -11,7 +11,7 @@ jobs:
         with:
           root_file: relatorios/relatorio_1/SO1.tex
         env:
-          TEXINPUTS: ".:./relatorios/relatorio_1/:$TEXINPUTS"
+          TEXINPUTS: "./relatorios/relatorio_1/:$TEXINPUTS"
       
       #- name: Compile SO2 LaTeX document
        # uses: xu-cheng/latex-action@v3
