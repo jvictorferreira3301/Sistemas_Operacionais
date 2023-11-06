@@ -528,7 +528,7 @@ Em ambientes Linux, os limites máximos de processos e threads que podem ser dis
 
 \subsection{Usando Comandos de Terminal}
 
-Para verificar e ajustar os limites de processos e threads, você pode usar comandos de terminal, como `ulimit` e `sysctl`. Por exemplo, você pode usar o comando `ulimit` para ajustar os limites de descritores de arquivo (usados para processos) e `sysctl` para limites de threads.
+Para verificar e ajustar os limites de processos e threads, você pode usar comandos de terminal, como `ulimit` e `sysctl`. Por exemplo, você pode usar o comando `ulimit` para ajustar e verificar os limites de recursos do shell, entre eles os limites de processos e threads e o comando `sysctl` para configurar e verificar os limites do kernel. 
 
 \subsection{Editando Arquivos de Configuração}
 
@@ -540,7 +540,7 @@ Ao ajustar os limites de processos e threads, é importante seguir diretrizes de
 
 Lembre-se de que as alterações nos limites de processos e threads são seguras quando feitas com cuidado e consideração. Certifique-se de fazer backup das configurações existentes e teste as alterações gradualmente para avaliar seu impacto no desempenho e na estabilidade do sistema.
 
-Na imagem \ref{fig:run7} podemos ver a execução no terminal do Linux os comandos citados nesta seção.
+Na imagem \ref{fig:run7} podemos ver a execução no terminal do Linux os comandos citados nesta seção, o qual o último codigo mostra um possível ajuste do limite de uso de threads, pelo sistema.
 
 \begin{figure}
     \centering
