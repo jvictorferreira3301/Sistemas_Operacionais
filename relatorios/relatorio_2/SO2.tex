@@ -25,7 +25,7 @@
 \usepackage{lastpage}			% Usado pela Ficha catalográfica
 \usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \usepackage{color}				% Controle das cores
-\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{graphicx}			% I%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%nclusão de gráficos
 \usepackage{subcaption}				% Inclusão de gráficos lado a lado
 \usepackage{microtype} 			% para melhorias de justificação
 \usepackage{tabularx,ragged2e}	% Para inserir tabelas
@@ -107,7 +107,7 @@
 
 %}
 %\datadadefesa{Data da Defesa: 09 de Março de 2017}%07 de Dezembro de 2016}
-\conceito{Conceito: Excelente}
+%\conceito{Conceito: Excelente}
 \faculdadedoorientador{Faculdade de Computação e Telecomunicações - UFPA}
 %\primeiromembrodabanca{Prof. Dr. Nome Sobrenome}
 %\faculdadedoprimeiromembrodabanca{}
@@ -278,7 +278,7 @@ Aqui está uma descrição detalhada do código:
     \item \texttt{\#include} direciona a inclusão de bibliotecas necessárias, como entrada/saída padrão e manipulação de processos.
     \item A função \texttt{main()} é o ponto de entrada do programa.
     \item \texttt{int PID\_pai} é uma variável inteira que armazenará o PID do processo pai.
-    \item \texttt{PID\_pai = fork();} cria um novo processo através da chamada \texttt{fork()} e armazena o valor de retorno em \texttt{PID\_pai}. O processo pai receberá o PID do filho, enquanto o processo filho receberá 0. !!!!corrigir aqui!!!!
+    \item \texttt{PID\_pai = fork();} cria um novo processo através da chamada \texttt{fork()} e armazena o valor de retorno em \texttt{PID\_pai}. O processo pai receberá o PID do filho, enquanto o processo filho receberá 0. 
     \item O código verifica se \texttt{PID\_pai} é menor que 0, o que indicaria um erro na criação do processo pai, e nesse caso, exibe uma mensagem de erro e encerra o programa.
     \item Se \texttt{PID\_pai} for maior que 0, isso significa que estamos no processo pai. O código exibe o PID do processo avô (obtido com \texttt{getppid()}) e o PID do processo pai (obtido com \texttt{getpid()}). Em seguida, aguarda a conclusão do processo filho (neto) usando \texttt{wait(NULL)}.
     \item Se \texttt{PID\_pai} for igual a 0, isso significa que estamos no processo filho (neto). O código exibe o PID do processo filho (neto) e entra em um loop infinito, mantendo o processo filho em execução.
@@ -524,7 +524,33 @@ Essa abordagem destaca a importância de entender o modelo de espaço de endere�
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Threads Vs. Processos: Limites Máximos}
+Em ambientes Linux, os limites máximos de processos e threads que podem ser disparados são configuráveis e podem variar de acordo com a distribuição e a configuração do sistema. Esses limites são importantes para garantir o desempenho e a estabilidade do sistema. Nesta seção, discutiremos como verificar e ajustar esses limites.
+
+\subsection{Usando Comandos de Terminal}
+
+Para verificar e ajustar os limites de processos e threads, você pode usar comandos de terminal, como `ulimit` e `sysctl`. Por exemplo, você pode usar o comando `ulimit` para ajustar os limites de descritores de arquivo (usados para processos) e `sysctl` para limites de threads.
+
+\subsection{Editando Arquivos de Configuração}
+
+Uma abordagem mais permanente para ajustar os limites é editar os arquivos de configuração do kernel. Os arquivos de configuração relacionados aos limites de threads e processos geralmente estão localizados em `/etc/security/limits.conf`, onde você pode especificar limites para usuários ou grupos específicos.
+
+\subsection{Diretrizes de Segurança}
+
+Ao ajustar os limites de processos e threads, é importante seguir diretrizes de segurança. Não defina limites excessivamente altos, pois isso pode sobrecarregar o sistema. Avalie suas necessidades reais e as capacidades de hardware do sistema antes de fazer alterações.
+
+Lembre-se de que as alterações nos limites de processos e threads são seguras quando feitas com cuidado e consideração. Certifique-se de fazer backup das configurações existentes e teste as alterações gradualmente para avaliar seu impacto no desempenho e na estabilidade do sistema.
+
+Na imagem \ref{fig:run7} podemos ver a execução no terminal do Linux os comandos citados nesta seção.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{imagens/limites_max.png}
+    \caption{}
+    \label{fig:run7}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Benchmark}
 
