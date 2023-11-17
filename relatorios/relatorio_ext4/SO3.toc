@@ -1,0 +1,20 @@
+\changetocdepth {4}
+\babel@toc {brazil}{}\relax 
+\babel@toc {brazil}{}\relax 
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {section}{\numberline {0.1}Introdução}{3}{section.0.1}%
+\contentsline {section}{\numberline {0.2}Apresentação do Sistema}{3}{section.0.2}%
+\contentsline {subsection}{\numberline {0.2.1}Capacidade, Velocidade e Tamanho de Arquivos}{3}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {0.2.2}Desempenho}{3}{subsection.0.2.2}%
+\contentsline {section}{\numberline {0.3}Sistema de Alocação de Arquivos}{3}{section.0.3}%
+\contentsline {section}{\numberline {0.4}Gestão do Espaço Livre}{3}{section.0.4}%
+\contentsline {section}{\numberline {0.5}Estrutura do Sistema de Arquivos}{3}{section.0.5}%
+\contentsline {section}{\numberline {0.6}Desempenho: Benchmarks}{3}{section.0.6}%
+\contentsline {subsection}{\numberline {0.6.1}Teste de Leitura Sequencial}{3}{subsection.0.6.1}%
+\contentsline {subsection}{\numberline {0.6.2}Teste de Escrita Sequencial}{3}{subsection.0.6.2}%
+\contentsline {subsection}{\numberline {0.6.3}Teste de Leitura Aleatória}{3}{subsection.0.6.3}%
+\contentsline {subsection}{\numberline {0.6.4}Teste de Escrita Aleatória}{4}{subsection.0.6.4}%
+\contentsline {section}{\numberline {0.7}Conclusão}{4}{section.0.7}%
+\vspace {\cftbeforechapterskip }
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {chapter}{\MakeTextUppercase {Refer\^encias}}{5}{section*.6}%

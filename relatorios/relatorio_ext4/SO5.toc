@@ -1,0 +1,33 @@
+\changetocdepth {4}
+\babel@toc {brazil}{}\relax 
+\babel@toc {brazil}{}\relax 
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase {Introdução}}{3}{chapter.1}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase {Apresentação do Sistema}}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Retrocompatibilidade}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Journaling}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Capacidade, Velocidade e Tamanho de Arquivos}{6}{section.2.3}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase {Sistema de Alocação de Arquivos}}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Extensões (Extents)}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Alocação por Reservas (Reservation)}{7}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Alocação por Bloco Indireto}{7}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Tamanho de Bloco Variável}{7}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Alocação Pré-Alocada (Preallocation)}{8}{section.3.5}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase {Gestão do Espaço Livre}}{9}{chapter.4}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase {Estrutura do Sistema de Arquivos}}{10}{chapter.5}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {6}\MakeTextUppercase {Desempenho: Benchmarks}}{11}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Teste de Leitura Sequencial}{11}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Teste de Escrita Sequencial}{11}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Teste de Leitura Aleatória}{11}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Teste de Escrita Aleatória}{11}{section.6.4}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {7}\MakeTextUppercase {Conclusão}}{12}{chapter.7}%
+\vspace {\cftbeforechapterskip }
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {chapter}{\MakeTextUppercase {Refer\^encias}}{13}{section*.9}%
