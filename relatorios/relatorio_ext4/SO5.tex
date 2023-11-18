@@ -208,6 +208,8 @@ Com o objetivo de proporcionar um ambiente de armazenamento mais eficiente e con
 Ext4 introduz melhorias significativas em termos de capacidade, desempenho e segurança. 
 Sua arquitetura foi projetada para suportar volumes de dados consideravelmente maiores, 
 oferecendo maior flexibilidade para lidar com as demandas crescentes das aplicações contemporâneas. 
+Dentre as características e aprimoramentos do Ext4 iremos citar algumas principais como a Retrocompatibilidade,
+o Journaling e as evoluções em termo de capacidade, velocidade e tamanho de arquivos.
 %Uma característica fundamental do Ext4 é a implementação de registro em diário ("journaling") ilustrado 
 %na figura \ref{fig:journaling}, mantendo um registro 
 %das operações no sistema de arquivos. Isso permite uma recuperação eficiente durante a inicialização, reduzindo o 
@@ -227,7 +229,7 @@ arquivos Ext4 como se fosse um sistema de arquivos ext3 (compatibilidade anterio
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{3-4.pdf}
+	\includegraphics[width=0.95\textwidth]{3-4.pdf}
 	\caption{}
 	\label{fig:3-4}
 \end{figure}
@@ -259,9 +261,22 @@ O ext4 oferece suporte a vários modos de journaling, dependendo das necessidade
 %sequências de blocos contíguos. Essa abordagem reduz a fragmentação, melhorando a eficiência do acesso aos dados e otimizando 
 %o desempenho do sistema.
 
-Além disso, o Ext4 inclui somas de verificação nos metadados do sistema de arquivos, contribuindo 
-para a detecção de corrupção de dados. Essa adição é crucial para melhorar a integridade dos dados 
-armazenados, proporcionando uma camada adicional de segurança e confiabilidade ao sistema de arquivos.
+\section{Checksums no Contexto de Sistemas de Arquivos}
+
+Um checksum, também conhecido como soma de verificação, é uma técnica crucial para garantir a integridade dos dados em sistemas de arquivos. Utilizado para detectar alterações acidentais ou corrupções, os checksums são essenciais para garantir a confiabilidade das informações armazenadas.
+
+A importância dos checksums reside na capacidade de verificar se os dados permanecem íntegros durante operações de leitura e gravação. Isso é fundamental em ambientes onde a precisão e integridade dos dados são cruciais, como em sistemas de arquivos.
+
+Diferentes algoritmos de checksum, como MD5, SHA-1 e SHA-256, oferecem diferentes níveis de segurança. A escolha do algoritmo depende dos requisitos específicos de segurança e desempenho do sistema.
+
+No sistema de arquivos \textit{ext4}, checksums são implementados para verificar a integridade de dados armazenados. Esta funcionalidade é aplicada a vários metadados, incluindo blocos de dados e inodes. A detecção de corrupções contribui para a segurança e confiabilidade do sistema de arquivos.
+
+Em síntese, a utilização de checksums no sistema de arquivos \textit{ext4} desempenha um papel fundamental na manutenção da integridade dos dados. A escolha cuidadosa do algoritmo e a aplicação abrangente em metadados proporcionam uma camada adicional de segurança, contribuindo para a robustez do sistema de arquivos.
+
+
+%Além disso, o Ext4 inclui somas de verificação nos metadados do sistema de arquivos, contribuindo 
+%para a detecção de corrupção de dados. Essa adição é crucial para melhorar a integridade dos dados 
+%armazenados, proporcionando uma camada adicional de segurança e confiabilidade ao sistema de arquivos.
 
 \section{Capacidade, Velocidade e Tamanho de Arquivos}
 %Descreva a capacidade do sistema, velocidade e o suporte a arquivos grandes.
