@@ -318,7 +318,59 @@ O Ext4 suporta a \textit{alocação pré-alocada}, onde os aplicativos podem res
 Detalhes sobre como o ext4 gerencia o espaço livre no disco.
 
 \chapter{Estrutura do Sistema de Arquivos}
-Descrição da estrutura interna do ext4, destacando a organização em grupos de blocos.
+%Descrição da estrutura interna do ext4, destacando a organização em grupos de blocos.
+A estrutura do Ext4, assemelhando-se a de seus antecessores mas com aprimoramentos 
+para suportar números de bloco de 64 bits. Embora os campos de carimbo de data e hora 
+permaneçam em 32 bits, o campo s\_log\_groups\_per\_flex desempenha um papel crucial 
+na organização dos grupos de blocos. Versões mais recentes do kernel incorporam campos 
+adicionais no superbloco para rastreamento de erros e suporte a snapshots.
+
+\section{Grupos de Blocos}
+O Ext4 mantém estruturas fundamentais, mas introduz diferenças notáveis na organização 
+dos grupos de blocos. Um desafio enfrentado é o limite de 128 MB por grupo de blocos, 
+que afeta o tamanho total do sistema de arquivos. Duas soluções propostas são o recurso de 
+meta-grupo de blocos e o recurso de flex-grupo de blocos.
+
+O meta-grupo de blocos, conforme descrito em \cite{ext2_ext3_extensions}, possibilita 
+a criação de meta-grupos compostos por uma série de grupos de blocos, todos descritos 
+por um único bloco de descritor. Detalhes adicionais em \cite{ext4_filesystem} indicam que 
+backups dos descritores de meta-grupo de blocos são armazenados no segundo e último grupo de 
+cada meta-grupo de blocos.
+
+A figura \ref{fig:9} ilustra como o recurso de flex-grupo de blocos estende a ideia anterior de criar 
+grandes áreas contíguas de grupos de blocos. Isso é feito movendo os mapas de bits de bloco e inode, 
+juntamente com as tabelas de inode, para o primeiro grupo de blocos em um flex-grupo de blocos, 
+junto com os descritores de grupo \cite{kumar}. Com o recurso de superbloco esparsamente ativado 
+por padrão, alguns grupos de blocos podem conter cópias de backup do superbloco, descritores de 
+grupo e blocos de crescimento de descritores de grupo.
+
+Ao levantar a restrição de os blocos de metadados terem que residir no grupo de blocos ao qual se 
+referem, é possível criar um grupo de blocos virtual maior. Isso permite a alocação de blocos de dados contíguos 
+livres através das fronteiras do grupo. Nas discussões nas listas de desenvolvimento, a questão de se as duas 
+opções devem ter diferentes flags de recursos foi abordada. Ficou acordado que isso era necessário para manter 
+uma definição clara de META\_BG e FLEX\_BG. O recurso FLEX\_BG foi detalhado, pois é selecionado por padrão no 
+arquivo de configuração mke2fs.
+
+É importante observar que o número de grupos de blocos em um grupo flexível deve ser uma potência de 2. Além disso, 
+os mapas de bits de blocos e inodes do flex-grupo são uma concatenação dos mapas de bits dos grupos de blocos 
+constituintes. O tamanho de cada uma dessas estruturas é igual ao tamanho do bloco do sistema de arquivos multiplicado 
+pelo número de grupos por grupo flexível. Similarmente, a tabela de inodes do grupo flexível é uma concatenação das 
+tabelas de inodes dos grupos de blocos. Calculando primeiro o tamanho da tabela de inodes por grupo e multiplicando o 
+resultado pelo número de grupos em um grupo flexível, obtemos o tamanho da tabela de inodes do grupo flexível.
+
+Como essas estruturas de metadados agora estão fora do grupo de blocos que elas são usadas para administrar, 
+a extensão máxima de blocos de dados contíguos livres aumentou, embora dentro deste grupo de blocos virtual maior, 
+para ser maior que o máximo de 128 MB imposto pelo esquema de grupo de blocos usado pelo Ext3. Vale notar que o 
+recurso de flex-grupo atualmente não afeta a localização de superblocos de backup, descritores de grupo ou 
+blocos de crescimento de descritores de grupo. Embora essas estruturas possam interromper áreas de blocos 
+de dados contíguos livres, sua ocorrência se torna menos frequente à medida que o número de grupos de blocos aumenta.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{fig9.jpg}
+	\caption{}
+	\label{fig:9}
+\end{figure}
 
 \chapter{Desempenho: Benchmarks}
 
@@ -342,5 +394,10 @@ Sumarize os principais pontos abordados no relatório, destacando a adequação 
 \bibliography{bibliografia}
 
 \cite{tanenbaum2010sistemas}
+\cite{FAIRBANKS2012S118}
+\cite{bovet_cesati_2005}
+\cite{Tso}
+\cite{matur}
+\cite{kumar}
 
 \end{document}
