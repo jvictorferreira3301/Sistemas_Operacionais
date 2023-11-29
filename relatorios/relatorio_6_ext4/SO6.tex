@@ -305,7 +305,8 @@ o desempenho e a eficiência,a seguir são apresentados alguns aspectos da aloca
 %Uma das melhorias significativas introduzidas no Ext4 é o conceito de \textit{extensões} ou \textit{extents}. Em vez de manter listas detalhadas de blocos individuais para armazenar dados de um arquivo, o Ext4 organiza os dados em extensões, que são sequências de blocos contíguos. Essa abordagem ajuda a reduzir a fragmentação do sistema de arquivos, melhorando a eficiência no acesso aos dados.
 
 \section{Alocação por Reservas (Reservation)}
-O Ext4 utiliza o conceito de \textit{alocação por reservas} para melhorar o desempenho durante a criação de novos arquivos. Ele reserva espaço em disco antecipadamente para o crescimento futuro do arquivo, evitando a necessidade de buscar continuamente espaço conforme o arquivo cresce. Isso reduz a fragmentação e melhora a eficiência na alocação de espaço.
+O Ext4 utiliza o conceito de \textit{alocação por reservas} para 
+melhorar o desempenho durante a criação de novos arquivos. Ele reserva espaço em disco antecipadamente para o crescimento futuro do arquivo, evitando a necessidade de buscar continuamente espaço conforme o arquivo cresce. Isso reduz a fragmentação e melhora a eficiência na alocação de espaço.
 
 \section{Alocação por Bloco Indireto}
 O Ext4 faz uso de \textit{alocação por bloco indireto} para otimizar a gestão de grandes arquivos. Em vez de armazenar todos os ponteiros diretamente em um bloco, o Ext4 usa uma estrutura de árvore de blocos para referenciar outros blocos, permitindo uma gestão mais eficiente de grandes quantidades de dados.
@@ -486,7 +487,10 @@ foi ramificado para JBD2, que pode suportar o \textit{journaling} de sistemas de
 
 
 
-Nesta seção, apresentamos um conjunto de testes de desempenho realizados em sistemas operacionais, utilizando benchmarks que incluem testes de leitura e escrita sequencial, bem como testes de leitura e escrita aleatória. Os testes foram conduzidos em 12 arquivos, cada um com tamanho de 1GB.
+Nesta seção, apresentamos um conjunto de testes de desempenho realizados em 
+sistemas operacionais, utilizando benchmarks que incluem testes de leitura e 
+escrita sequencial, bem como testes de leitura e escrita aleatória. Os testes 
+foram conduzidos em 12 arquivos, cada um com tamanho de 1GB.
 
 \section{Código de Benchmark}
 
@@ -499,6 +503,7 @@ A seguir, apresentamos o código em Python utilizado para realizar os testes:
 	
 	def write_sequential(file_path, file_size_mb, block_size_kb):
 		with open(file_path, 'wb') as f:
+			for _ in range(file_size_mb * 1024 // block_size_kb):
 			f.write(os.urandom(1024*1024* 1024)) 
 	
 	def read_sequential(file_path, block_size_kb):
@@ -555,71 +560,172 @@ A seguir, apresentamos o código em Python utilizado para realizar os testes:
 \end{lstlisting}
 
 
-\section{Explicação do Código}
-
-O código consiste em funções para realizar testes de leitura e escrita sequencial, bem como testes de leitura e escrita aleatória. O desempenho é medido em termos do tempo necessário para realizar essas operações. Cada teste é executado em 12 arquivos distintos, cada um com um tamanho de 1GB.
+O código consiste em funções para realizar testes de leitura e escrita sequencial, 
+bem como testes de leitura e escrita aleatória. O desempenho é medido em termos do 
+tempo necessário para realizar essas operações. Cada teste é executado em 12 arquivos 
+distintos, cada um com um tamanho de 1GB.
 
 \section{Resultados dos Testes}
 
 \subsection{Teste de Leitura Sequencial}
 
-Resultados e análise do teste de leitura sequencial:
+Neste teste, avaliamos o desempenho da leitura sequencial em diferentes arquivos. 
+O processo consiste em ler dados de maneira contínua, sem saltos, percorrendo o 
+arquivo de início ao fim. A Figura~\ref{fig:sr} apresenta os tempos de leitura 
+sequencial para cada arquivo, destacando as variações de desempenho entre eles.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{SeqRead.png}
-    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \includegraphics[width=0.7\textwidth]{SeqRead.png}
+    \caption{Tempos de Leitura Sequencial para Cada Arquivo.}
     \label{fig:sr}
 \end{figure}
-
 
 % Inclua tabelas ou gráficos com os resultados do teste de leitura sequencial aqui...
 
 \subsection{Teste de Escrita Sequencial}
 
-
-Resultados e análise do teste de escrita sequencial:
+No teste de escrita sequencial, examinamos como o sistema lida com operações 
+de escrita contínua em diferentes arquivos. Isso envolve a gravação de dados 
+de maneira consecutiva, sem movimentos aleatórios no arquivo. 
+A Figura~\ref{fig:sw} exibe os tempos de escrita sequencial para cada 
+arquivo, proporcionando insights sobre a eficiência do sistema em 
+operações de escrita ordenada.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{SeqWrite.png}
-    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \includegraphics[width=0.7\textwidth]{SeqWrite.png}
+    \caption{Tempos de Escrita Sequencial para Cada Arquivo.}
     \label{fig:sw}
 \end{figure}
-
 
 % Inclua tabelas ou gráficos com os resultados do teste de escrita sequencial aqui...
 
 \subsection{Teste de Leitura Aleatória}
 
+No teste de leitura aleatória, avaliamos o desempenho da leitura de dados 
+em posições não sequenciais nos arquivos. Isso simula a leitura de dados 
+de maneira aleatória, sem seguir uma ordem específica. A Figura~\ref{fig:rr} 
+ilustra os tempos de leitura aleatória para cada arquivo, oferecendo uma 
+visão do comportamento do sistema diante de operações de leitura não lineares.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{RandomRead.png}
-    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \includegraphics[width=0.7\textwidth]{RandomRead.png}
+    \caption{Tempos de Leitura Aleatória para Cada Arquivo.}
     \label{fig:rr}
 \end{figure}
-
-
-Resultados e análise do teste de leitura aleatória:
 
 % Inclua tabelas ou gráficos com os resultados do teste de leitura aleatória aqui...
 
 \subsection{Teste de Escrita Aleatória}
 
+O teste de escrita aleatória explora como o sistema lida com operações de 
+escrita em posições não sequenciais nos arquivos. Isso inclui a gravação 
+de dados em locais arbitrários, sem seguir uma ordem específica. 
+A Figura~\ref{fig:rw} apresenta os tempos de escrita aleatória para cada arquivo, 
+permitindo a análise do desempenho do sistema em cenários de gravação não linear.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{RandomWrite.png}
-    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \includegraphics[width=0.7\textwidth]{RandomWrite.png}
+    \caption{Tempos de Escrita Aleatória para Cada Arquivo.}
     \label{fig:rw}
 \end{figure}
 
+\section{Considerações Importantes para o Benchmark}
 
-Resultados e análise do teste de escrita aleatória:
+Ao analisar os tempos de execução em um benchmark de sistema de arquivos, é crucial levar em 
+consideração vários fatores que podem influenciar os resultados. A seguir, destacamos
+algumas considerações essenciais:
 
-% Inclua tabelas ou gráficos com os resultados do teste de escrita aleatória aqui...
+\subsection{Hardware}
 
-\end{document}
+O desempenho do sistema de arquivos é fortemente influenciado pelo hardware 
+subjacente. Características como o tipo e a velocidade do disco rígido (HDD), 
+o tipo e a configuração do disco de estado sólido (SSD), a quantidade e a 
+velocidade da memória RAM, e a capacidade do processador (CPU) podem ter 
+impactos significativos nos resultados do benchmark. Em nossa análise foi usado
+uma máquina com as características especificadas na tabela \ref{tab:ideapad_specs}
 
+
+\begin{table}[ht]
+    \centering
+    \caption{Especificações do Hardware usado}
+    \begin{tabular}{@{}ll@{}}
+        \toprule
+        \textbf{Componente} & \textbf{Especificação} \\
+        \midrule
+        Processador & Intel Core i3-10110U \\
+        Memória RAM & 8 GB DDR4 (2x4) 2666 \\
+        Armazenamento & SSD NVME 128 GB \\
+        Sistema Operacional & Ubuntu 22.04 LTS \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:ideapad_specs}
+\end{table}
+\subsection{Tipo de Acesso}
+
+Operações de leitura e escrita sequencial geralmente apresentam desempenho superior 
+em comparação com operações aleatórias. A otimização do sistema de arquivos 
+pode variar de acordo com o tipo específico de acesso.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{RandomVsSeq.png}
+	\caption{Acessos sequencial e aleatório}
+\end{figure}
+
+\subsection{Tamanho dos Arquivos}
+
+O tamanho dos arquivos utilizados nos testes pode influenciar os resultados. 
+O comportamento do sistema de arquivos pode ser diferente dependendo do 
+tamanho dos arquivos envolvidos.
+
+%\subsection{Cache do Sistema Operacional}
+
+%A presença de cache no sistema operacional pode impactar os tempos de leitura 
+%e gravação. Operações subsequentes podem ser aceleradas se os dados estiverem 
+%em cache, introduzindo variabilidades nos resultados.
+
+
+\subsection{Cargas do Sistema}
+
+Outras tarefas em execução no sistema podem impactar o desempenho dos 
+testes. Recomenda-se realizar os benchmarks em um sistema relativamente 
+inativo, como fizemos em nossa análise, para obter resultados mais consistentes.
+
+\chapter{Conclusão}
+
+Neste trabalho, realizamos benchmarks de desempenho em diferentes cenários 
+de acesso a arquivos em um sistema operacional Linux com o sistema de arquivos Ext4, 
+utilizando um computador com o hardware descrito na tabela \ref{tab:ideapad_specs}  
+como ambiente de teste. Os testes incluíram operações de leitura e escrita 
+sequencial, bem como leitura e escrita aleatória, em arquivos de tamanho fixo.
+
+Ao analisar os resultados apresentados no gráfico geral de comparação de desempenho 
+(Figura \ref{fig:oneforall}), observamos padrões interessantes. Os tempos de 
+escrita sequencial, em geral, mantiveram-se estáveis, enquanto os tempos de 
+leitura sequencial e os tempos de leitura e escrita aleatórias variaram 
+consideravelmente entre os diferentes arquivos.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{oneforall_grafico.png}
+	\caption{Acessos sequencial e aleatório}
+	\label{fig:oneforall}
+\end{figure}
+
+
+Essas variações podem ser atribuídas a uma série de fatores, como a 
+alocação de blocos, a presença de cache do sistema operacional, e a 
+configuração específica do sistema de arquivos utilizado. É crucial 
+considerar esses fatores ao interpretar os resultados.
+
+Em resumo, este estudo fornece insights valiosos sobre o desempenho do 
+sistema de arquivos em diferentes cenários. No entanto, para uma compreensão 
+mais abrangente, seria necessário realizar análises mais detalhadas, 
+considerando diversos parâmetros e cenários adicionais.
 \postextual
 
 \bibliography{bibliografia}
