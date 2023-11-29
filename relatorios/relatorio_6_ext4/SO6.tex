@@ -8,7 +8,7 @@
 	chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
 	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
 	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
-	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	%subsection=TITLE,% títulos de subseções convertidos em letras maiúsculas
 	% -- opções do pacote babel --
 	english,			% idioma adicional para hifenização
 	french,				% idioma adicional para hifenização
@@ -44,8 +44,12 @@
 \usepackage{fancybox}
 \usepackage{float}
 
+\usepackage{listings} % Para incluir código Python
+\usepackage{geometry} % Para ajustar as margens
+\usepackage{color}    % Para definir cores personalizadas
 
 
+\geometry{margin=1in}
 
 \newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
 % ---
@@ -101,7 +105,7 @@
 \tipotrabalho{Monografia}
 
 % o nome da instituição e a área de concentração 
-\preambulo{Relatório do trabalho 5 de Sistemas Operacionais.}
+\preambulo{Relatório do trabalho 6 de Sistemas Operacionais.}
 %\sobrenome{Sobrenome}
 %\nome{Nome}
 %\palavraschave{%
@@ -445,20 +449,176 @@ foi ramificado para JBD2, que pode suportar o \textit{journaling} de sistemas de
 
 \chapter{Desempenho: Benchmarks}
 
-\section{Teste de Leitura Sequencial}
-Resultados e análise do teste de leitura sequencial.
 
-\section{Teste de Escrita Sequencial}
-Resultados e análise do teste de escrita sequencial.
+% Definindo cores personalizadas para o código Python    % Para definir cores personalizadas
 
-\section{Teste de Leitura Aleatória}
-Resultados e análise do teste de leitura aleatória.
+% Definindo cores personalizadas para o código Python no estilo Drácula
+\definecolor{draculapurple}{RGB}{189, 147, 249}
+\definecolor{draculagreen}{RGB}{80, 250, 123}
+\definecolor{draculayellow}{RGB}{255, 184, 108}
+\definecolor{draculacyan}{RGB}{139, 233, 253}
+\definecolor{draculared}{RGB}{255, 85, 85}
+\definecolor{draculablack}{RGB}{40, 42, 54}
+\definecolor{draculawhite}{RGB}{248, 248, 242}
+\definecolor{draculagray}{RGB}{68, 71, 90}
 
-\section{Teste de Escrita Aleatória}
-Resultados e análise do teste de escrita aleatória.
+\lstdefinestyle{dracula}{
+    backgroundcolor=\color{draculablack},   
+    commentstyle=\color{draculagreen},
+    keywordstyle=\color{draculacyan},
+    numberstyle=\tiny\color{draculayellow},
+    stringstyle=\color{draculapurple},
+    basicstyle=\footnotesize\ttfamily\color{draculawhite},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
 
-\chapter{Conclusão}
-Sumarize os principais pontos abordados no relatório, destacando a adequação do ext4 para os requisitos do trabalho.
+\lstset{style=dracula}
+
+
+
+
+Nesta seção, apresentamos um conjunto de testes de desempenho realizados em sistemas operacionais, utilizando benchmarks que incluem testes de leitura e escrita sequencial, bem como testes de leitura e escrita aleatória. Os testes foram conduzidos em 12 arquivos, cada um com tamanho de 1GB.
+
+\section{Código de Benchmark}
+
+A seguir, apresentamos o código em Python utilizado para realizar os testes:
+
+\begin{lstlisting}[language=Python, caption={Código de Benchmark}, label=benchmark_code]
+	import os
+	import time
+	import random
+	
+	def write_sequential(file_path, file_size_mb, block_size_kb):
+		with open(file_path, 'wb') as f:
+			f.write(os.urandom(1024*1024* 1024)) 
+	
+	def read_sequential(file_path, block_size_kb):
+		with open(file_path, 'rb') as f:
+			while f.read(block_size_kb * 1024):
+				pass
+	
+	def write_random(file_path, file_size_mb, block_size_kb):
+		with open(file_path, 'wb') as f:
+			for _ in range(file_size_mb * 1024 // block_size_kb):
+				pos = random.randint(0, file_size_mb * 1024 * 1024 - block_size_kb * 1024)
+				f.seek(pos)
+				f.write(os.urandom(block_size_kb * 1024))
+	
+	def read_random(file_path, file_size_mb, block_size_kb):
+		with open(file_path, 'rb') as f:
+			for _ in range(file_size_mb * 1024 // block_size_kb):
+				pos = random.randint(0, file_size_mb * 1024 * 1024 - block_size_kb * 1024)
+				f.seek(pos)
+				f.read(block_size_kb * 1024)
+	
+	def run_tests():
+		file_size_mb = 1024
+		block_size_kb = 4
+		num_files = 12
+	
+		for i in range(1, num_files + 1):
+			file_path = f'arquivo{i}.dat'
+	
+			print(f"Running tests for {file_path}...")
+			
+			start_time = time.time()
+			write_sequential(file_path, file_size_mb, block_size_kb)
+			elapsed_time = time.time() - start_time
+			print(f"Sequential Write: {elapsed_time:.2f} seconds")
+	
+			start_time = time.time()
+			read_sequential(file_path, block_size_kb)
+			elapsed_time = time.time() - start_time
+			print(f"Sequential Read: {elapsed_time:.2f} seconds")
+	
+			start_time = time.time()
+			write_random(file_path, file_size_mb, block_size_kb)
+			elapsed_time = time.time() - start_time
+			print(f"Random Write: {elapsed_time:.2f} seconds")
+	
+			start_time = time.time()
+			read_random(file_path, file_size_mb, block_size_kb)
+			elapsed_time = time.time() - start_time
+			print(f"Random Read: {elapsed_time:.2f} seconds")
+	
+	if __name__ == "__main__":
+		run_tests()
+\end{lstlisting}
+
+
+\section{Explicação do Código}
+
+O código consiste em funções para realizar testes de leitura e escrita sequencial, bem como testes de leitura e escrita aleatória. O desempenho é medido em termos do tempo necessário para realizar essas operações. Cada teste é executado em 12 arquivos distintos, cada um com um tamanho de 1GB.
+
+\section{Resultados dos Testes}
+
+\subsection{Teste de Leitura Sequencial}
+
+Resultados e análise do teste de leitura sequencial:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{SeqRead.png}
+    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \label{fig:sr}
+\end{figure}
+
+
+% Inclua tabelas ou gráficos com os resultados do teste de leitura sequencial aqui...
+
+\subsection{Teste de Escrita Sequencial}
+
+
+Resultados e análise do teste de escrita sequencial:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{SeqWrite.png}
+    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \label{fig:sw}
+\end{figure}
+
+
+% Inclua tabelas ou gráficos com os resultados do teste de escrita sequencial aqui...
+
+\subsection{Teste de Leitura Aleatória}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{RandomRead.png}
+    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \label{fig:rr}
+\end{figure}
+
+
+Resultados e análise do teste de leitura aleatória:
+
+% Inclua tabelas ou gráficos com os resultados do teste de leitura aleatória aqui...
+
+\subsection{Teste de Escrita Aleatória}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{RandomWrite.png}
+    \caption{Estrutura do \textit{"extent"} no Ext4 \cite{matur}.}
+    \label{fig:rw}
+\end{figure}
+
+
+Resultados e análise do teste de escrita aleatória:
+
+% Inclua tabelas ou gráficos com os resultados do teste de escrita aleatória aqui...
+
+\end{document}
 
 \postextual
 
