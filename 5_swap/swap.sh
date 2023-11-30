@@ -3,11 +3,14 @@
 ######################################## Primeiro teste para sem swap: ########################################
 echo -e '\tTeste sem memória de Swap\n'
 
-# Desativar swap:
-#sudo swapoff /swapfile
+# Verificação se ja existe memoria de swap
+if [[ $(cat /proc/swaps | wc -l) -gt 1 ]]; then
+    sudo swapoff /swapfile
+    sudo rm /swapfile
+fi
+
 vmstat 1 60 > swap0gb.txt &
 PID=$!
-
 sleep 10 
 python3 memoria_swap.py
 wait $PID
@@ -27,6 +30,9 @@ sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 
+sleep 10 &
+PID=$!
+wait $PID
 vmstat 1 60 > swap8gb.txt &
 PID=$!
 
@@ -52,6 +58,9 @@ sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 
+sleep 10 &
+PID=$!
+wait $PID
 vmstat 1 60 > swap16gb.txt &
 PID=$!
 sleep 10
@@ -59,6 +68,6 @@ sleep 10
 python3 memoria_swap.py
 wait $PID
 echo -e '\n\tTeste com 16gb de memória de Swap: Finalizada\n'
-sudo chmod 662 *gb.txt
+sudo chmod 666 *gb.txt
 
 

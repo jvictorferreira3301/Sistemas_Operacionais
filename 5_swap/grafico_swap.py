@@ -3,7 +3,7 @@ import glob
 import matplotlib.pyplot as plt
 import os
 
-arquivos_swap = glob.glob('*.txt')
+arquivos_swap = glob.glob('*gb.txt')
 memoria = {}
 for arquivo in arquivos_swap:
     df = pd.read_table(arquivo, sep='\s+', skiprows=1 )
@@ -25,8 +25,8 @@ for i, dicionario in enumerate(memoria):
     axs[i].set_title(f'Gráfico de {dicionario}')
     axs[i].plot(-memoria[dicionario]['livre'] + (7.62 * 1024 * 1024))
     axs[i].autoscale()
-    axs[i].set_xlabel('Índice')
-    axs[i].set_ylabel('Valor ajustado')
+    axs[i].set_xlabel('Tempo (s)')
+    axs[i].set_ylabel('Memória Usada')
     axs[i].grid(True)
 plt.tight_layout()
 plt.show()
@@ -36,11 +36,11 @@ num_plots = len(memoria)
 fig, ax = plt.subplots(figsize=(15, 5))
 
 for i, dicionario in enumerate(memoria):
-    ax.plot(-memoria[dicionario]['livre'] + (7.62 * 1024 * 1024), label=f'{dicionario}')
+    ax.plot(-memoria[dicionario]['livre'] + (7.62 * 1024 * 1024), label=f'{8*i}GB de memória de Swap')
 
-ax.set_title('Gráficos de Memória')
-ax.set_xlabel('Índice')
-ax.set_ylabel('Valor ajustado')
+ax.set_title('Gráficos do Uso da Memória')
+ax.set_xlabel('Tempo (s)')
+ax.set_ylabel('Quantidade de Memória (GB)')
 ax.legend()
 ax.autoscale()
 ax.grid(True)
