@@ -417,7 +417,7 @@ Esta estrutura tem a tarefa de identificar o primeiro bloco de descritor no \tex
 O uso do \textit{journal} como um registro circular torna essa tarefa necessária, já 
 que não pode ser assumido que o início do \textit{journal} está localizado no início de 
 seu espaço de armazenamento físico \cite{carrier2005file}. A relação entre os diferentes 
-tipos de blocos de \textit{journal} é exibida na Figura 3. Nesta figura, a transação 55 
+tipos de blocos de \textit{journal} é exibida na Figura \ref{fig:ext3_joual_blocks}. Nesta figura, a transação 55 
 está completa, pois o conjunto de blocos de metadados associados a ela está incluído em 
 um bloco de descritor e bloco de confirmação. No entanto, a transação 56 não foi concluída, 
 então nenhum bloco de confirmação foi criado. Quando o sistema de arquivos é montado 
@@ -462,7 +462,7 @@ crescimento de descritores de grupo.
 	\label{fig:9}
 \end{figure}
 
-Ao levantar a restrição dos blocos de metadados terem q\cite{carrier2005file}ue residir no grupo de blocos ao qual se 
+Ao levantar a restrição dos blocos de metadados terem que residir no grupo de blocos ao qual se 
 referem, é possível criar um grupo de blocos virtual maior. Isso permite a alocação de blocos de
 dados contíguos livres através das fronteiras do grupo. Nas discussões nas listas de desenvolvimento, 
 a questão de se as duas opções devem ter diferentes flags de recursos foi abordada. Ficou acordado 
@@ -597,7 +597,10 @@ foram conduzidos em 12 arquivos, cada um com tamanho de 1GB.
 
 A seguir, apresentamos o código em Python utilizado para realizar os testes:
 
-\begin{lstlisting}[language=Python, caption={Código de Benchmark}, label=benchmark_code]
+\begin{lstlisting}[language=Python, caption=
+	{Código de Benchmark. 
+	\href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/6_ext4/benchmark_ext4.py}{github.com/jvictorferreira3301/SistemasOperacionais
+	/blob/main/6\_ext4/benchmark\_ext4.py}}, label=benchmark_code]
 	import os
 	import time
 	import random
@@ -728,34 +731,8 @@ A Figura~\ref{fig:rw} apresenta os tempos de escrita aleatória para cada arquiv
 permitindo a análise do desempenho do sistema em cenários de gravação não linear.
 
 \begin{figure}[H]
-    \centering\section{Bitmap de Blocos Livres no Sistema de Arquivos \texttt{ext}}
-	O Bitmap de Blocos Livres é uma estrutura essencial no sistema de arquivos \texttt{ext}, desempenhando um papel crucial na gestão e alocação de espaço em disco. Este mecanismo utiliza um mapa de bits para representar o estado de cada bloco no disco, indicando se um bloco está ocupado ou livre.
-	
-	\subsection{Funcionamento}
-	Cada bloco de dados no sistema de arquivos \texttt{ext} é associado a um bit no Bitmap de Blocos Livres. Se o bit correspondente estiver definido como "livre", o bloco está disponível para alocação. Caso contrário, se o bit estiver definido como "ocupado", o bloco já está sendo utilizado por algum arquivo.
-	
-	\subsection{Vantagens}
-	O uso do Bitmap de Blocos Livres oferece diversas vantagens significativas:
-	
-	\begin{itemize}
-		\item \textbf{Eficiência na Alocação:} O mapa de bits permite uma verificação rápida e eficiente da disponibilidade de blocos, facilitando a alocação de espaço para novos arquivos.
-		
-		\item \textbf{Desempenho Aprimorado:} A rápida identificação de blocos livres contribui para um melhor desempenho do sistema durante as operações de leitura e gravação.
-		
-		\item \textbf{Simplicidade na Gestão:} A estrutura simplificada do Bitmap de Blocos Livres facilita a implementação e a manutenção do sistema de arquivos.
-	\end{itemize}
-	
-	\subsection{Implementação Prática}
-	A manipulação do Bitmap de Blocos Livres pode ser realizada por meio de comandos específicos no sistema de arquivos \texttt{ext}. Por exemplo:
-	
-	\begin{lstlisting}[language=bash, caption={Exemplo de Manipulação do Bitmap de Blocos Livres}]
-	$ dumpe2fs /dev/sda1 | grep "Free blocks"
-	\end{lstlisting}
-	
-	Este comando exibe informações sobre os blocos livres no sistema de arquivos montado em \texttt{/dev/sda1}.
-	
-	A utilização eficiente do Bitmap de Blocos Livres é essencial para garantir a gestão adequada do espaço em disco no sistema de arquivos \texttt{ext}.
-    \includegraphics[width=0.7\textwidth]{RandomWrite.png}
+    \centering
+	\includegraphics[width=0.7\textwidth]{RandomWrite.png}
     \caption{Tempos de Escrita Aleatória para Cada Arquivo.}
     \label{fig:rw}
 \end{figure}
@@ -776,7 +753,7 @@ impactos significativos nos resultados do benchmark. Em nossa análise foi usado
 uma máquina com as características especificadas na tabela \ref{tab:ideapad_specs}
 
 
-\begin{table}
+\begin{table}[H]
     \centering
     \caption{Especificações do Hardware usado}
     \begin{tabular}{@{}ll@{}}
