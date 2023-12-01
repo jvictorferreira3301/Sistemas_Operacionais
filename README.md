@@ -19,6 +19,8 @@ escalonadores:
 • Prioridades(fixa)
 • Round Robin (dar o time-slice como entrada)
 - [x] Tarefa 4 - Problemas Clássicos (Produtor x Consumidor, Leitor x Escritor, O jantar dos filósofos, O Problema do Barbeiro Dorminhoco).
+- [x] Tarefa 5 - Desenvolver uma apliação que necessite de muita RAM, a executar com e sem serviços de SWAP. Utilizar, ao menos, duas capacidades de SWAP para comparar
+- [x] Tarefa 6 - Escolher um Sistema de Arquivos, apresentar e realizar benchmarks (Teste de leitura sequencial e escrita sequencial e teste de leitura aleatória e escrita aleatória, com cargas 12 arquivos de  arquivo 1GB cada)  
 
 ### 🧰 Instruções para compilação 
 Para automatizar a compilação implementamos o makefile neste repositório. 
