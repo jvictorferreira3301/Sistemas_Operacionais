@@ -29,7 +29,7 @@
 \usepackage{subcaption}				% Inclusão de gráficos lado a lado
 \usepackage{microtype} 			% para melhorias de justificação
 \usepackage{tabularx,ragged2e}	% Para inserir tabelas
-\usepackage{multirow}			% Para mesclar células
+\usepackage{multirow}			% Para mesclar células\documentclass[
 \usepackage[dvipsnames,table,xcdraw]{xcolor}		% Permite adicionar cores nas linhas de tabelas
 \usepackage{fancyvrb}			% Permite adicionar arquivos de texto
 \usepackage[portuguese, ruled, linesnumbered]{algorithm2e} % Uso de algoritmos
@@ -202,77 +202,34 @@ baseados em Linux. Ao longo deste trabalho serão apresentados diversos aspectos
 do sistema ext4.
 
 \chapter{Apresentação do Sistema}
+O Ext4, abreviação de Fourth Extended Filesystem, surge como uma evolução do sistema de arquivos Ext3, sendo desenvolvido especificamente para atender às crescentes demandas do sistema operacional Linux. A concepção do Ext4 foi motivada pela necessidade de superar as limitações do Ext3, adaptando-se às exigências modernas no tratamento e processamento de dados.
 
-O Ext4, ou Fourth Extended Filesystem, é uma evolução do sistema de arquivos Ext3, desenvolvido 
-especificamente para o sistema operacional Linux. Sua criação foi motivada pela necessidade 
-de aprimorar as funcionalidades do Ext3 e acompanhar as demandas crescentes de armazenamento e 
-processamento de dados na era moderna da computação. Ao abordar as limitações do Ext3, o Ext4 
-oferece uma série de inovações que vão além do seu antecessor.
+Com o propósito de estabelecer um ambiente de armazenamento mais eficiente e confiável, o Ext4 introduz avanços notáveis em capacidade, desempenho e segurança. Sua arquitetura foi cuidadosamente planejada para suportar volumes de dados consideravelmente maiores, proporcionando maior flexibilidade para enfrentar as demandas crescentes das aplicações contemporâneas.
 
-Com o objetivo de proporcionar um ambiente de armazenamento mais eficiente e confiável, o 
-Ext4 introduz melhorias significativas em termos de capacidade, desempenho e segurança. 
-Sua arquitetura foi projetada para suportar volumes de dados consideravelmente maiores, 
-oferecendo maior flexibilidade para lidar com as demandas crescentes das aplicações contemporâneas. 
-Dentre as características e aprimoramentos do Ext4 iremos citar algumas principais como a Retrocompatibilidade,
-o Journaling e as evoluções em termo de capacidade, velocidade e tamanho de arquivos.
+A notável capacidade do sistema de arquivos Ext4, com um tamanho máximo teórico de 1 exabyte, o posiciona como uma escolha ideal para lidar com grandes volumes de dados em ambientes Linux, oferecendo suporte a sistemas de arquivos consideravelmente amplos.
 
-\section{Capacidade, Velocidade e Tamanho de Arquivos}
-%Descreva a capacidade do sistema, velocidade e o suporte a arquivos grandes.
-A capacidade do sistema de arquivos Ext4 é notavelmente extensa, com um tamanho máximo teórico de 1 exabyte. Essa 
-ampla capacidade o torna ideal para lidar com grandes volumes de dados em ambientes Linux, oferecendo suporte a 
-sistemas de arquivos significativamente grandes.
+Quanto à velocidade, o Ext4 destaca-se por melhorias significativas em comparação com o Ext3, principalmente devido à implementação de extensões. Ao organizar os dados em blocos contíguos, o Ext4 reduz a fragmentação, aprimorando a eficiência no acesso aos dados e otimizando o desempenho global do sistema.
 
-Em termos de velocidade, o Ext4 apresenta melhorias significativas em relação ao Ext3, principalmente devido 
-à implementação de extensões. Ao organizar os dados em blocos contíguos, o Ext4 reduz a fragmentação, melhorando 
-a eficiência no acesso aos dados e otimizando o desempenho global do sistema.
-
-O tamanho máximo do arquivo, aumentado para 16 terabytes, proporciona uma flexibilidade substancial ao lidar 
-com arquivos grandes. Essa expansão é crucial em ambientes que exigem o armazenamento e a manipulação de dados 
-massivos, garantindo que o Ext4 atenda às demandas de cenários que envolvem arquivos consideravelmente grandes.
-
+A expansão do tamanho máximo do arquivo para 16 terabytes proporciona uma flexibilidade substancial ao lidar com arquivos grandes. Essa ampliação é crucial em ambientes que demandam o armazenamento e a manipulação de dados massivos, assegurando que o Ext4 atenda plenamente às exigências de cenários envolvendo arquivos consideravelmente grandes. Assim, o Ext4 se destaca como uma solução coesa e abrangente para os desafios contemporâneos de armazenamento no universo Linux.
 
 \chapter{Sistema de Alocação de Arquivos}
 %Explicação sobre como o ext4 aloca arquivos no disco.
 No Ext4 o a alocação de arquivos desempenha um papel vital na organização e na gestão eficiente do espaço em disco. 
-Dito isso, o Ext4 utiliza uma estrutura aprimorada em comparação aos seus predecessores, Ext2 e Ext3, para otimizaro 
-o desempenho e a eficiência,a seguir são apresentados alguns aspectos da alocação no Ext4
+Dito isso, o Ext4 utiliza uma estrutura aprimorada em comparação aos seus predecessores, Ext2 e Ext3, para otimizar o 
+o desempenho e a eficiência, a seguir são apresentados alguns aspectos da alocação no Ext4
 
 %\section{Extensões (Extents)}
 %Uma das melhorias significativas introduzidas no Ext4 é o conceito de \textit{extensões} ou \textit{extents}. Em vez de manter listas detalhadas de blocos individuais para armazenar dados de um arquivo, o Ext4 organiza os dados em extensões, que são sequências de blocos contíguos. Essa abordagem ajuda a reduzir a fragmentação do sistema de arquivos, melhorando a eficiência no acesso aos dados.
 
-\section{Alocação por Reservas no Sistema de Arquivos \texttt{ext}}
-A alocação por reservas é uma estratégia fundamental no sistema de arquivos \texttt{ext}, projetada para otimizar o gerenciamento de espaço em disco e melhorar o desempenho do sistema. Essa técnica oferece uma abordagem proativa, reservando antecipadamente uma parte do disco para um arquivo antes mesmo de seu conteúdo ser gravado.
+\section{Alocação por Bloco Indireto}
+A alocação por bloco indireto é uma técnica avançada utilizada no sistema de arquivos \texttt{ext}, 
+proporcionando uma gestão eficiente de grandes quantidades de dados. Essa estratégia utiliza uma 
+estrutura adicional, chamada bloco indireto, para otimizar o acesso e a alocação de dados.
 
-Ao criar um novo arquivo no sistema de arquivos \texttt{ext}, uma porção específica de espaço em disco é designada como reserva para esse arquivo. Essa alocação antecipada pode ser determinada com base em estimativas do tamanho futuro do arquivo ou seguir uma política fixa de reserva. Quando o conteúdo do arquivo é gravado, ele utiliza o espaço reservado, proporcionando uma eficiente distribuição do armazenamento.
-
-\subsection{Vantagens}
-A alocação por reservas oferece diversas vantagens cruciais:
-
-\begin{itemize}
-    \item \textbf{Desempenho Sustentado:} Ao reservar espaço antecipadamente, reduz-se a fragmentação do disco, mantendo um desempenho sustentado do sistema.
-    
-    \item \textbf{Prevenção de Fragmentação Extensiva:} Evita a fragmentação extensiva que pode ocorrer quando arquivos crescem incrementalmente ao longo do tempo sem reservas.
-    
-    \item \textbf{Otimização de Espaço:} Minimiza o desperdício de espaço em disco, especialmente em relação a arquivos pequenos, ao garantir uma alocação precisa e eficiente.
-\end{itemize}
-
-\subsection{Implementação Prática}
-No sistema de arquivos \texttt{ext}, a alocação por reservas pode ser aplicada durante a criação de um arquivo. Por exemplo:
-
-
-\begin{lstlisting}[caption={Exemplo de Alocação por Reservas}]
-	$ touch novo_arquivo.txt   
-	$ chattr +r 1M novo_arquivo.txt   
-\end{lstlisting}
-	
-Este comando reserva 1 megabyte para o arquivo \texttt{novo\_arquivo.txt}.
-
-A alocação por reservas no sistema de arquivos \texttt{ext} representa uma prática eficiente para garantir a integridade do sistema de arquivos, promovendo tanto a organização quanto o desempenho confiável.
-
-\section{Alocação por Bloco Indireto no Sistema de Arquivos \texttt{ext}}
-A alocação por bloco indireto é uma técnica avançada utilizada no sistema de arquivos \texttt{ext}, proporcionando uma gestão eficiente de grandes quantidades de dados. Essa estratégia utiliza uma estrutura adicional, chamada bloco indireto, para otimizar o acesso e a alocação de dados.
-
-Ao lidar com arquivos extensos, a alocação por bloco indireto permite a criação de uma camada adicional entre os blocos de dados e o inode. Em vez de armazenar diretamente os endereços dos blocos de dados no inode, é utilizado um bloco indireto. Esse bloco indireto contém endereços de blocos de dados, proporcionando uma abstração eficiente para acessar grandes volumes de dados.
+Ao lidar com arquivos extensos, a alocação por bloco indireto permite a criação de uma camada 
+adicional entre os blocos de dados e o inode. Em vez de armazenar diretamente os endereços dos 
+blocos de dados no inode, é utilizado um bloco indireto. Esse bloco indireto contém endereços 
+de blocos de dados, proporcionando uma abstração eficiente para acessar grandes volumes de dados.
 
 \subsection{Vantagens}
 A alocação por bloco indireto apresenta diversas vantagens:
@@ -298,7 +255,7 @@ Neste exemplo, um bloco indireto é criado e associado ao arquivo \texttt{arquiv
 
 A alocação por bloco indireto é uma estratégia avançada que contribui para a eficiência e desempenho do sistema de arquivos \texttt{ext}, especialmente ao lidar com grandes volumes de dados.
 
-\section{Tamanho de Bloco Variável no Sistema de Arquivos \texttt{ext}}
+\section{Tamanho de Bloco Variável}
 A abordagem de tamanho de bloco variável é uma característica avançada do sistema de arquivos \texttt{ext}, permitindo a flexibilidade na alocação de espaço em disco, especialmente ao lidar com diferentes tipos de arquivos.
 
 Ao contrário de sistemas de arquivos com tamanho de bloco fixo, o \texttt{ext} oferece a capacidade de variar o tamanho dos blocos de dados. Cada arquivo pode ser associado a um tamanho de bloco específico, ajustando-se dinamicamente às necessidades do conteúdo. Isso significa que arquivos pequenos podem compartilhar blocos com outros, enquanto arquivos maiores podem ter blocos maiores, otimizando a utilização do espaço em disco.
@@ -355,27 +312,68 @@ A alocação pré-alocada oferece uma abordagem dinâmica para o gerenciamento d
 
 \chapter{Gestão do Espaço Livre no Ext4}
 
-A eficiente gestão do espaço livre é uma componente crucial para garantir o desempenho, a confiabilidade e a integridade do sistema de arquivos Ext4. Neste capítulo, exploraremos as estratégias e características fundamentais implementadas no Ext4 para otimizar o uso do espaço disponível e minimizar a fragmentação.
+A eficiente gestão do espaço livre é uma componente crucial para garantir o desempenho, a confiabilidade e a 
+integridade do sistema de arquivos Ext4. Neste capítulo, exploraremos algumas estratégias e características 
+fundamentais implementadas no Ext4 para otimizar o uso do espaço disponível e minimizar a fragmentação.
 
 \section{Bitmap de Blocos Livres}
 
-O Ext4 utiliza um \textit{bitmap de blocos livres} para rastrear o estado de cada bloco no sistema de arquivos. Cada grupo de blocos possui um mapa de bits indicando quais blocos estão livres e quais estão em uso. Esse método eficiente permite uma alocação rápida de espaço e é crucial para a gestão eficaz do espaço livre, garantindo uma utilização otimizada dos recursos.
+O Bitmap de Blocos Livres é uma estrutura essencial no sistema de arquivos \texttt{ext}, desempenhando um papel crucial na gestão e alocação de espaço em disco. Este mecanismo utiliza um mapa de bits para representar o estado de cada bloco no disco, indicando se um bloco está ocupado ou livre.
+
+Cada bloco de dados no sistema de arquivos \texttt{ext} é associado a um bit no Bitmap de Blocos Livres. Se o bit correspondente estiver definido como "livre", o bloco está disponível para alocação. Caso contrário, se o bit estiver definido como "ocupado", o bloco já está sendo utilizado por algum arquivo.
+
+\subsection{Vantagens}
+O uso do Bitmap de Blocos Livres oferece diversas vantagens significativas:
+
+\begin{itemize}
+    \item \textbf{Eficiência na Alocação:} O mapa de bits permite uma verificação rápida e eficiente da disponibilidade de blocos, facilitando a alocação de espaço para novos arquivos.
+    
+    \item \textbf{Desempenho Aprimorado:} A rápida identificação de blocos livres contribui para um melhor desempenho do sistema durante as operações de leitura e gravação.
+    
+    \item \textbf{Simplicidade na Gestão:} A estrutura simplificada do Bitmap de Blocos Livres facilita a implementação e a manutenção do sistema de arquivos.
+\end{itemize}
+
+\subsection{Implementação Prática}
+A manipulação do Bitmap de Blocos Livres pode ser realizada por meio de comandos específicos no sistema de arquivos \texttt{ext}. Por exemplo:
+
+\begin{lstlisting}[language=bash, caption={Exemplo de Manipulação do Bitmap de Blocos Livres}]
+$ dumpe2fs /dev/sda1 | grep "Free blocks"
+\end{lstlisting}
+
+Este comando exibe informações sobre os blocos livres no sistema de arquivos montado em \texttt{/dev/sda1}.
 
 \section{Trim/Discard}
 
-O Ext4 oferece suporte ao comando \textit{Trim/Discard}, especialmente benéfico em ambientes que utilizam dispositivos de armazenamento SSD. Esse comando notifica o sistema de arquivos sobre blocos que não estão mais em uso, permitindo que o sistema informe ao SSD para liberar esses blocos. Essa prática melhora a eficiência e prolonga a vida útil do SSD, uma consideração vital em ambientes modernos que fazem uso extensivo de armazenamento em estado sólido.
+O comando \texttt{trim} (ou \texttt{discard}) é uma operação essencial em sistemas de arquivos modernos, projetada para melhorar a eficiência do gerenciamento de espaço em dispositivos de armazenamento de estado sólido (SSD). Esta operação permite que o sistema operacional notifique o dispositivo de armazenamento sobre blocos de dados que não estão mais em uso, permitindo a liberação física desses blocos.
 
-\section{Reserva de Espaço}
+Quando dados são excluídos de um sistema de arquivos em dispositivos SSD, os blocos correspondentes podem não ser imediatamente liberados. O comando \texttt{trim} atua informando ao dispositivo de armazenamento que determinados blocos não estão mais em uso e podem ser apagados. Isso resulta em uma melhor gestão do espaço livre e ajuda a manter o desempenho de gravação em níveis ótimos.
 
-Para prevenir situações críticas de falta de espaço, o Ext4 incorpora a \textit{reserva de espaço}. Uma porcentagem do espaço disponível é reservada exclusivamente para o superusuário e operações do sistema. Isso garante que mesmo em condições de carga intensa, o sistema terá espaço suficiente para realizar operações essenciais. A capacidade de ajustar a porcentagem de reserva oferece flexibilidade para adaptar o sistema de arquivos a diferentes necessidades e cargas de trabalho.
+\subsection{Vantagens}
+A utilização do comando \texttt{trim}/\texttt{discard} oferece várias vantagens:
 
-Em conjunto, essas estratégias e características de gestão do espaço livre no Ext4 contribuem para um ambiente de armazenamento eficiente, resiliente e adaptável. O sistema de arquivos é projetado para lidar com grandes volumes de dados, oferecendo desempenho robusto e confiabilidade em diversas situações.
+\begin{itemize}
+    \item \textbf{Melhor Desempenho:} Ao liberar blocos não utilizados, evita-se a sobrecarga de gravação e mantém-se o desempenho do SSD.
+    
+    \item \textbf{Aumento da Vida Útil do SSD:} Reduz o desgaste do SSD, uma vez que a operação de descarte evita regravações desnecessárias.
+    
+    \item \textbf{Otimização do Espaço:} Libera espaço não utilizado, aumentando a eficiência global do sistema de armazenamento.
+\end{itemize}
+
+\subsection{Implementação Prática}
+Em sistemas de arquivos que suportam a operação de descarte, como o \texttt{ext4}, o comando \texttt{fstrim} pode ser utilizado para enviar a instrução de descarte manualmente. Exemplo:
+
+\begin{lstlisting}[language=bash, caption={Exemplo de Utilização do \texttt{fstrim}}]
+$ sudo fstrim /
+\end{lstlisting}
+
+Este comando enviará uma instrução de descarte para o sistema de arquivos na partição raiz.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
 \chapter{Estrutura do Sistema de Arquivos}
 %Descrição da estrutura interna do ext4, destacando a organização em grupos de blocos.
 
-O superbloco no Ext4 é bastante semelhante ao de seus antecessores, com a adição de novos campos para 
+A estruturta do Ext4 é bastante semelhante a de seus antecessores, com a adição de novos campos para 
 suportar números de bloco de 64 bits. Até o momento, os campos de carimbo de data e hora no superbloco 
 ainda são de 32 bits e não possuem um campo de bits mais significativos associado a eles; no entanto, 
 destaca-se que o campo \texttt{s\_log\_groups\_per\_flex} desempenha um papel crucial na organização 
@@ -384,13 +382,69 @@ destinados ao rastreamento de erros e à criação de snapshots.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Journaling}\label{sec:journaling}
+
+O \textit{journaling} é uma técnica utilizada por sistemas de arquivos em situações de 
+recuperação de falhas. Ele oferece um tempo reduzido de recuperação em troca de sobrecarga 
+adicional no sistema de arquivos em termos de tempo e/ou espaço. O \textit{journal}, 
+assume a forma de um registro de tamanho fixo que regularmente se sobrescreve. Ações são 
+registradas no \textit{journal} e reproduzidas na íntegra ou não durante a recuperação do 
+sistema de arquivos. Essa característica, chamada de atomicidade, permite que o Ext4 alcance 
+um estado consistente mais rapidamente do que por meio de um programa de verificação de sistema 
+de arquivos, como o \texttt{e2fsck}.
+
+A ação real de \textit{journaling} é tratada separadamente do sistema de arquivos 
+pelo \textit{Journal Block Device}. O sistema de arquivos Ext é usado para identificar 
+transações que são então repassadas ao \textit{Journal Block Device} para serem registradas. 
+Uma transação é um conjunto de atualizações enviadas ao dispositivo e identificadas unicamente 
+por números de sequência. O número de sequência da transação é utilizado em blocos de descritor 
+e de confirmação para denotar o início e o fim de uma transação, respectivamente. Os dados que 
+estão sendo registrados no \textit{journal} estão entre os blocos de descritor e de confirmação. 
+O bloco de descritor também contém uma lista dos blocos do sistema de arquivos que são atualizados 
+durante uma transação. É importante observar que o bloco de confirmação só é criado depois 
+que os dados do sistema de arquivos foram registrados no disco para garantir a atomicidade.
+
+Existe também um bloco de revogação. Este, assim como o bloco de descritor, possui um 
+número de sequência e uma lista de blocos do sistema de arquivos, mas seu propósito é 
+evitar alterações durante o processo de recuperação. Qualquer bloco do sistema de arquivos 
+listado no bloco de revogação que também está em uma transação não confirmada com um número 
+de sequência inferior ao do bloco de revogação não será restaurado.
+
+A próxima estrutura que o \textit{journal} utiliza é provavelmente uma das mais 
+importantes: o \textit{superblock}. Isso não deve ser confundido com o 
+\textit{superblock} do sistema de arquivos, pois é específico para o \textit{journal}. 
+Esta estrutura tem a tarefa de identificar o primeiro bloco de descritor no \textit{journal}. 
+O uso do \textit{journal} como um registro circular torna essa tarefa necessária, já 
+que não pode ser assumido que o início do \textit{journal} está localizado no início de 
+seu espaço de armazenamento físico \cite{carrier2005file}. A relação entre os diferentes 
+tipos de blocos de \textit{journal} é exibida na Figura 3. Nesta figura, a transação 55 
+está completa, pois o conjunto de blocos de metadados associados a ela está incluído em 
+um bloco de descritor e bloco de confirmação. No entanto, a transação 56 não foi concluída, 
+então nenhum bloco de confirmação foi criado. Quando o sistema de arquivos é montado 
+novamente e o \textit{journal} verificado, um bloco de revogação será criado. Como a 
+transação 56 não possui um bloco de confirmação e possui um número de sequência inferior 
+a 57, as alterações associadas a esta transação não serão reproduzidas.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{journalingf.jpg}
+    \caption{Blocos de \textit{journal} do Ext3. Adaptado de \cite{carrier2005file}.}
+    \label{fig:ext3_joual_blocks}
+\end{figure}
+
+Os três modos documentados de \textit{journaling} são \textit{Journal}, \textit{Ordered} e 
+\textit{Writeback} \cite{bovet_cesati_2005}. O modo \textit{Journal}, embora seja certamente 
+o método mais seguro, é o mais custoso dos três em termos de desempenho. Ele escreve tanto dados 
+de arquivos quanto metadados no \textit{journal} e, em seguida, copia as informações para a área real do sistema de arquivos no disco. Para evitar escrever tudo duas vezes, o modo \textit{Ordered} escreve apenas metadados no \textit{journal}. Neste modo, cuidado é tomado para escrever na área do disco do sistema de arquivos antes de escrever na área do \textit{journal}. Na maioria das distribuições Linux, é o modo padrão no qual o \textit{journal} opera. No modo \textit{Writeback}, apenas os metadados são registrados, mas nenhuma precaução é seguida para garantir que os dados sejam escritos na área do sistema de arquivos primeiro.
+
+
 \section{Grupos de Blocos}
 O Ext4 mantém estruturas fundamentais, mas introduz diferenças notáveis na organização dos grupos 
 de blocos. Um desafio enfrentado é o limite de 128 MB por grupo de blocos, que afeta o tamanho total 
 do sistema de arquivos. Duas soluções propostas são o recurso de meta-grupo de blocos e o recurso de 
 flex-grupo de blocos.
 
-O meta-grupo de blocos possibilita a criação de meta-grupos compostos por uma série de grupos de 
+O meta-grupo de blocos possibilita a criação de meta-grup{sec:journaling}os compostos por uma série de grupos de 
 blocos, todos descritos por um único bloco de descritor. Detalhes adicionais indicam que backups 
 dos descritores de meta-grupo de blocos são armazenados no segundo e último grupo de cada meta-grupo de blocos.
 
@@ -408,7 +462,7 @@ crescimento de descritores de grupo.
 	\label{fig:9}
 \end{figure}
 
-Ao levantar a restrição dos blocos de metadados terem que residir no grupo de blocos ao qual se 
+Ao levantar a restrição dos blocos de metadados terem q\cite{carrier2005file}ue residir no grupo de blocos ao qual se 
 referem, é possível criar um grupo de blocos virtual maior. Isso permite a alocação de blocos de
 dados contíguos livres através das fronteiras do grupo. Nas discussões nas listas de desenvolvimento, 
 a questão de se as duas opções devem ter diferentes flags de recursos foi abordada. Ficou acordado 
@@ -441,12 +495,7 @@ Ext3. O formato inclui uma matriz de 60 bytes, com os primeiros 12 bytes contend
 Quando um arquivo é altamente fragmentado, muito grande ou esparsamente distribuído, 
 uma árvore de \textit{"extent"} é construída, conforme mostrado na Figura \ref{fig:fig11}.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{fig11.jpg}
-    \caption{Estrutura da árvore de \textit{"extents"} no Ext4 \cite{matur}.}
-    \label{fig:fig11}
-\end{figure}
+
 
 A estrutura de índice 
 de \textit{"extent"} atua como uma estrutura intermediária, apontando para um bloco que 
@@ -457,7 +506,12 @@ como a presença do cabeçalho de \textit{"extent"} em cada nó e a ordenação 
 campos \textit{ee\_block} em nós folha, além do aumento nos valores \textit{ei\_block} em nós de índice.
 
 É importante observar que essas considerações de \textit{"extents"} proporcionam maior eficiência 
-no mapeamento de grandes volumes de dados contíguos, oferecendo benefícios significativos ao 
+no mapeamento de grandes volumes de dados con@book{carrier2005file,
+title={File system forensic analysis},
+author={Carrier, Brian},
+year={2005},
+publisher={Addison-Wesley Professional}
+}tíguos, oferecendo benefícios significativos ao 
 desempenho e à gestão de espaço em disco no Ext4. Para uma visualização mais detalhada dessas 
 estruturas, consulte as Figuras \ref{fig:fig10} e \ref{fig:fig11} em \cite{matur}.
 
@@ -483,7 +537,7 @@ de 1 byte, o tamanho do fragmento de 1 byte e um campo de preenchimento de 2 byt
 substituídos pelos campos \texttt{i\_blocks\_high} e \texttt{file\_acl\_high}, cada um com 16 bits.
 
 \begin{figure}[H]
-  \centering
+  \centering% Definindo cores personalizadas para o código Python    % Para definir cores personalizadas
   \includegraphics[width=0.34\textwidth]{fig12.png}
   \caption{Ext4 inode. Original apareceu em \cite{matur}.}
   \label{fig:ext4-inode}
@@ -496,15 +550,11 @@ arquivos Ext4 podem ser criados com um tamanho de inode de 128 bytes. Nesse caso
 relacionados a carimbos de tempo, isso resulta nos benefícios mencionados anteriormente de 
 suporte a subsegundos, uma extensão de 2 bits para carimbos de tempo e a perda do carimbo de tempo de criação.
 
-Todas as alterações na estrutura de dados afetaram o \textit{journaling}, pois o JBD (Seção 2.2) 
+Todas as alterações na estrutura de dados afetaram o \textit{journaling}, pois o JBD (seção \ref{sec:journaling})
 foi ramificado para JBD2, que pode suportar o \textit{journaling} de sistemas de arquivos de 32 bits e 64 bits.
 
 \chapter{Desempenho: Benchmarks}
 
-
-% Definindo cores personalizadas para o código Python    % Para definir cores personalizadas
-
-% Definindo cores personalizadas para o código Python no estilo Drácula
 \definecolor{draculapurple}{RGB}{189, 147, 249}
 \definecolor{draculagreen}{RGB}{80, 250, 123}
 \definecolor{draculayellow}{RGB}{255, 184, 108}
@@ -554,8 +604,8 @@ A seguir, apresentamos o código em Python utilizado para realizar os testes:
 	
 	def write_sequential(file_path, file_size_mb, block_size_kb):
 		with open(file_path, 'wb') as f:
-			for _ in range(file_size_mb * 1024 // block_size_kb):
-			f.write(os.urandom(1024*1024* 1024)) 
+			#7for _ in range(file_size_mb * 1024 // block_size_kb):
+			f.write(os.urandom(1024*1024* 1024))
 	
 	def read_sequential(file_path, block_size_kb):
 		with open(file_path, 'rb') as f:
@@ -582,7 +632,7 @@ A seguir, apresentamos o código em Python utilizado para realizar os testes:
 		num_files = 12
 	
 		for i in range(1, num_files + 1):
-			file_path = f'arquivo{i}.dat'
+			file_path = f'arquivo{i}.txt'
 	
 			print(f"Running tests for {file_path}...")
 			
@@ -678,7 +728,33 @@ A Figura~\ref{fig:rw} apresenta os tempos de escrita aleatória para cada arquiv
 permitindo a análise do desempenho do sistema em cenários de gravação não linear.
 
 \begin{figure}[H]
-    \centering
+    \centering\section{Bitmap de Blocos Livres no Sistema de Arquivos \texttt{ext}}
+	O Bitmap de Blocos Livres é uma estrutura essencial no sistema de arquivos \texttt{ext}, desempenhando um papel crucial na gestão e alocação de espaço em disco. Este mecanismo utiliza um mapa de bits para representar o estado de cada bloco no disco, indicando se um bloco está ocupado ou livre.
+	
+	\subsection{Funcionamento}
+	Cada bloco de dados no sistema de arquivos \texttt{ext} é associado a um bit no Bitmap de Blocos Livres. Se o bit correspondente estiver definido como "livre", o bloco está disponível para alocação. Caso contrário, se o bit estiver definido como "ocupado", o bloco já está sendo utilizado por algum arquivo.
+	
+	\subsection{Vantagens}
+	O uso do Bitmap de Blocos Livres oferece diversas vantagens significativas:
+	
+	\begin{itemize}
+		\item \textbf{Eficiência na Alocação:} O mapa de bits permite uma verificação rápida e eficiente da disponibilidade de blocos, facilitando a alocação de espaço para novos arquivos.
+		
+		\item \textbf{Desempenho Aprimorado:} A rápida identificação de blocos livres contribui para um melhor desempenho do sistema durante as operações de leitura e gravação.
+		
+		\item \textbf{Simplicidade na Gestão:} A estrutura simplificada do Bitmap de Blocos Livres facilita a implementação e a manutenção do sistema de arquivos.
+	\end{itemize}
+	
+	\subsection{Implementação Prática}
+	A manipulação do Bitmap de Blocos Livres pode ser realizada por meio de comandos específicos no sistema de arquivos \texttt{ext}. Por exemplo:
+	
+	\begin{lstlisting}[language=bash, caption={Exemplo de Manipulação do Bitmap de Blocos Livres}]
+	$ dumpe2fs /dev/sda1 | grep "Free blocks"
+	\end{lstlisting}
+	
+	Este comando exibe informações sobre os blocos livres no sistema de arquivos montado em \texttt{/dev/sda1}.
+	
+	A utilização eficiente do Bitmap de Blocos Livres é essencial para garantir a gestão adequada do espaço em disco no sistema de arquivos \texttt{ext}.
     \includegraphics[width=0.7\textwidth]{RandomWrite.png}
     \caption{Tempos de Escrita Aleatória para Cada Arquivo.}
     \label{fig:rw}
@@ -700,7 +776,7 @@ impactos significativos nos resultados do benchmark. Em nossa análise foi usado
 uma máquina com as características especificadas na tabela \ref{tab:ideapad_specs}
 
 
-\begin{table}[ht]
+\begin{table}
     \centering
     \caption{Especificações do Hardware usado}
     \begin{tabular}{@{}ll@{}}
@@ -786,5 +862,6 @@ considerando diversos parâmetros e cenários adicionais.
 \cite{Tso}
 \cite{matur}
 \cite{kumar}
+\cite{carrier2005file}
 
 \end{document}
