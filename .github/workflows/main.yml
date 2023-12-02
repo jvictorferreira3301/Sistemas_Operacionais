@@ -1,25 +1,23 @@
-name: Build LaTeX document
-on: [push]
+name: CI
+
+on:
+  push:
+    branches:
+      - jv
+
 jobs:
-  build_latex:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'  # Isso garante que os submódulos sejam inicializados e atualizados.
-      - name: Copy ufpa.sty
-        run: |
-          cd relatorios/relatorio_1/modelo-ufpa
-          cp ufpa.sty relatorios/relatorio_1/  # Copie o ufpa.sty para o diretório onde seu documento LaTeX está.
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: relatorios/relatorio_1/SO1.tex
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v2
-        with:
-          name: PDF
-          path: SO1.pdf
-        env:
-          TEXINPUTS: ".:./custom_template//:./relatorios/relatorio_1/:"
+    - uses: actions/checkout@v1
+    - name: Run make4ht
+      uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
+      env:
+        command: "cd relatorios/relatorio_1/; make4ht -d out SO1.tex"
+      continue-on-error: true
+    
+    - name: Publish the web pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out     
