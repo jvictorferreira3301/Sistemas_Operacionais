@@ -6,9 +6,15 @@
 .ptmbc8t-x-x-144{ font-weight: bold;}
 .ptmb8t-x-x-120{  font-weight: bold;}
 .ptmb8t-x-x-120{  font-weight: bold;}
+.zptmcm7t-x-x-120{ font-weight: bold; font-style: italic;}
+.zptmcm7y-x-x-120{ font-weight: bold; font-style: italic;}
+.ec-lmtt-12{ font-family: monospace,monospace;}
 .ec-lmtt-12{ font-family: monospace,monospace;}
 .ptmb8t-x-x-109{font-size:90%;  font-weight: bold;}
 .ptmb8t-x-x-109{  font-weight: bold;}
+.ec-lmtk-10x-x-120{ font-family: monospace,monospace;}
+.ec-lmtk-10x-x-120{ font-family: monospace,monospace;}
+.ptmri8t-x-x-120{font-style: italic;}
 p{margin-top:0;margin-bottom:0}
 p.indent{text-indent:0;}
 p + p{margin-top:1em;}
@@ -31,7 +37,7 @@ h1,h2,h3,h4,h5 { line-height:1.2; }
 .sectionHead, likesectionHead { font-size: 1.5157em; }
 .subsectionHead, likesubsectionHead { font-size: 1.3195em; }
 .subsubsectionHead, likesubsubsectionHead { font-size: 1.1487em; }
- @media (prefers-color-scheme: dark) { img[src^="SO1"]{filter: invert(1); } } 
+ @media (prefers-color-scheme: dark) { img[src^="SO5"]{filter: invert(1); } } 
 li p.indent { text-indent: 0em }
 li p:first-child{ margin-top:0em; }
 li p:last-child, li div:last-child { margin-bottom:0.5em; }
@@ -206,9 +212,12 @@ div.gather-star {text-align:center;}
 .cancel{background: linear-gradient(to left top, transparent 47.75%, currentColor 49.5%, currentColor 50.5%, transparent 52.25%);}
 .bcancel{background: linear-gradient(to bottom left, transparent 47.75%, currentColor 49.5%, currentColor 50.5%, transparent 52.25%);}
 .xcancel{background: linear-gradient(to bottom left, transparent 47.75%, currentColor 49.5%, currentColor 50.5%, transparent 52.25%), linear-gradient(to left top, transparent 47.75%, currentColor 49.5%, currentColor 50.5%, transparent 52.25%);}
-.ovalbox { padding-left:3pt; padding-right:3pt; border:solid thin; }
-.Ovalbox-thick { padding-left:3pt; padding-right:3pt; border:solid thick; }
-.shadowbox { padding-left:3pt; padding-right:3pt; border:solid thin; border-right:solid thick; border-bottom:solid thick; }
-.doublebox { padding-left:3pt; padding-right:3pt; border-style:double; border:solid thick; }
+code.lstinline{font-family:monospace,monospace;}
+pre.listings{font-family: monospace,monospace; white-space: pre-wrap; margin-top:0.5em; margin-bottom:0.5em; }
+.lstlisting .label{margin-right:0.5em; }
+pre.lstlisting{font-family: monospace,monospace; white-space: pre-wrap; margin-top:0.5em; margin-bottom:0.5em; }
+pre.lstinputlisting{ font-family: monospace,monospace; white-space: pre-wrap; }
+.lstinputlisting .label{margin-right:0.5em;}
+img[src="SO50x.png"]{vertical-align:-11.03687921676051%}
 /* end css.sty */
 
