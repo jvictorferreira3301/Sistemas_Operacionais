@@ -1,0 +1,26 @@
+name: CI and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - jv
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run make4ht
+      uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
+      env:
+        command: "cd relatorios/relatorio_5_swap; make4ht -d out SO5.tex"
+      continue-on-error: true
+    - name: Rename SO1.html to index.html
+      run: sudo mv relatorios/relatorio_5_swap/out/SO5.html relatorios/relatorio_5_swap/out/index.html
+  
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        token: ${{ secrets.pg }}
+        branch: gh-pages # ramo no qual os arquivos serão implantados
+        folder: relatorios/relatorio_1/out # pasta que contém os arquivos a serem implantado
