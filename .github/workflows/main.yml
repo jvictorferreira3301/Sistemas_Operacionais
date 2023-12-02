@@ -16,7 +16,7 @@ jobs:
         command: "cd relatorios/relatorio_1/; make4ht -d out SO1.tex"
       continue-on-error: true
     - name: Rename SO1.html to index.html
-      run: mv relatorios/relatorio_1/out/SO1.html relatorios/relatorio_1/out/index.html
+      run: sudo mv relatorios/relatorio_1/out/SO1.html relatorios/relatorio_1/out/index.html
   
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
