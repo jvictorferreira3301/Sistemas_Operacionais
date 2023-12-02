@@ -3,7 +3,7 @@ name: CI and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - jv
+      - main
 
 jobs:
   build:
