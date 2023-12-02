@@ -8,29 +8,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Set up Git repository
+      uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'
+    - name: Set up symlinks
+      run: |
+        cd latex
+        sh create_symlinks_linux.sh
+    - uses: actions/checkout@v1
+    - name: Run make4ht
+      uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
+      env:
+        command: "cd latex/ak_dspbook/; make4ht -d out ak_dsp_book.tex '3, next, mathml, mathjax'"
+      continue-on-error: true
 
-      - name: Run make4ht
-        uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
-        env:
-          command: "cd relatorios/relatorio_1/; make4ht -d out SO1.tex"
-        continue-on-error: true
-
-      - name: Publish HTML as Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: html-output
-          path: relatorios/relatorio_1/out  # Adjust the path based on the actual output location
-
-   deploy:
+  deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@releases/v4
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # ramo no qual os arquivos serão implantados
-        folder: latex/ak_dspbook/out # pasta que contém os arquivos a serem implantados
+        folder: latex/ak_dspbook/out # pasta que contém os arquivos a serem implantado
