@@ -731,34 +731,8 @@ A Figura~\ref{fig:rw} apresenta os tempos de escrita aleatória para cada arquiv
 permitindo a análise do desempenho do sistema em cenários de gravação não linear.
 
 \begin{figure}[H]
-    \centering\section{Bitmap de Blocos Livres no Sistema de Arquivos \texttt{ext}}
-	O Bitmap de Blocos Livres é uma estrutura essencial no sistema de arquivos \texttt{ext}, desempenhando um papel crucial na gestão e alocação de espaço em disco. Este mecanismo utiliza um mapa de bits para representar o estado de cada bloco no disco, indicando se um bloco está ocupado ou livre.
-	
-	\subsection{Funcionamento}
-	Cada bloco de dados no sistema de arquivos \texttt{ext} é associado a um bit no Bitmap de Blocos Livres. Se o bit correspondente estiver definido como "livre", o bloco está disponível para alocação. Caso contrário, se o bit estiver definido como "ocupado", o bloco já está sendo utilizado por algum arquivo.
-	
-	\subsection{Vantagens}
-	O uso do Bitmap de Blocos Livres oferece diversas vantagens significativas:
-	
-	\begin{itemize}
-		\item \textbf{Eficiência na Alocação:} O mapa de bits permite uma verificação rápida e eficiente da disponibilidade de blocos, facilitando a alocação de espaço para novos arquivos.
-		
-		\item \textbf{Desempenho Aprimorado:} A rápida identificação de blocos livres contribui para um melhor desempenho do sistema durante as operações de leitura e gravação.
-		
-		\item \textbf{Simplicidade na Gestão:} A estrutura simplificada do Bitmap de Blocos Livres facilita a implementação e a manutenção do sistema de arquivos.
-	\end{itemize}
-	
-	\subsection{Implementação Prática}
-	A manipulação do Bitmap de Blocos Livres pode ser realizada por meio de comandos específicos no sistema de arquivos \texttt{ext}. Por exemplo:
-	
-	\begin{lstlisting}[language=bash, caption={Exemplo de Manipulação do Bitmap de Blocos Livres}]
-	$ dumpe2fs /dev/sda1 | grep "Free blocks"
-	\end{lstlisting}
-	
-	Este comando exibe informações sobre os blocos livres no sistema de arquivos montado em \texttt{/dev/sda1}.
-	
-	A utilização eficiente do Bitmap de Blocos Livres é essencial para garantir a gestão adequada do espaço em disco no sistema de arquivos \texttt{ext}.
-    \includegraphics[width=0.7\textwidth]{RandomWrite.png}
+    \centering
+	\includegraphics[width=0.7\textwidth]{RandomWrite.png}
     \caption{Tempos de Escrita Aleatória para Cada Arquivo.}
     \label{fig:rw}
 \end{figure}
@@ -779,7 +753,7 @@ impactos significativos nos resultados do benchmark. Em nossa análise foi usado
 uma máquina com as características especificadas na tabela \ref{tab:ideapad_specs}
 
 
-\begin{table}
+\begin{table}[H]
     \centering
     \caption{Especificações do Hardware usado}
     \begin{tabular}{@{}ll@{}}

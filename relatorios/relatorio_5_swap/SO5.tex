@@ -407,10 +407,52 @@ Ao final de cada teste, o script ajusta as permissões dos arquivos de saída (\
 fornecem informações sobre o impacto da configuração da memória de troca no desempenho do sistema 
 em um ambiente Linux.
 
+Como descrito, nesses arquivos de texto citados são gravadas estatísticas oriundas do \texttt{vmstat}, porém nem todas 
+as estatísticas gravadas são interessantes, então, utilizando a biblioteca pandas do Python, foi feito um tratamento 
+nos dados para que fossem mostradas, em um dataframe, somente as seguintes informações:
 
+\begin{itemize}
+    \item \textbf{swpd (Swap Used):} Indica a quantidade de espaço de swap que está atualmente em uso no sistema. Valores não nulos indicam que o sistema está fazendo uso do swap.
 
+    \item \textbf{si (Swap In):} Indica a quantidade de dados sendo movida do disco para a memória swap (swap in). Um aumento em `si` significa que o sistema está transferindo dados do swap de volta para a memória principal.
 
-% ---
+    \item \textbf{so (Swap Out):} Indica a quantidade de dados sendo movida da memória para o disco swap (swap out). Um aumento em `so` significa que o sistema está transferindo dados da memória principal para o swap.
+
+    \item \textbf{us (CPU User Time):} Porcentagem de tempo da CPU gasto na execução de código de usuário. Se o swap estiver sendo usado intensivamente, pode haver um aumento na carga da CPU.
+
+    \item \textbf{sy (CPU System Time):} Porcentagem de tempo da CPU gasto no kernel (sistema). Se o sistema estiver movendo dados entre a memória e o swap, isso pode refletir no tempo do sistema.
+\end{itemize}
+
+Os resultados dos 3 cenários (\ref{chap:des}) com as informações acima podem ser vistos nas seguintes tabelas:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{swap0gb.png}
+	\caption{Resultados do teste sem Swap (0gb)}
+	\label{fig:swap0}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{swap8gb.png}
+	\caption{Resultados do teste com Swap igual a RAM (8gb)}
+	\label{fig:swap8}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{swap16gb.png}
+	\caption{Resultados do teste com Swap duas vezes maior que a RAM (16gb)}
+	\label{fig:swap16}
+\end{figure}
+
+Essas tabelas foram obtidas através de um script em Jupyter Notebook que pode ser acessado 
+\href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/5_swap/swap.sh}{clicando aqui} 
+e os arquivos de texto brutos sem o tratamento podem ser vistos em  \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/5_swap}{github.com/jvictorferreira3301/SistemasOperacionais
+/blob/main/5\_swap}.
+
+\section{Análise Comparativa dos 3 Cenários de Swap}
+
 \chapter{Conclusão}
 \label{conclusao}
 
