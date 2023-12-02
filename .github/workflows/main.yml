@@ -39,4 +39,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.pg }}
-          publish_dir: ./relatorios/relatorio_1/out  # Adjust the path based on the actual output location
+          publish_dir: ./out  # Adjust the path based on the actual output location
