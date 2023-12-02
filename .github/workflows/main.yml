@@ -23,4 +23,4 @@ jobs:
       with:
         token: ${{ secrets.pg }}
         branch: gh-pages # ramo no qual os arquivos serão implantados
-        folder: relatorios/relatorio_1/out # pasta que contém os arquivos a serem implantado
+        folder: relatorios/relatorio_5_swap/out # pasta que contém os arquivos a serem implantado
