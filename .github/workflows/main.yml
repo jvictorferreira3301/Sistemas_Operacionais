@@ -7,6 +7,8 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    steps:
     - uses: actions/checkout@v1
     - name: Run make4ht
       uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
@@ -14,7 +16,7 @@ jobs:
         command: "cd relatorios/relatorio_1/; make4ht -d out SO1.tex"
       continue-on-error: true
 
-  deploy:
+  deploy:   
     runs-on: ubuntu-latest
     needs: build
     steps:
