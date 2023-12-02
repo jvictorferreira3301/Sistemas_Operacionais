@@ -1,23 +1,16 @@
-name: CI
-
-on:
-  push:
-    branches:
-      - jv
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Run make4ht
-      uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
-      env:
-        command: "cd relatorios/relatorio_1/; make4ht -d out SO1.tex"
-      continue-on-error: true
-    
-    - name: Publish the web pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out     
+name: CI 
+on: [push] 
+jobs: 
+  build: 
+   runs-on: ubuntu-latest 
+   steps: 
+   - uses: actions/checkout@v1 
+   - name: Run make4ht 
+     uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
+     env: 
+       command: "cd relatorios/relatorio_1/; make4ht -d out SO1.tex" 
+   - name: Publish the web pages 
+     uses:  peaceiris/actions-gh-pages@v3 
+     with: 
+       github_token: ${{ secrets.GITHUB_TOKEN }} 
+       publish_dir: ./out 
