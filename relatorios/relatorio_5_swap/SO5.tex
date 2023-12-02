@@ -289,7 +289,7 @@ O presente estudo tem como objetivos:
 \end{itemize}
 
 
-\chapter{Desenvolvimento}
+\chapter{Desenvolvimento} \label{chap:des}
 
 Neste capítulo, é descrito o desenvolvimento da aplicação em python feita para medir a eficácia do uso de swap. 
 O objetivo principal desta aplicação é simular um cenário de carga de trabalho intensiva em 
@@ -301,19 +301,20 @@ execução da aplicação nos seguintes 3 cenários distintos de swap:
     \item \textbf{Swap Igual à RAM (8gb):} A execução com uma configuração de swap equivalente à capacidade da RAM disponível.
     \item \textbf{Swap duas vezes maior que a RAM (16gb):} A execução com uma configuração de swap que é o dobro da capacidade da RAM disponível.
 \end{enumerate}
-Em cada cenário será visto através de gráficos como o uso de swap influencia o desempenho da aplicação 
-em termos de tempo de execução e eficiência no uso de recursos de memória.
+%Em cada cenário será visto através de gráficos como o uso de swap influencia o desempenho da aplicação 
+%em termos de tempo de execução e eficiência no uso de recursos de memória.
 
 \section{Código em Python}
 
 Na figura \ref{fig:swapy} é mostrada a aplicação desenvolvida que consiste na realização de operações 
 com matrizes, uma tarefa conhecida por consumir grandes quantidades de memória. O propósito principal 
-é replicar um ambiente sob intenso uso.
+é replicar um ambiente sob uso voraz.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{swapy.png}
-	\caption{heading}
+	\caption{Código em Python. Disponível em \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/5_swap/memoria_swap.py}{github.com/jvictorferreira3301/SistemasOperacionais
+	/blob/main/5\_swap/memoria\_swap.py}}
 	\label{fig:swapy}
 \end{figure}
 
@@ -351,6 +352,63 @@ Abaixo, estão os principais pontos do código explicados:
         \item Chama a função \texttt{main()} para iniciar a execução do programa.
     \end{itemize}
 \end{itemize}
+
+\section{Obtenção dos Dados para Análise}
+
+Para coletar os dados do uso do swap nos 3 cenários descritos anteriormente (\ref{chap:des}), foi feito um script em bash que é mostrado na figura \ref{fig:swapy}. 
+O script em Bash realiza uma série de testes de desempenho relacionados à utilização de memória 
+swap em um ambiente Linux.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bash.png}
+	\caption{Script em Bash. Disponível em \href{https://github.com/jvictorferreira3301/Sistemas_Operacionais/blob/main/5_swap/swap.sh}{github.com/jvictorferreira3301/SistemasOperacionais
+	/blob/main/5\_swap/swap.sh}}
+	\label{fig:swapy}
+\end{figure}
+
+
+Abaixo está uma explicação detalhada das principais etapas do script:
+
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Teste sem memória de Swap:}
+    \begin{itemize}
+        \item Verifica se há alguma partição de swap ativa e a desativa, se existir.
+        \item Inicia a coleta de estatísticas do sistema usando o comando \texttt{vmstat 1 60} e redireciona a saída para \texttt{swap0gb.txt}.
+        \item Inicia a execução do código em Python desenvolvido \texttt{memoria\_swap.py} (\ref{fig:swapy})  após uma pausa de 10 segundos.
+        \item Aguarda a conclusão do \texttt{memoria\_swap.py} (\ref{fig:swapy}) antes de encerrar a coleta de estatísticas.
+    \end{itemize}
+
+    \item \textbf{Teste com 8GB de Swap:}
+    \begin{itemize}
+        \item Cria um arquivo de \textit{swap} (\texttt{/swapfile}) com tamanho de 8GB.
+        \item Atribui permissões adequadas ao arquivo de \textit{swap}.
+        \item Formata o arquivo de \textit{swap} e ativa o \textit{swap}.
+        \item Inicia a coleta de estatísticas do sistema usando \texttt{vmstat 1 60} e redireciona a saída para \texttt{swap8gb.txt}.
+        \item Inicia a execução do \texttt{memoria\_swap.py} (\ref{fig:swapy}) após uma pausa de 10 segundos.
+        \item Aguarda a conclusão do \texttt{memoria\_swap.py} (\ref{fig:swapy}) antes de encerrar a coleta de estatísticas.
+    \end{itemize}
+
+    \item \textbf{Teste com 16GB de Swap:}
+    \begin{itemize}
+        \item Desativa e remove o \textit{swap} existente, se houver.
+        \item Cria um novo arquivo de \textit{swap} de 16GB.
+        \item Atribui permissões adequadas ao novo arquivo de \textit{swap}.
+        \item Formata o novo arquivo de \textit{swap} e ativa o \textit{swap}.
+        \item Inicia a coleta de estatísticas do sistema usando \texttt{vmstat 1 60} e redireciona a saída para \texttt{swap16gb.txt}.
+        \item Inicia a execução do \texttt{memoria\_swap.py} (\ref{fig:swapy}) após uma pausa de 10 segundos.
+        \item Aguarda a conclusão do \texttt{memoria\_swap.py} (\ref{fig:swapy}) antes de encerrar a coleta de estatísticas.
+    \end{itemize}
+\end{enumerate}
+
+Ao final de cada teste, o script ajusta as permissões dos arquivos de saída (\texttt{swap0gb.txt}, 
+\texttt{swap8gb.txt}, \texttt{swap16gb.txt}) para permitir o acesso. Os resultados desses testes 
+fornecem informações sobre o impacto da configuração da memória de troca no desempenho do sistema 
+em um ambiente Linux.
+
+
+
 
 % ---
 \chapter{Conclusão}
