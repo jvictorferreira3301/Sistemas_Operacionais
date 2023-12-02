@@ -40,6 +40,12 @@
 \usepackage{cancel}				% Permite fazer expressão tendendo a zero
 \usepackage{epstopdf}			% Converte eps para pdf
 \usepackage[final]{pdfpages}
+\usepackage{float}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{lipsum}
 
 \newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
 % ---
@@ -264,13 +270,14 @@
 
 \chapter{Introdução}
 
-O gerenciamento eficiente da memória é uma parte crucial do desempenho de sistemas operacionais, especialmente em ambientes com recursos limitados, como servidores virtuais em nuvem com baixos recursos de hardware. A memória swap, ou memória virtual, desempenha um papel fundamental ao oferecer recursos adicionais para armazenamento temporário quando a memória RAM atinge seus limites.
+O gerenciamento eficiente da memória é uma parte crucial do desempenho de sistemas operacionais, 
+especialmente em ambientes com recursos limitados. A memória swap, ou memória virtual, desempenha um papel fundamental ao 
+oferecer recursos adicionais para armazenamento temporário quando a memória RAM atinge seus limites.
 
-Este estudo se concentra em explorar o impacto do uso de swap em aplicações que demandam uma quantidade significativa de memória RAM. Em ambientes onde a memória física disponível é restrita, a utilização eficaz da memória swap pode influenciar diretamente o desempenho e a responsividade do sistema.
-
-Ao analisar as implicações do uso de swap, pretendemos avaliar os cenários em que a adição de memória swap pode ser uma solução paliativa para otimizar o desempenho de aplicações de alto consumo de RAM em servidores virtuais em nuvem. Este estudo incluirá a análise comparativa do comportamento da aplicação em diferentes configurações de swap, examinando as capacidades de memória virtual e física.
-
-No decorrer deste trabalho, serão apresentados dados quantitativos, gráficos e análises críticas dos resultados obtidos durante os experimentos. Ao compreender melhor o papel da memória swap em ambientes de baixos recursos, esperamos fornecer insights valiosos para a configuração otimizada de servidores virtuais em nuvem, maximizando o desempenho das aplicações em situações de limitação de recursos de hardware.
+Este estudo se concentra em explorar o impacto do uso de swap em aplicações que demandam 
+uma quantidade significativa de memória RAM. Em ambientes onde a memória física disponível 
+é restrita, a utilização eficaz da memória swap pode influenciar diretamente o desempenho 
+e a responsividade do sistema.
 
 \chapter{Objetivos}
 
@@ -278,13 +285,72 @@ O presente estudo tem como objetivos:
 
 \begin{itemize}
     \item Analisar o impacto do uso de memória swap em aplicações que demandam uma quantidade significativa de memória RAM.
-    \item Investigar a medida em que a adição de memória swap é ou deixa de ser eficiente para o sistema.
-    \item Avaliar comparativamente o comportamento da aplicação em diferentes configurações de swap, considerando diversas capacidades de memória virtual e física.
+    \item Investigar a medida em que a adição de memória swap é ou deixa de ser eficiente para o sistema testando múltiplos cenários de swap.
 \end{itemize}
 
 
 \chapter{Desenvolvimento}
 
+Neste capítulo, é descrito o desenvolvimento da aplicação em python feita para medir a eficácia do uso de swap. 
+O objetivo principal desta aplicação é simular um cenário de carga de trabalho intensiva em 
+RAM, onde a demanda por recursos de memória é significativamente elevada e posteriormente avaliar a 
+execução da aplicação nos seguintes 3 cenários distintos de swap:
+
+\begin{enumerate}
+    \item \textbf{Sem Swap (0gb):} A execução sem o uso de swap, onde toda a carga é tratada pela RAM principal.
+    \item \textbf{Swap Igual à RAM (8gb):} A execução com uma configuração de swap equivalente à capacidade da RAM disponível.
+    \item \textbf{Swap duas vezes maior que a RAM (16gb):} A execução com uma configuração de swap que é o dobro da capacidade da RAM disponível.
+\end{enumerate}
+Em cada cenário será visto através de gráficos como o uso de swap influencia o desempenho da aplicação 
+em termos de tempo de execução e eficiência no uso de recursos de memória.
+
+\section{Código em Python}
+
+Na figura \ref{fig:swapy} é mostrada a aplicação desenvolvida que consiste na realização de operações 
+com matrizes, uma tarefa conhecida por consumir grandes quantidades de memória. O propósito principal 
+é replicar um ambiente sob intenso uso.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{swapy.png}
+	\caption{heading}
+	\label{fig:swapy}
+\end{figure}
+
+
+O código em questão (\ref{fig:swapy}) realiza operações com matrizes usando a biblioteca NumPy em Python. 
+Abaixo, estão os principais pontos do código explicados:
+
+\begin{itemize}[label=--]
+    \item \textbf{Importação de Bibliotecas:}
+    \begin{itemize}
+        \item \texttt{import numpy as np}: Importa a biblioteca NumPy e a renomeia como \texttt{np} para facilitar o uso.
+        \item \texttt{import time}: Importa a biblioteca \texttt{time} para medir o tempo de execução (embora essa funcionalidade não seja usada no código atual).
+    \end{itemize}
+    
+    \item \textbf{Definição da Função \texttt{operate\_matrices}:}
+    \begin{itemize}
+        \item Gera duas matrizes aleatórias de tamanho \(10000 \times 10000\), denominadas \texttt{matrix1} e \texttt{matrix2}.
+        \item Realiza duas operações com as matrizes:
+        \begin{itemize}
+            \item \texttt{a = matrix1 + matrix2}: Soma elemento por elemento das duas matrizes.
+            \item \texttt{b = np.dot(matrix1, matrix2)}: Calcula o produto ponto a ponto das duas matrizes.
+        \end{itemize}
+        \item Retorna \texttt{None}.
+    \end{itemize}
+    
+    \item \textbf{Função \texttt{main}:}
+    \begin{itemize}
+        \item Define o número de iterações como \texttt{num\_iterations = 2}.
+        \item Realiza um loop \texttt{for} com \texttt{num\_iterations} chamando a função \texttt{operate\_matrices} em cada iteração.
+    \end{itemize}
+    
+    \item \textbf{Condição \texttt{if \_\_name\_\_ == "\_\_main\_\_":}}
+    \begin{itemize}
+        \item Garante que o código dentro deste bloco seja executado apenas se o script for executado como um programa independente, não se for importado como um módulo.
+        \item Chama a função \texttt{main()} para iniciar a execução do programa.
+    \end{itemize}
+\end{itemize}
 
 % ---
 \chapter{Conclusão}
