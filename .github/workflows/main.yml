@@ -1,4 +1,4 @@
-name: CI
+name: CI and Deploy to GitHub Pages
 
 on:
   push:
@@ -17,10 +17,26 @@ jobs:
         uses: docker://ghcr.io/michal-h21/make4ht-action:latest 
         env:
           command: "cd relatorios/relatorio_1/; make4ht -d out SO1.tex"
-        continue-on-error: true 
+        continue-on-error: true
 
-      - name: Publish the web pages
+      - name: Publish HTML as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: html-output
+          path: relatorios/relatorio_1/out  # Adjust the path based on the actual output location
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Pages
+        uses: actions/setup-node@v3
+
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.pg }}
-          publish_dir: ./out
+          publish_dir: ./relatorios/relatorio_1/out  # Adjust the path based on the actual output location
