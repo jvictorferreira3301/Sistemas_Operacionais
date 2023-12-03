@@ -472,7 +472,10 @@ t = 10s e t = 45s, observa-se que o uso de memória atingiu e se manteve no nív
 segundos é marcado por um consumo constante de memória, refletindo a capacidade máxima do computador sendo plenamente utilizada.
 
 \subsection{Cenário 2: 8GB mémoria de Swap}
-
+Nesse novo contexto, o aumento da quantidade de memória de swap para 8GB levanta a expectativa de que programas com demandas mais elevadas 
+de memória possam apresentar maior agilidade. Isso se deve à ampliação da capacidade de armazenamento temporário oferecida
+pela memória de swap. Com essa extensão adicional, prevê-se que o sistema possa lidar de forma mais eficaz com operações que 
+demandam grandes recursos de memória, reduzindo possíveis interrupções ou atrasos ocasionados pela limitação do espaço de memória.
 
 \begin{figure}[H]
 	\centering
@@ -481,6 +484,31 @@ segundos é marcado por um consumo constante de memória, refletindo a capacidad
 	\label{fig:testes_swap8}
 \end{figure}
 
+A figura \ref{fig:testes_swap8} representa a alocação dinâmica de memória durante a execução do código de teste. No gráfico, o eixo
+horizontal representa o tempo em segundos, mostrando a evolução da execução do teste. O eixo vertical represneta o uso de mémoria
+em gigabytes (GB). Durante um intervalo de tempo específico, entre t = 10s e t = 39s, observa-se que o uso de mémoria atingiu e se
+manteve no nível máximo disponível no sistema por 29 segundos. Essa otimização é esperada devido ao aumento da quantidade de 
+memória de swap para 8GB
+
+\subsection{Cenário 3: 16GB mémoria de Swap} 
+Uma questão relevante a ser considerada é se a utilização de memória de swap auxilia na otimização do gerenciamento de memória. Surge 
+a questão sobre a viabilidade de aumentar indefinidamente a memória de swap, dada a possibilidade de melhoria na alocação de 
+recursos. Este teste foi elaborado para investigar se um aumento significativo na memória de swap resulta de fato em melhorias 
+mensuráveis no desempenho do sistema, explorando os limites dos benefícios proporcionados pela expansão da memória de swap.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{16gb_swap.png}
+	\caption{Uso da mémoria com 8gbGB de mémoria de Swap}
+	\label{fig:testes_swap16}
+\end{figure}
+
+A figura \ref{fig:testes_swap16} representa a alocação dinâmica de memória durante a execução do código de teste. No gráfico, o eixo
+horizontal representa o tempo em segundos, mostrando a evolução da execução do teste. O eixo vertical represneta o uso de mémoria
+em gigabytes (GB). Durante um intervalo de tempo específico, entre t = 10s e t = 52s, observa-se que o uso de mémoria atingiu e se
+manteve no nível máximo disponível no sistema por 42 segundos.
+
+\subsection{Comparação entre cenários} 
 
 \chapter{Conclusão}
 \label{conclusao}
