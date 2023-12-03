@@ -452,6 +452,26 @@ e os arquivos de texto brutos sem o tratamento podem ser vistos em  \href{https:
 /blob/main/5\_swap}.
 
 \section{Análise Comparativa dos 3 Cenários de Swap}
+\subsection{Cenário 1: Sem mémoria de Swap}
+Testar um cenário sem memória de swap é crucial para compreender o comportamento do sistema quando a RAM atinge sua capacidade máxima. 
+Isso permite a avaliação comparativa do desempenho entre diferentes configurações de tamanho de memória de swap. Ao simular a ausência de memória de troca,
+é possível analisar como o sistema se comporta em situações de alta demanda de memória, identificar quais configurações de swap podem ser mais
+eficazes e compreender o impacto da presença ou ausência de memória de troca no desempenho do sistema em várias cargas de trabalho.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{0gb_swap.png}
+	\caption{Uso da mémoria com 0GB de mémoria de Swap}
+	\label{fig:testes_swap0}
+\end{figure}
+
+A figura \ref{fig:testes_swap0} representa a alocação dinâmica de memória durante a execução
+do código de teste. No gráfico, o eixo horizontal representa o tempo em segundos, mostrando a evolução da execução do teste. 
+O eixo vertical representa o uso de memória em gigabytes (GB), oferecendo uma visão do consumo de recursos ao longo do tempo.
+
+É importante observar que o gráfico reflete o uso máximo de memória disponível no sistema, representando o limite físico ou a capacidade 
+total de memória do computador. Isso é evidenciado pela tendência do gráfico em atingir e manter um patamar constante próximo 
+ao limite superior do eixo y, indicando que o código em execução está consumindo a capacidade máxima de memória do sistema.
 
 \chapter{Conclusão}
 \label{conclusao}
