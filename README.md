@@ -81,7 +81,6 @@ Para limpar um subdiretório específico.
 - [Kauan Miranda Tavares](https://github.com/kkauanjjk)
 - [Marco Antonio do Espirito Santo Maues Junior](https://github.com/Mauesjr)
 - [Joel Tavares Miranda](https://github.com/JoeMiran)
-- [David Pinheiro de Sousa](https://github.com/prodigyq)
 
 
 
