@@ -1,4 +1,4 @@
-SUBDIRS = relatorio_1 relatorio_2 relatorio_3 relatorio_4
+SUBDIRS = relatorio_1 relatorio_2 relatorio_3 relatorio_4 relatorio_5_swap relatorio_6_ext4
 
 all:
 	@for dir in $(SUBDIRS); do \
