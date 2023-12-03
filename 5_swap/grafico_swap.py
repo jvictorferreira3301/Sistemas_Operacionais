@@ -34,6 +34,7 @@ def plot_map(memoria):
         plt.xlabel('Tempo (s)')
         plt.ylabel('Quantidade de Memória Usada (GB)')
         plt.grid(True)
+        plt.xticks(range(0, 61, 5))
         plt.legend()
         plt.ylim(0,8*1024*1024)
         plt.savefig(f'{8*i}gb_swap', dpi = 350) 

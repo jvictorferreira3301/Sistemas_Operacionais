@@ -465,13 +465,22 @@ eficazes e compreender o impacto da presença ou ausência de memória de troca 
 	\label{fig:testes_swap0}
 \end{figure}
 
-A figura \ref{fig:testes_swap0} representa a alocação dinâmica de memória durante a execução
-do código de teste. No gráfico, o eixo horizontal representa o tempo em segundos, mostrando a evolução da execução do teste. 
-O eixo vertical representa o uso de memória em gigabytes (GB), oferecendo uma visão do consumo de recursos ao longo do tempo.
+A figura \ref{fig:testes_swap0} representa a alocação dinâmica de memória durante a execução do código de teste. No gráfico, o eixo horizontal 
+representa o tempo em segundos, mostrando a evolução da execução do teste. O eixo vertical representa o uso de memória 
+em gigabytes (GB), oferecendo uma visão do consumo de recursos ao longo do tempo. Durante um intervalo específico de tempo, entre 
+t = 10s e t = 45s, observa-se que o uso de memória atingiu e se manteve no nível máximo disponível no sistema. Esse período de 35
+segundos é marcado por um consumo constante de memória, refletindo a capacidade máxima do computador sendo plenamente utilizada.
 
-É importante observar que o gráfico reflete o uso máximo de memória disponível no sistema, representando o limite físico ou a capacidade 
-total de memória do computador. Isso é evidenciado pela tendência do gráfico em atingir e manter um patamar constante próximo 
-ao limite superior do eixo y, indicando que o código em execução está consumindo a capacidade máxima de memória do sistema.
+\subsection{Cenário 2: 8GB mémoria de Swap}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{8gb_swap.png}
+	\caption{Uso da mémoria com 8gbGB de mémoria de Swap}
+	\label{fig:testes_swap8}
+\end{figure}
+
 
 \chapter{Conclusão}
 \label{conclusao}
