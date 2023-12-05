@@ -480,7 +480,7 @@ demandam grandes recursos de memória, reduzindo possíveis interrupções ou at
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{8gb_swap.png}
-	\caption{Uso da mémoria com 8gbGB de mémoria de Swap}
+	\caption{Uso da mémoria com 8GB de mémoria de Swap}
 	\label{fig:testes_swap8}
 \end{figure}
 
@@ -499,7 +499,7 @@ mensuráveis no desempenho do sistema, explorando os limites dos benefícios pro
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{16gb_swap.png}
-	\caption{Uso da mémoria com 8gbGB de mémoria de Swap}
+	\caption{Uso da mémoria com 16GB de mémoria de Swap}
 	\label{fig:testes_swap16}
 \end{figure}
 
@@ -508,13 +508,55 @@ horizontal representa o tempo em segundos, mostrando a evolução da execução 
 em gigabytes (GB). Durante um intervalo de tempo específico, entre t = 10s e t = 52s, observa-se que o uso de mémoria atingiu e se
 manteve no nível máximo disponível no sistema por 42 segundos.
 
-\subsection{Comparação entre cenários} 
+\section{Conciderações Importantes para os testes de desempenho de memória de Swap}
+Ao analisar o desempenho do sistema operacional com a memória de Swap, é crucial levar em 
+consideração vários fatores que podem influenciar os resultados. A seguir, destacamos
+algumas considerações essenciais:
+
+\subsection{Hardware}
+
+O desempenho da memória de swap é profundamente influenciado pelo hardware subjacente. Elementos como a natureza e a 
+velocidade do dispositivo de armazenamento utilizado para a memória de troca, seja um disco rígido (HDD) ou um disco de estado sólido 
+(SSD), bem como suas configurações específicas, a quantidade e a velocidade da memória RAM disponível no sistema, e a capacidade do 
+processador (CPU), desempenham papéis cruciais nos resultados obtidos em testes de desempenho da memória de swap. Esses atributos do 
+hardware são determinantes na eficácia e na velocidade de acesso aos dados armazenados na memória de swap, influenciando diretamente 
+a capacidade do sistema em lidar eficientemente com a troca de informações entre a memória principal e o armazenamento secundário.
+Em nossa análise foi usado uma máquina com as características especificadas na tabela \ref{tab:ideapad_specs}
+
+
+\begin{table}[H]
+    \centering
+    \caption{Especificações do Hardware usado}
+    \begin{tabular}{@{}ll@{}}
+        \toprule
+        \textbf{Componente} & \textbf{Especificação} \\
+        \midrule
+        Processador & Intel Core i3-10110U \\
+        Memória RAM & 8 GB DDR4 (2x4) 3200 \\
+        Armazenamento & SSD NVME 128 GB \\
+        Sistema Operacional & Ubuntu 22.04 LTS \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:ideapad_specs}
+\end{table}
+
 
 \chapter{Conclusão}
 \label{conclusao}
 
+\section{Comparação entre cenários} 
+A criação da memória de swap teve como propósito primordial mitigar as restrições inerentes à capacidade física da memória RAM, objetivando minimizar os 
+incidentes relacionados à insuficiência de memória e otimizar o funcionamento do sistema. Nesse contexto, é crucial analisar cuidadosamente
+se a ampliação substancial da memória de swap é uma medida vantajosa e justificável, dado o potencial impacto na performance do sistema.
 
-% ----------------------------------------------------------
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{comparar.png}
+	\caption{Comparação do uso de memória}
+	\label{fig:comparacao_memoria}
+\end{figure}
+
+---------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
 \postextual
