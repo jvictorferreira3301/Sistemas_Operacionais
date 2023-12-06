@@ -452,7 +452,7 @@ e os arquivos de texto brutos sem o tratamento podem ser vistos em  \href{https:
 /blob/main/5\_swap}.
 
 \section{Análise Comparativa dos 3 Cenários de Swap}
-\subsection{Cenário 1: Sem mémoria de Swap}
+\subsection{Sem Swap (0gb)}
 Testar um cenário sem memória de swap é crucial para compreender o comportamento do sistema quando a RAM atinge sua capacidade máxima. 
 Isso permite a avaliação comparativa do desempenho entre diferentes configurações de tamanho de memória de swap. Ao simular a ausência de memória de troca,
 é possível analisar como o sistema se comporta em situações de alta demanda de memória, identificar quais configurações de swap podem ser mais
@@ -471,7 +471,7 @@ em gigabytes (GB), oferecendo uma visão do consumo de recursos ao longo do temp
 t = 10s e t = 45s, observa-se que o uso de memória atingiu e se manteve no nível máximo disponível no sistema. Esse período de 35
 segundos é marcado por um consumo constante de memória, refletindo a capacidade máxima do computador sendo plenamente utilizada.
 
-\subsection{Cenário 2: 8GB mémoria de Swap}
+\subsection{Swap Igual à RAM (8gb):}
 Nesse novo contexto, o aumento da quantidade de memória de swap para 8GB levanta a expectativa de que programas com demandas mais elevadas 
 de memória possam apresentar maior agilidade. Isso se deve à ampliação da capacidade de armazenamento temporário oferecida
 pela memória de swap. Com essa extensão adicional, prevê-se que o sistema possa lidar de forma mais eficaz com operações que 
@@ -490,7 +490,7 @@ em gigabytes (GB). Durante um intervalo de tempo específico, entre t = 10s e t 
 manteve no nível máximo disponível no sistema por 29 segundos. Essa otimização é esperada devido ao aumento da quantidade de 
 memória de swap para 8GB
 
-\subsection{Cenário 3: 16GB mémoria de Swap} 
+\subsection{Swap duas vezes maior que a RAM (16gb):}
 Uma questão relevante a ser considerada é se a utilização de memória de swap auxilia na otimização do gerenciamento de memória. Surge 
 a questão sobre a viabilidade de aumentar indefinidamente a memória de swap, dada a possibilidade de melhoria na alocação de 
 recursos. Este teste foi elaborado para investigar se um aumento significativo na memória de swap resulta de fato em melhorias 
@@ -508,12 +508,10 @@ horizontal representa o tempo em segundos, mostrando a evolução da execução 
 em gigabytes (GB). Durante um intervalo de tempo específico, entre t = 10s e t = 52s, observa-se que o uso de mémoria atingiu e se
 manteve no nível máximo disponível no sistema por 42 segundos.
 
-\section{Conciderações Importantes para os testes de desempenho de memória de Swap}
+\section{Considerações Importantes para o Benchmark}
 Ao analisar o desempenho do sistema operacional com a memória de Swap, é crucial levar em 
-consideração vários fatores que podem influenciar os resultados. A seguir, destacamos
-algumas considerações essenciais:
+consideração vários fatores que podem influenciar os resultados, como o hardware em que os testes foram realizados.
 
-\subsection{Hardware}
 
 O desempenho da memória de swap é profundamente influenciado pelo hardware subjacente. Elementos como a natureza e a 
 velocidade do dispositivo de armazenamento utilizado para a memória de troca, seja um disco rígido (HDD) ou um disco de estado sólido 
@@ -531,9 +529,9 @@ Em nossa análise foi usado uma máquina com as características especificadas n
         \toprule
         \textbf{Componente} & \textbf{Especificação} \\
         \midrule
-        Processador & Intel Core i3-10110U \\
-        Memória RAM & 8 GB DDR4 (2x4) 3200 \\
-        Armazenamento & SSD NVME 128 GB \\
+        Processador & Intel Core i5-7400 \\
+        Memória RAM & 8 GB DDR4 (1x8) 2666 \\
+        Armazenamento & SSD SATA 480 GB \\
         Sistema Operacional & Ubuntu 22.04 LTS \\
         \bottomrule
     \end{tabular}
@@ -544,7 +542,6 @@ Em nossa análise foi usado uma máquina com as características especificadas n
 \chapter{Conclusão}
 \label{conclusao}
 
-\section{Comparação entre cenários} 
 A criação da memória de swap teve como propósito primordial mitigar as restrições inerentes à capacidade física da memória RAM, objetivando minimizar os 
 incidentes relacionados à insuficiência de memória e otimizar o funcionamento do sistema. Nesse contexto, é crucial analisar cuidadosamente
 se a ampliação substancial da memória de swap é uma medida vantajosa e justificável, dado o potencial impacto na performance do sistema.
@@ -580,7 +577,6 @@ ao aumento da gestão de trocas que contrabalanceia os benefícios teóricos da 
 
 
 
----------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
 \postextual
