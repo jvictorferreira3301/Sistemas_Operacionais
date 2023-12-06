@@ -556,6 +556,30 @@ se a ampliação substancial da memória de swap é uma medida vantajosa e justi
 	\label{fig:comparacao_memoria}
 \end{figure}
 
+
+Na figura \ref{fig:comparacao_memoria}, observa-se que um aumento substancial na capacidade de memória de swap impacta o desempenho do processamento de memória. Notavelmente, quando alocados 
+8GB de memória de swap, a execução do código de teste demonstra maior velocidade. Em contraste, ao aumentar para 16 GB de memória de swap, espera-se uma redução no tempo de processamento, 
+porém, contrariando a expectativa, o desempenho se degrada.
+
+
+A degradação do desempenho ao aumentar a capacidade de memória de swap pode ser atribuída a fatores como o gerenciamento excessivo do sistema operacional. Quando a memória de swap é 
+ampliada para 16 GB, pode ocorrer um aumento na propensão do sistema em utilizar a troca de memória de maneira mais frequente. Isso pode resultar em operações de transferência entre a
+memória principal e a memória de swap, causando um efeito contraproducente ao invés de otimizar a performance.
+
+Além disso, a alocação excessiva de memória de troca pode gerar um impacto negativo devido a possíveis limitações de hardware ou configurações específicas do sistema. Nesse contexto,
+o tempo de acesso e manipulação dos dados na memória de troca pode se tornar mais lento do que o acesso direto à memória principal, resultando em um aumento no tempo de processamento, 
+mesmo com uma capacidade de troca teoricamente maior.
+
+
+A presença e o dimensionamento da memória de swap, seja ausente, configurada em 8 GB ou expandida para 16 GB, influenciam significativamente o desempenho do sistema. A ausência de 
+memória de swap pode limitar a capacidade de lidar com picos de demanda, levando a uma possível degradação quando a memória física se esgota. Por outro lado, uma alocação moderada, 
+como 8 GB, pode otimizar o desempenho ao oferecer uma reserva adicional para situações de sobrecarga, enquanto 16 GB pode, paradoxalmente, resultar em uma piora, potencialmente devido 
+ao aumento da gestão de trocas que contrabalanceia os benefícios teóricos da expansão, enfatizando a importância de uma configuração equilibrada e ajustada às demandas específicas do sistema.
+
+
+
+
+
 ---------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
