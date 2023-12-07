@@ -374,7 +374,7 @@ Abaixo está uma explicação detalhada das principais etapas do script:
 \begin{enumerate}[label=\arabic*.]
     \item \textbf{Teste sem memória de Swap:}
     \begin{itemize}
-        \item Verifica se há alguma partição de swap ativa e a desativa, se existir.
+        \item Verifica se há alguma partição de \textit{swap} ativa e a desativa, se existir.
         \item Inicia a coleta de estatísticas do sistema usando o comando \texttt{vmstat 1 60} e redireciona a saída para \texttt{swap0gb.txt}.
         \item Inicia a execução do código em Python desenvolvido \texttt{memoria\_swap.py} (\ref{fig:swapy})  após uma pausa de 10 segundos.
         \item Aguarda a conclusão do \texttt{memoria\_swap.py} (\ref{fig:swapy}) antes de encerrar a coleta de estatísticas.
@@ -408,7 +408,7 @@ fornecem informações sobre o impacto da configuração da memória de troca no
 em um ambiente Linux.
 
 Como descrito, nesses arquivos de texto citados são gravadas estatísticas oriundas do \texttt{vmstat}, porém nem todas 
-as estatísticas gravadas são interessantes, então, utilizando a biblioteca pandas do Python, foi feito um tratamento 
+as estatísticas gravadas são interessantes para nossa análise, então, utilizando a biblioteca pandas do Python, foi feito um tratamento 
 nos dados para que fossem mostradas, em um dataframe, somente as seguintes informações:
 
 \begin{itemize}
@@ -585,9 +585,9 @@ ao aumento da gestão de trocas que contrabalanceia os benefícios teóricos da 
 % ----------------------------------------------------------
 % Referências bibliográficas
 % ----------------------------------------------------------
-\bibliography{bibliografia}
 % ---
-
+\bibliography{bibliografia}
+\cite{tanenbaum2010sistemas}
 
 % ----------------------------------------------------------
 % Apêndices
