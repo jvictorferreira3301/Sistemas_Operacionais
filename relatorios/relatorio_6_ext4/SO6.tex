@@ -197,9 +197,9 @@
 \chapter{Introdução}
 O sistema de arquivos é uma peça fundamental para o gerenciamento eficiente de dados em 
 sistemas operacionais. Entre as diversas opções disponíveis, a escolhida para este trabalho 
-foi o sistema de arquivos ext4, ou Quarta Extensão, que destaca-se como uma escolha proeminente para ambientes 
+foi o sistema de arquivos Ext4, ou Quarta Extensão, que destaca-se como uma escolha proeminente para ambientes 
 baseados em Linux. Ao longo deste trabalho serão apresentados diversos aspectos, características e benchmarks de desempenho 
-do sistema ext4.
+do sistema Ext4.
 
 \chapter{Apresentação do Sistema}
 O Ext4, abreviação de Fourth Extended Filesystem, surge como uma evolução do sistema de arquivos Ext3, sendo desenvolvido especificamente para atender às crescentes demandas do sistema operacional Linux. A concepção do Ext4 foi motivada pela necessidade de superar as limitações do Ext3, adaptando-se às exigências modernas no tratamento e processamento de dados.
@@ -242,19 +242,6 @@ A alocação por bloco indireto apresenta diversas vantagens:
     \item \textbf{Acesso Rápido:} Simplifica o acesso a grandes conjuntos de dados, promovendo um acesso mais rápido e eficiente.
 \end{itemize}
 
-\subsection{Implementação Prática}
-A implementação prática da alocação por bloco indireto no sistema de arquivos \texttt{ext} envolve a criação de um bloco indireto durante a criação do arquivo. Por exemplo:
-
-\begin{lstlisting}[language=bash, caption={Exemplo de Alocação por Bloco Indireto}]
-$ touch arquivo_grande.txt  
-$ chattr +i bloco_indireto.txt  
-$ chattr +B bloco_indireto.txt arquivo\_grande.txt  
-\end{lstlisting}
-
-Neste exemplo, um bloco indireto é criado e associado ao arquivo \texttt{arquivo\_grande.txt} para otimizar a alocação de blocos de dados.
-
-A alocação por bloco indireto é uma estratégia avançada que contribui para a eficiência e desempenho do sistema de arquivos \texttt{ext}, especialmente ao lidar com grandes volumes de dados.
-
 \section{Tamanho de Bloco Variável}
 A abordagem de tamanho de bloco variável é uma característica avançada do sistema de arquivos \texttt{ext}, permitindo a flexibilidade na alocação de espaço em disco, especialmente ao lidar com diferentes tipos de arquivos.
 
@@ -271,18 +258,7 @@ A implementação de tamanho de bloco variável apresenta várias vantagens:
     \item \textbf{Flexibilidade para Diferentes Tipos de Arquivos:} A capacidade de escolher tamanhos de bloco específicos para diferentes tipos de arquivos otimiza o desempenho e a gestão de recursos.
 \end{itemize}
 
-\subsection{Implementação Prática}
-A implementação prática do tamanho de bloco variável no sistema de arquivos \texttt{ext} envolve a configuração do tamanho de bloco no momento da formatação do sistema de arquivos. Por exemplo:
-
-\begin{lstlisting}[language=bash, caption={Exemplo de Tamanho de Bloco Variável}]
-$ mkfs.ext4 -b 4096 -O ^uninit_bg /dev/sdX1
-\end{lstlisting}
-
-Neste exemplo, o comando \texttt{mkfs.ext4} é utilizado para formatar a partição \texttt{/dev/sdX1} com um tamanho de bloco de 4096 bytes.
-
-A capacidade de ajustar dinamicamente o tamanho do bloco oferece uma abordagem flexível e eficiente na gestão do espaço em disco no sistema de arquivos \texttt{ext}.
-
-\section{Alocação Pré-Alocada no Sistema de Arquivos \texttt{ext}}
+\section{Pré-Alocação no Sistema de Arquivos}
 A alocação pré-alocada é uma técnica no sistema de arquivos \texttt{ext} que envolve a reserva antecipada de espaço em disco para um arquivo, mas com uma abordagem mais flexível em comparação com a alocação por reservas convencional.
 
 Ao contrário da alocação por reservas, onde um tamanho fixo é reservado antecipadamente, a alocação pré-alocada permite que um arquivo solicite uma quantidade inicial de espaço e, ao longo do tempo, solicite mais espaço conforme necessário. Isso proporciona uma flexibilidade dinâmica, permitindo a adaptação do tamanho do arquivo sem a necessidade de uma reserva estática.
@@ -298,19 +274,12 @@ A alocação pré-alocada oferece diversas vantagens:
     \item \textbf{Manutenção de Desempenho:} Evita a fragmentação excessiva, mantendo um desempenho consistente ao longo do tempo.
 \end{itemize}
 
-\subsection{Implementação Prática}
-A implementação prática da alocação pré-alocada no sistema de arquivos \texttt{ext} envolve o uso de comandos específicos durante a criação ou manipulação de arquivos. Por exemplo:
-
-\begin{lstlisting}[language=bash, caption={Exemplo de Alocação Pré-Alocada}]
-$ fallocate -l 1G arquivo_prealocado.txt  
-$ echo "Novo conteudo" >> arquivo_prealocado.txt   
-\end{lstlisting}
 
 Neste exemplo, o comando \texttt{fallocate} é utilizado para alocar inicialmente 1 gigabyte para o arquivo \texttt{arquivo\_prealocado.txt}. Conforme o conteúdo é adicionado, o sistema pode alocar mais espaço conforme necessário.
 
 A alocação pré-alocada oferece uma abordagem dinâmica para o gerenciamento de espaço em disco, adaptando-se às necessidades variáveis dos arquivos ao longo do tempo.
 
-\chapter{Gestão do Espaço Livre no Ext4}
+\chapter{Gestão do Espaço Livre}
 
 A eficiente gestão do espaço livre é uma componente crucial para garantir o desempenho, a confiabilidade e a 
 integridade do sistema de arquivos Ext4. Neste capítulo, exploraremos algumas estratégias e características 
@@ -333,14 +302,7 @@ O uso do Bitmap de Blocos Livres oferece diversas vantagens significativas:
     \item \textbf{Simplicidade na Gestão:} A estrutura simplificada do Bitmap de Blocos Livres facilita a implementação e a manutenção do sistema de arquivos.
 \end{itemize}
 
-\subsection{Implementação Prática}
-A manipulação do Bitmap de Blocos Livres pode ser realizada por meio de comandos específicos no sistema de arquivos \texttt{ext}. Por exemplo:
 
-\begin{lstlisting}[language=bash, caption={Exemplo de Manipulação do Bitmap de Blocos Livres}]
-$ dumpe2fs /dev/sda1 | grep "Free blocks"
-\end{lstlisting}
-
-Este comando exibe informações sobre os blocos livres no sistema de arquivos montado em \texttt{/dev/sda1}.
 
 \section{Trim/Discard}
 
@@ -359,18 +321,9 @@ A utilização do comando \texttt{trim}/\texttt{discard} oferece várias vantage
     \item \textbf{Otimização do Espaço:} Libera espaço não utilizado, aumentando a eficiência global do sistema de armazenamento.
 \end{itemize}
 
-\subsection{Implementação Prática}
-Em sistemas de arquivos que suportam a operação de descarte, como o \texttt{ext4}, o comando \texttt{fstrim} pode ser utilizado para enviar a instrução de descarte manualmente. Exemplo:
-
-\begin{lstlisting}[language=bash, caption={Exemplo de Utilização do \texttt{fstrim}}]
-$ sudo fstrim /
-\end{lstlisting}
-
-Este comando enviará uma instrução de descarte para o sistema de arquivos na partição raiz.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
-\chapter{Estrutura do Sistema de Arquivos}
+\chapter{Estrutura do Ext4}
 %Descrição da estrutura interna do ext4, destacando a organização em grupos de blocos.
 
 A estruturta do Ext4 é bastante semelhante a de seus antecessores, com a adição de novos campos para 
@@ -444,7 +397,7 @@ de blocos. Um desafio enfrentado é o limite de 128 MB por grupo de blocos, que 
 do sistema de arquivos. Duas soluções propostas são o recurso de meta-grupo de blocos e o recurso de 
 flex-grupo de blocos.
 
-O meta-grupo de blocos possibilita a criação de meta-grup{sec:journaling}os compostos por uma série de grupos de 
+O meta-grupo de blocos possibilita a criação de meta-grupos compostos por uma série de grupos de 
 blocos, todos descritos por um único bloco de descritor. Detalhes adicionais indicam que backups 
 dos descritores de meta-grupo de blocos são armazenados no segundo e último grupo de cada meta-grupo de blocos.
 
@@ -493,7 +446,7 @@ Ext3. O formato inclui uma matriz de 60 bytes, com os primeiros 12 bytes contend
 \textit{eh\_magic}, \textit{eh\_entries}, \textit{eh\_max}, \textit{eh\_depth} 
 (2 bytes cada) e \textit{eh\_generation} (4 bytes), sendo o número mágico 0xf30A. 
 Quando um arquivo é altamente fragmentado, muito grande ou esparsamente distribuído, 
-uma árvore de \textit{"extent"} é construída, conforme mostrado na Figura \ref{fig:fig11}.
+uma árvore de \textit{"extent"} é construída, conforme mostrado na Figura \ref{fig:fig10}.
 
 
 
@@ -506,14 +459,9 @@ como a presença do cabeçalho de \textit{"extent"} em cada nó e a ordenação 
 campos \textit{ee\_block} em nós folha, além do aumento nos valores \textit{ei\_block} em nós de índice.
 
 É importante observar que essas considerações de \textit{"extents"} proporcionam maior eficiência 
-no mapeamento de grandes volumes de dados con@book{carrier2005file,
-title={File system forensic analysis},
-author={Carrier, Brian},
-year={2005},
-publisher={Addison-Wesley Professional}
-}tíguos, oferecendo benefícios significativos ao 
+no mapeamento de grandes volumes de dados contíguos \cite{carrier2005file}, oferecendo benefícios significativos ao 
 desempenho e à gestão de espaço em disco no Ext4. Para uma visualização mais detalhada dessas 
-estruturas, consulte as Figuras \ref{fig:fig10} e \ref{fig:fig11} em \cite{matur}.
+estruturas, consulte a Figura \ref{fig:fig10} em \cite{matur}.
 
 \section{Inodes e Tempo no Ext4}
 
@@ -693,7 +641,7 @@ No teste de escrita sequencial, examinamos como o sistema lida com operações
 de escrita contínua em diferentes arquivos. Isso envolve a gravação de dados 
 de maneira consecutiva, sem movimentos aleatórios no arquivo. 
 A Figura~\ref{fig:sw} exibe os tempos de escrita sequencial para cada 
-arquivo, proporcionando insights sobre a eficiência do sistema em 
+arquivo, proporcionando uma percepção sobre a eficiência do sistema em 
 operações de escrita ordenada.
 
 \begin{figure}[H]
@@ -826,7 +774,7 @@ alocação de blocos, a presença de cache do sistema operacional, e a
 configuração específica do sistema de arquivos utilizado. É crucial 
 considerar esses fatores ao interpretar os resultados.
 
-Em resumo, este estudo fornece insights valiosos sobre o desempenho do 
+Em resumo, este estudo fornece uma visão sobre o desempenho do 
 sistema de arquivos em diferentes cenários. No entanto, para uma compreensão 
 mais abrangente, seria necessário realizar análises mais detalhadas, 
 considerando diversos parâmetros e cenários adicionais.
