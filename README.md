@@ -1,4 +1,4 @@
-## Sistemas Operacionais
+## Sistemas Operacionais - FCT - ITEC - UFPA
 
 Repositório feito para as atividades de Sistemas Operacionais, disciplina ministrada no terceiro semestre na Faculdade de Computação e Telecomunicações da Universidade Federal do Pará.
 
